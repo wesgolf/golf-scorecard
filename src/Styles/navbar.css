@@ -1,0 +1,16 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    margin-left: 75%;
+    margin-top: 2%;
+    z-index: 2;
+}
+
+.navbar a {
+    font-size: 40px;
+    margin-right: 60%;
+    color: white;
+    text-decoration: none;
+    font-family: 'Darker Grotesque';
+    cursor: pointer;
+}

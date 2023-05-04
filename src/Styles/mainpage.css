@@ -1,0 +1,180 @@
+/* General Tags */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Darker Grotesque';
+    font-size: bolder;
+    color: white;
+}
+
+h2 {
+    font-family: 'IBM Plex Sans Condensed';
+    font-size: 40px;
+    color: white;
+    font-weight: lighter;
+}
+
+h3 {
+    font-family: 'Darker Grotesque';
+    font-size: 50px;
+    color: white;
+    text-align: center;
+}
+
+h4 {
+    font-family: 'Darker Grotesque';
+    text-align: center;
+    font-size: 40px;
+    color: black;
+}
+
+/* Landing Page Elements */
+
+.background {
+    background: url(https://img.freepik.com/free-photo/professional-golf-player_654080-2044.jpg?w=2000&t=st=1681961199~exp=1681961799~hmac=36ce993577f40060e7db727329f1d7a5f5d4be75feb9d5f0fa4767d89b28224e);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+.herosection {
+    height: 100vh;
+    top: 0;
+    margin-top: 0;
+    padding-top: 0px;
+}
+
+
+.herosection h1 {
+    font-size: 80px;
+    margin-left: 15%;
+    padding-top: 350px;
+}
+
+.herosection h2 {
+    margin-left: 15%;
+    margin-bottom: 50px;
+}
+
+.herosection a {
+    color: white;
+    background-color: black;
+    margin-left: 15%;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    font-family:'Darker Grotesque';
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.section2 {
+    height: 70vh;
+}
+
+/* Grid */
+
+.herogrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    width: 80%;
+    gap: 100px;
+    margin-top: 50px;
+}
+
+.herogridcomponent {
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    height: 200px;
+}
+
+.herogridcomponent h4 {
+    margin-left: 20%;
+    margin-top: 1%;
+}
+
+.herogridcomponent p {
+    margin-left: 25%;
+    margin-right: 5%;
+    text-align: center;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+    margin-top: 1%;
+}
+
+.icon {
+    position: absolute;
+    font-size: 70px;
+    left: 5%;
+    top: 50%;
+    transform: translate(25%,-50%);
+}
+
+.grid2 {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 350px 1fr;
+    width: 80%;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.div1 {
+    width: 350px;
+    height: 350px;
+    background-color: gray;
+    border-radius: 10px;
+}
+
+.div1 img {
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+}
+
+.div2 {
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.div2 p {
+    text-align: center;
+    font-family: 'Darker Grotesque';
+    font-size: 22.5px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.bold {
+    font-weight: 700;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+.bigger1 {
+    margin-top: 3.5%;
+    margin-bottom: 2%;
+}
+
+
+
+
+

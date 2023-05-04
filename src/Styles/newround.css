@@ -1,0 +1,267 @@
+.headerroundentry {
+    background-color: white;
+    height: 30vh;
+}
+
+.headerroundentry h1 {
+    color: black;
+    font-size: 50px;
+    margin-left: 15%;
+}
+
+.formmm {
+    background-color: rgb(223, 223, 223);
+    height: 70vh;
+}
+
+.p {
+    background-color: white;
+    height: 60vh;
+    width: 30%;
+    margin: auto;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.displayflex {
+    display: flex;
+    flex-direction: row;
+    margin-left: 15%;
+}
+
+.g {
+    height: 30px;
+}
+
+.displayflex p {
+    margin-right: 1%;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+}
+
+.active {
+    background-color: rgb(157, 213, 255);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.inactive {
+    background-color: rgb(179, 179, 179);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.s {
+    height: 5vh;
+}
+
+/* Each Hole */
+
+.hole1 {
+    background-color: white;
+    height: 60vh;
+    width: 30%;
+    margin: auto;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.p label {
+    font-family: 'Darker Grotesque';
+    font-weight: 400;
+    font-size: 25px;
+    margin-left: 15%;
+}
+
+.p input[type=date] {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    margin-left: 15%;
+    height: 30px;
+    width: calc(70% - 10px);
+    padding-left: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.p input[type=text] {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    margin-left: 15%;
+    height: 30px;
+    width: calc(70% - 10px);
+    padding-left: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.p input[type=radio] {
+    margin-left: 2%;
+}
+
+.p button {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    margin-left: 15%;
+    height: 50px;
+    width: 70%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+.click {
+    cursor: pointer;
+}
+
+.scorecard {
+    margin-left: 50%;
+    margin-top: 1%;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+    text-align: center;
+    transform: translate(-50%, 0);
+}
+
+.scorecard table {
+    border-spacing: 20px 10px;
+}
+
+.parselector {
+    margin-left: 50%;
+    margin-top: 2%;
+    transform: translateX(-50%);
+}
+
+.parselector input {
+    margin-right: 5%;
+}
+
+.parselector label {
+    margin-right: 9%;
+}
+
+.hole1 select {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    margin-left: 23%;
+    height: 40px;
+    width: 20%;
+    margin-top: 2.5%;
+    margin-right: 2%;
+}
+
+.descriptions {
+    display: flex;
+    flex-direction: row;
+    margin-left: 23%;
+    margin-top: 2%;
+}
+
+.descriptions p {
+    margin-right: 10%;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+}
+
+.hole1 [type=number] {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    height: 40px;
+}
+
+.buttoncontainer {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.buttoncontainer button {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    height: 40px;
+    padding: 10px;
+    margin-top: 4%;
+    margin-right: 2%;
+}
+
+.Highlighted {
+    background-color: blue;
+    color: white;
+}
+
+.nexthole {
+    position: absolute;
+    top: 85%;
+    right: 10%;
+    font-size: 25px;
+    font-family: 'Darker Grotesque';
+    background-color: rgb(230, 230, 230);
+    border: none;
+    cursor: pointer;
+}
+
+.fai {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.question {
+    font-size: 12.5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
