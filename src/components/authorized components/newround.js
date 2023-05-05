@@ -734,6 +734,14 @@ export default function Newround() {
         setPage(3)
     }
 
+    function navigateholes(target) {
+        const current = currenthole
+        if (current >= target) {
+            setCurrenthole(target)
+        } else {
+        }
+    }
+
     {/* Part 3 Logic */ }
     {/* The Strokes Gained Database */ }
     const tee = { 100: 2.92, 120: 2.99, 140: 2.97, 160: 2.99, 180: 3.05, 200: 3.12, 220: 3.17, 240: 3.25, 260: 3.45, 280: 3.65, 300: 3.71, 320: 3.79, 340: 3.86, 360: 3.92, 380: 3.96, 400: 3.99, 420: 4.02, 440: 4.08, 460: 4.17, 480: 4.28, 500: 4.41, 520: 4.54, 540: 4.65, 560: 4.74, 580: 4.79, 600: 4.82 }
@@ -878,15 +886,15 @@ export default function Newround() {
                                     <th>Hole</th>
                                     {holes === 9 ?
                                         <>
-                                            <th className={currenthole === 1 ? "Highlighted" : ""}>1</th>
-                                            <th className={currenthole === 2 ? "Highlighted" : ""}>2</th>
-                                            <th className={currenthole === 3 ? "Highlighted" : ""}>3</th>
-                                            <th className={currenthole === 4 ? "Highlighted" : ""}>4</th>
-                                            <th className={currenthole === 5 ? "Highlighted" : ""}>5</th>
-                                            <th className={currenthole === 6 ? "Highlighted" : ""}>6</th>
-                                            <th className={currenthole === 7 ? "Highlighted" : ""}>7</th>
-                                            <th className={currenthole === 8 ? "Highlighted" : ""}>8</th>
-                                            <th className={currenthole === 9 ? "Highlighted" : ""}>9</th>
+                                            <th className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>1</th>
+                                            <th className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>2</th>
+                                            <th className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>3</th>
+                                            <th className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>4</th>
+                                            <th className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>5</th>
+                                            <th className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>6</th>
+                                            <th className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>7</th>
+                                            <th className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>8</th>
+                                            <th className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>9</th>
                                         </>
                                         :
                                         <>
@@ -921,7 +929,7 @@ export default function Newround() {
                                     <td>Par</td>
                                     {holes === 9 ?
                                         <>
-                                            <td className={currenthole === 1 ? "Highlighted" : ""}>{onepar}</td>
+                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>{onepar}</td>
                                             <td className={currenthole === 2 ? "Highlighted" : ""}>{twopar}</td>
                                             <td className={currenthole === 3 ? "Highlighted" : ""}>{threepar}</td>
                                             <td className={currenthole === 4 ? "Highlighted" : ""}>{fourpar}</td>
@@ -934,7 +942,7 @@ export default function Newround() {
                                         </>
                                         :
                                         <>
-                                            <td className={currenthole === 1 ? "Highlighted" : ""}>{onepar}</td>
+                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>{onepar}</td>
                                             <td className={currenthole === 2 ? "Highlighted" : ""}>{twopar}</td>
                                             <td className={currenthole === 3 ? "Highlighted" : ""}>{threepar}</td>
                                             <td className={currenthole === 4 ? "Highlighted" : ""}>{fourpar}</td>
@@ -967,7 +975,7 @@ export default function Newround() {
                                     <td>Score</td>
                                     {holes === 9 ?
                                         <>
-                                            <td>{onescore}</td>
+                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")}>{onescore}</td>
                                             <td>{twoscore}</td>
                                             <td>{threescore}</td>
                                             <td>{fourscore}</td>
