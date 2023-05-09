@@ -259,13 +259,84 @@
     cursor: pointer;
 }
 
+.previoushole {
+    position: absolute;
+    top: 85%;
+    left: 10%;
+    font-size: 25px;
+    font-family: 'Darker Grotesque';
+    background-color: rgb(230, 230, 230);
+    border: none;
+    cursor: pointer;
+}
+
 .fai {
     font-size: 20px;
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .question {
     font-size: 12.5px;
     margin-left: 5px;
     cursor: pointer;
+}
+
+.gridd {
+    display: grid;
+    grid-template-columns: 400px 800px;
+    margin: auto;
+    padding-top: 40px;
+    gap: 40px;
+    width: 1200px;
+    padding-bottom: 40px;
+}
+
+.graph {
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    height: 400px;
+}
+
+.analysis {
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    height: 400px;
+}
+
+.statscontainer {
+    background-color: gainsboro;
+}
+
+.buttoncontainer2 {
+    display: flex;
+    margin-left: 300px;
+}
+
+.buttoncontainer2 p {
+    font-family: 'Darker Grotesque';
+    font-size: 22px;
+    cursor: pointer;
+    padding: 5px 40px;
+}
+
+.active2 {
+    padding: 5px 40px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
 }

@@ -1,12 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import '../../Styles/newround.css'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight , faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faCircleQuestion, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
+
+import { Radar } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
+
+
 
 export default function Newround() {
     {/*General Form Logic */ }
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(3)
 
     {/*First part Form Logic */ }
     const [date, setDate] = useState("")
@@ -701,7 +707,7 @@ export default function Newround() {
     }
 
 
-    {/* Alerts to help user */}
+    {/* Alerts to help user */ }
 
     function helpstartinglie() {
         alert("The starting lie is where on the golf course you took your shot from. For example, your first shot would be from the Tee, as this is the starting lie for your first shot.")
@@ -736,7 +742,11 @@ export default function Newround() {
 
     function navigateholes(target) {
         const current = currenthole
-        if (current >= target) {
+        if (page === 3) {
+            setPage(2)
+            setCurrenthole(target)
+        }
+        else if (current >= target) {
             setCurrenthole(target)
         } else {
         }
@@ -832,6 +842,58 @@ export default function Newround() {
         }
     }
 
+    {/* Chart Config */ }
+    const data = {
+        labels: ["SG Putting", 'SG Short Game', 'SG Approach', 'SG Driving'],
+        datasets: [
+            {
+                label: 'Personal SG',
+                data: [onesgputting, 0, 0, 1],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'PGA Tour Average',
+                data: [-0.012, 1.2, 0.92, 0.32],
+                backgroundColor: 'rgba(99, 132, 255, 0.2)',
+                borderColor: 'rgba(99, 132, 255, 1)',
+                borderWidth: 1,
+            }
+        ],
+    };
+
+    const options = {
+        scale: {
+          pointLabels: {
+            fontSize: 14,
+            fontColor: '#333',
+          },
+          ticks: {
+            suggestedMin: -2,
+            suggestedMax: 2,
+          },
+          angleLines: {
+            color: '#ddd',
+            lineWidth: 1,
+          },
+          gridLines: {
+            color: 'transparent',
+          },
+          backgroundColor: 'transparent',
+        },
+      };
+      
+
+
+    const [statshowing, setstatshowing] = useState("putting")
+
+
+
+
+
+
+
 
 
     if (page === 1) {
@@ -898,25 +960,25 @@ export default function Newround() {
                                         </>
                                         :
                                         <>
-                                            <th className={currenthole === 1 ? "Highlighted" : ""}>1</th>
-                                            <th className={currenthole === 2 ? "Highlighted" : ""}>2</th>
-                                            <th className={currenthole === 3 ? "Highlighted" : ""}>3</th>
-                                            <th className={currenthole === 4 ? "Highlighted" : ""}>4</th>
-                                            <th className={currenthole === 5 ? "Highlighted" : ""}>5</th>
-                                            <th className={currenthole === 6 ? "Highlighted" : ""}>6</th>
-                                            <th className={currenthole === 7 ? "Highlighted" : ""}>7</th>
-                                            <th className={currenthole === 8 ? "Highlighted" : ""}>8</th>
-                                            <th className={currenthole === 9 ? "Highlighted" : ""}>9</th>
+                                            <th className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>1</th>
+                                            <th className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>2</th>
+                                            <th className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>3</th>
+                                            <th className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>4</th>
+                                            <th className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>5</th>
+                                            <th className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>6</th>
+                                            <th className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>7</th>
+                                            <th className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>8</th>
+                                            <th className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>9</th>
                                             <th>Front</th>
-                                            <th className={currenthole === 10 ? "Highlighted" : ""}>10</th>
-                                            <th className={currenthole === 11 ? "Highlighted" : ""}>11</th>
-                                            <th className={currenthole === 12 ? "Highlighted" : ""}>12</th>
-                                            <th className={currenthole === 13 ? "Highlighted" : ""}>13</th>
-                                            <th className={currenthole === 14 ? "Highlighted" : ""}>14</th>
-                                            <th className={currenthole === 15 ? "Highlighted" : ""}>15</th>
-                                            <th className={currenthole === 16 ? "Highlighted" : ""}>16</th>
-                                            <th className={currenthole === 17 ? "Highlighted" : ""}>17</th>
-                                            <th className={currenthole === 18 ? "Highlighted" : ""}>18</th>
+                                            <th className={currenthole === 10 ? "Highlighted" : (currenthole > 10 ? "click" : "")} onClick={() => navigateholes(10)}>10</th>
+                                            <th className={currenthole === 11 ? "Highlighted" : (currenthole > 11 ? "click" : "")} onClick={() => navigateholes(11)}>11</th>
+                                            <th className={currenthole === 12 ? "Highlighted" : (currenthole > 12 ? "click" : "")} onClick={() => navigateholes(12)}>12</th>
+                                            <th className={currenthole === 13 ? "Highlighted" : (currenthole > 13 ? "click" : "")} onClick={() => navigateholes(13)}>13</th>
+                                            <th className={currenthole === 14 ? "Highlighted" : (currenthole > 14 ? "click" : "")} onClick={() => navigateholes(14)}>14</th>
+                                            <th className={currenthole === 15 ? "Highlighted" : (currenthole > 15 ? "click" : "")} onClick={() => navigateholes(15)}>15</th>
+                                            <th className={currenthole === 16 ? "Highlighted" : (currenthole > 16 ? "click" : "")} onClick={() => navigateholes(16)}>16</th>
+                                            <th className={currenthole === 17 ? "Highlighted" : (currenthole > 17 ? "click" : "")} onClick={() => navigateholes(17)}>17</th>
+                                            <th className={currenthole === 18 ? "Highlighted" : (currenthole > 18 ? "click" : "")} onClick={() => navigateholes(18)}>18</th>
 
                                             <th>Back</th>
                                         </>
@@ -930,37 +992,37 @@ export default function Newround() {
                                     {holes === 9 ?
                                         <>
                                             <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>{onepar}</td>
-                                            <td className={currenthole === 2 ? "Highlighted" : ""}>{twopar}</td>
-                                            <td className={currenthole === 3 ? "Highlighted" : ""}>{threepar}</td>
-                                            <td className={currenthole === 4 ? "Highlighted" : ""}>{fourpar}</td>
-                                            <td className={currenthole === 5 ? "Highlighted" : ""}>{fivepar}</td>
-                                            <td className={currenthole === 6 ? "Highlighted" : ""}>{sixpar}</td>
-                                            <td className={currenthole === 7 ? "Highlighted" : ""}>{sevenpar}</td>
-                                            <td className={currenthole === 8 ? "Highlighted" : ""}>{eightpar}</td>
-                                            <td className={currenthole === 9 ? "Highlighted" : ""}>{ninepar}</td>
+                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>{twopar}</td>
+                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>{threepar}</td>
+                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>{fourpar}</td>
+                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>{fivepar}</td>
+                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>{sixpar}</td>
+                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>{sevenpar}</td>
+                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>{eightpar}</td>
+                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>{ninepar}</td>
                                             <td className='bold'>{frontpar}</td>
                                         </>
                                         :
                                         <>
                                             <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>{onepar}</td>
-                                            <td className={currenthole === 2 ? "Highlighted" : ""}>{twopar}</td>
-                                            <td className={currenthole === 3 ? "Highlighted" : ""}>{threepar}</td>
-                                            <td className={currenthole === 4 ? "Highlighted" : ""}>{fourpar}</td>
-                                            <td className={currenthole === 5 ? "Highlighted" : ""}>{fivepar}</td>
-                                            <td className={currenthole === 6 ? "Highlighted" : ""}>{sixpar}</td>
-                                            <td className={currenthole === 7 ? "Highlighted" : ""}>{sevenpar}</td>
-                                            <td className={currenthole === 8 ? "Highlighted" : ""}>{eightpar}</td>
-                                            <td className={currenthole === 9 ? "Highlighted" : ""}>{ninepar}</td>
+                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>{twopar}</td>
+                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>{threepar}</td>
+                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>{fourpar}</td>
+                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>{fivepar}</td>
+                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>{sixpar}</td>
+                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>{sevenpar}</td>
+                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>{eightpar}</td>
+                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>{ninepar}</td>
                                             <td className='bold'>{frontpar}</td>
-                                            <td className={currenthole === 10 ? "Highlighted" : ""}>{tenpar}</td>
-                                            <td className={currenthole === 11 ? "Highlighted" : ""}>{elevenpar}</td>
-                                            <td className={currenthole === 12 ? "Highlighted" : ""}>{twelvepar}</td>
-                                            <td className={currenthole === 13 ? "Highlighted" : ""}>{thirteenpar}</td>
-                                            <td className={currenthole === 14 ? "Highlighted" : ""}>{fourteenpar}</td>
-                                            <td className={currenthole === 15 ? "Highlighted" : ""}>{fifteenpar}</td>
-                                            <td className={currenthole === 16 ? "Highlighted" : ""}>{sixteenpar}</td>
-                                            <td className={currenthole === 17 ? "Highlighted" : ""}>{seventeenpar}</td>
-                                            <td className={currenthole === 18 ? "Highlighted" : ""}>{eighteenpar}</td>
+                                            <td className={currenthole === 10 ? "Highlighted" : (currenthole > 10 ? "click" : "")} onClick={() => navigateholes(10)}>{tenpar}</td>
+                                            <td className={currenthole === 11 ? "Highlighted" : (currenthole > 11 ? "click" : "")} onClick={() => navigateholes(11)}>{elevenpar}</td>
+                                            <td className={currenthole === 12 ? "Highlighted" : (currenthole > 12 ? "click" : "")} onClick={() => navigateholes(12)}>{twelvepar}</td>
+                                            <td className={currenthole === 13 ? "Highlighted" : (currenthole > 13 ? "click" : "")} onClick={() => navigateholes(13)}>{thirteenpar}</td>
+                                            <td className={currenthole === 14 ? "Highlighted" : (currenthole > 14 ? "click" : "")} onClick={() => navigateholes(14)}>{fourteenpar}</td>
+                                            <td className={currenthole === 15 ? "Highlighted" : (currenthole > 15 ? "click" : "")} onClick={() => navigateholes(15)}>{fifteenpar}</td>
+                                            <td className={currenthole === 16 ? "Highlighted" : (currenthole > 16 ? "click" : "")} onClick={() => navigateholes(16)}>{sixteenpar}</td>
+                                            <td className={currenthole === 17 ? "Highlighted" : (currenthole > 17 ? "click" : "")} onClick={() => navigateholes(17)}>{seventeenpar}</td>
+                                            <td className={currenthole === 18 ? "Highlighted" : (currenthole > 18 ? "click" : "")} onClick={() => navigateholes(18)}>{eighteenpar}</td>
                                             <td className='bold'>{backpar}</td>
                                             <td className='bold'>{totalpar}</td>
                                         </>
@@ -976,37 +1038,37 @@ export default function Newround() {
                                     {holes === 9 ?
                                         <>
                                             <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")}>{onescore}</td>
-                                            <td>{twoscore}</td>
-                                            <td>{threescore}</td>
-                                            <td>{fourscore}</td>
-                                            <td>{fivescore}</td>
-                                            <td>{sixscore}</td>
-                                            <td>{sevenscore}</td>
-                                            <td>{eightscore}</td>
-                                            <td>{ninescore}</td>
+                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")}>{twoscore}</td>
+                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")}>{threescore}</td>
+                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")}>{fourscore}</td>
+                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")}>{fivescore}</td>
+                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")}>{sixscore}</td>
+                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")}>{sevenscore}</td>
+                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")}>{eightscore}</td>
+                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")}>{ninescore}</td>
                                             <td className='bold'>{frontscore}</td>
                                         </>
                                         :
                                         <>
-                                            <td>{onescore}</td>
-                                            <td>{twoscore}</td>
-                                            <td>{threescore}</td>
-                                            <td>{fourscore}</td>
-                                            <td>{fivescore}</td>
-                                            <td>{sixscore}</td>
-                                            <td>{sevenscore}</td>
-                                            <td>{eightscore}</td>
-                                            <td>{ninescore}</td>
+                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")}>{onescore}</td>
+                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")}>{twoscore}</td>
+                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")}>{threescore}</td>
+                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")}>{fourscore}</td>
+                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")}>{fivescore}</td>
+                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")}>{sixscore}</td>
+                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")}>{sevenscore}</td>
+                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")}>{eightscore}</td>
+                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")}>{ninescore}</td>
                                             <td className='bold'>{frontscore}</td>
-                                            <td>{tenscore}</td>
-                                            <td>{elevenscore}</td>
-                                            <td>{twelvescore}</td>
-                                            <td>{thirteenscore}</td>
-                                            <td>{fourteenscore}</td>
-                                            <td>{fifteenscore}</td>
-                                            <td>{sixteenscore}</td>
-                                            <td>{seventeenscore}</td>
-                                            <td>{eighteenscore}</td>
+                                            <td className={currenthole === 10 ? "Highlighted" : (currenthole > 10 ? "click" : "")}>{tenscore}</td>
+                                            <td className={currenthole === 11 ? "Highlighted" : (currenthole > 11 ? "click" : "")}>{elevenscore}</td>
+                                            <td className={currenthole === 12 ? "Highlighted" : (currenthole > 12 ? "click" : "")}>{twelvescore}</td>
+                                            <td className={currenthole === 13 ? "Highlighted" : (currenthole > 13 ? "click" : "")}>{thirteenscore}</td>
+                                            <td className={currenthole === 14 ? "Highlighted" : (currenthole > 14 ? "click" : "")}>{fourteenscore}</td>
+                                            <td className={currenthole === 15 ? "Highlighted" : (currenthole > 15 ? "click" : "")}>{fifteenscore}</td>
+                                            <td className={currenthole === 16 ? "Highlighted" : (currenthole > 16 ? "click" : "")}>{sixteenscore}</td>
+                                            <td className={currenthole === 17 ? "Highlighted" : (currenthole > 17 ? "click" : "")}>{seventeenscore}</td>
+                                            <td className={currenthole === 18 ? "Highlighted" : (currenthole > 18 ? "click" : "")}>{eighteenscore}</td>
                                             <td className='bold'>{backscore}</td>
                                             <td className='bold'>{totalscore}</td>
                                         </>
@@ -1031,8 +1093,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie}/></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance}/></p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: onescore }).map((_, index) => (
                                     <div key={index}>
@@ -1051,7 +1113,7 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleOne}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai"/></button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1068,8 +1130,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: twoscore }).map((_, index) => (
                                     <div key={index}>
@@ -1088,8 +1150,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleTwo}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="previoushole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1106,8 +1168,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: threescore }).map((_, index) => (
                                     <div key={index}>
@@ -1126,8 +1188,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleThree}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="previoushole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1144,8 +1206,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: fourscore }).map((_, index) => (
                                     <div key={index}>
@@ -1164,8 +1226,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleFour}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="previoushole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1182,8 +1244,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: fivescore }).map((_, index) => (
                                     <div key={index}>
@@ -1202,8 +1264,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleFive}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1220,8 +1282,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: sixscore }).map((_, index) => (
                                     <div key={index}>
@@ -1240,8 +1302,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleSix}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1258,8 +1320,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: sevenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1278,8 +1340,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleSeven}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1296,8 +1358,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: eightscore }).map((_, index) => (
                                     <div key={index}>
@@ -1316,8 +1378,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleEight}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1334,8 +1396,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: ninescore }).map((_, index) => (
                                     <div key={index}>
@@ -1354,10 +1416,10 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleNine}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
                                     {holes === 9
-                                        ? <button onClick={finishround} className="finishround">Finish Round</button>
-                                        : <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                        ? <button onClick={finishround} className="nexthole">Finish Round<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
+                                        : <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                     }
                                 </div>
                             </form>
@@ -1375,8 +1437,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: tenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1395,8 +1457,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleTen}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1413,8 +1475,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: elevenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1433,8 +1495,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleEleven}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1451,8 +1513,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: twelvescore }).map((_, index) => (
                                     <div key={index}>
@@ -1471,8 +1533,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleTwelve}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1489,8 +1551,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: thirteenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1509,8 +1571,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleThirteen}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1527,8 +1589,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: fourteenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1547,8 +1609,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleFourteen}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1565,8 +1627,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: fifteenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1585,8 +1647,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleFifteen}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1603,8 +1665,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: sixteenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1623,8 +1685,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleSixteen}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1641,8 +1703,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: seventeenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1661,8 +1723,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleSeventeen}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1679,8 +1741,8 @@ export default function Newround() {
                                     <label>Par 5</label> <br />
                                 </div>
                                 <div className='descriptions'>
-                                    <p>Starting Lie</p>
-                                    <p>Distance to Hole</p>
+                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
                                 </div>
                                 {Array.from({ length: eighteenscore }).map((_, index) => (
                                     <div key={index}>
@@ -1699,8 +1761,8 @@ export default function Newround() {
                                     <button onClick={handleAddShotHoleEighteen}>Add Shot</button>
                                 </div>
                                 <div>
-                                    <button onClick={toprevhole} className="nexthole">Previous Hole</button>
-                                    <button onClick={finishround} className="nexthole">Finish Round</button>
+                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
+                                    <button onClick={finishround} className="nexthole">Finish Round<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
                                 </div>
                             </form>
                         </div>)}
@@ -1719,8 +1781,202 @@ export default function Newround() {
                         <p className='active'>3. Round Analysis</p>
                     </div>
                     <h1>Round Analysis</h1>
+                    <div class="scorecard">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hole</th>
+                                    {holes === 9 ?
+                                        <>
+                                            <th className="click" onClick={() => navigateholes(1)}>1</th>
+                                            <th className="click" onClick={() => navigateholes(2)}>2</th>
+                                            <th className="click" onClick={() => navigateholes(3)}>3</th>
+                                            <th className="click" onClick={() => navigateholes(4)}>4</th>
+                                            <th className="click" onClick={() => navigateholes(5)}>5</th>
+                                            <th className="click" onClick={() => navigateholes(6)}>6</th>
+                                            <th className="click" onClick={() => navigateholes(7)}>7</th>
+                                            <th className="click" onClick={() => navigateholes(8)}>8</th>
+                                            <th className="click" onClick={() => navigateholes(9)}>9</th>
+                                        </>
+                                        :
+                                        <>
+                                            <th className="click" onClick={() => navigateholes(1)}>1</th>
+                                            <th className="click" onClick={() => navigateholes(2)}>2</th>
+                                            <th className="click" onClick={() => navigateholes(3)}>3</th>
+                                            <th className="click" onClick={() => navigateholes(4)}>4</th>
+                                            <th className="click" onClick={() => navigateholes(5)}>5</th>
+                                            <th className="click" onClick={() => navigateholes(6)}>6</th>
+                                            <th className="click" onClick={() => navigateholes(7)}>7</th>
+                                            <th className="click" onClick={() => navigateholes(8)}>8</th>
+                                            <th className="click" onClick={() => navigateholes(9)}>9</th>
+                                            <th>Front</th>
+                                            <th className="click" onClick={() => navigateholes(10)}>10</th>
+                                            <th className="click" onClick={() => navigateholes(11)}>11</th>
+                                            <th className="click" onClick={() => navigateholes(12)}>12</th>
+                                            <th className="click" onClick={() => navigateholes(13)}>13</th>
+                                            <th className="click" onClick={() => navigateholes(14)}>14</th>
+                                            <th className="click" onClick={() => navigateholes(15)}>15</th>
+                                            <th className="click" onClick={() => navigateholes(16)}>16</th>
+                                            <th className="click" onClick={() => navigateholes(17)}>17</th>
+                                            <th className="click" onClick={() => navigateholes(18)}>18</th>
+                                            <th>Back</th>
+                                        </>
+                                    }
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Par</td>
+                                    {holes === 9 ?
+                                        <>
+                                            <td className="click" onClick={() => navigateholes(1)}>{onepar}</td>
+                                            <td className="click" onClick={() => navigateholes(2)}>{twopar}</td>
+                                            <td className="click" onClick={() => navigateholes(3)}>{threepar}</td>
+                                            <td className="click" onClick={() => navigateholes(4)}>{fourpar}</td>
+                                            <td className="click" onClick={() => navigateholes(5)}>{fivepar}</td>
+                                            <td className="click" onClick={() => navigateholes(6)}>{sixpar}</td>
+                                            <td className="click" onClick={() => navigateholes(7)}>{sevenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(8)}>{eightpar}</td>
+                                            <td className="click" onClick={() => navigateholes(9)}>{ninepar}</td>
+                                            <td className='bold'>{frontpar}</td>
+                                        </>
+                                        :
+                                        <>
+                                            <td className="click" onClick={() => navigateholes(1)}>{onepar}</td>
+                                            <td className="click" onClick={() => navigateholes(2)}>{twopar}</td>
+                                            <td className="click" onClick={() => navigateholes(3)}>{threepar}</td>
+                                            <td className="click" onClick={() => navigateholes(4)}>{fourpar}</td>
+                                            <td className="click" onClick={() => navigateholes(5)}>{fivepar}</td>
+                                            <td className="click" onClick={() => navigateholes(6)}>{sixpar}</td>
+                                            <td className="click" onClick={() => navigateholes(7)}>{sevenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(8)}>{eightpar}</td>
+                                            <td className="click" onClick={() => navigateholes(9)}>{ninepar}</td>
+                                            <td className='bold'>{frontpar}</td>
+                                            <td className="click" onClick={() => navigateholes(10)}>{tenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(11)}>{elevenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(12)}>{twelvepar}</td>
+                                            <td className="click" onClick={() => navigateholes(13)}>{thirteenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(14)}>{fourteenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(15)}>{fifteenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(16)}>{sixteenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(17)}>{seventeenpar}</td>
+                                            <td className="click" onClick={() => navigateholes(18)}>{eighteenpar}</td>
+                                            <td className='bold'>{backpar}</td>
+                                            <td className='bold'>{totalpar}</td>
+                                        </>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>Score</td>
+                                    {holes === 9 ?
+                                        <>
+                                            <td className="click">{onescore}</td>
+                                            <td className="click">{twoscore}</td>
+                                            <td className="click">{threescore}</td>
+                                            <td className="click">{fourscore}</td>
+                                            <td className="click">{fivescore}</td>
+                                            <td className="click">{sixscore}</td>
+                                            <td className="click">{sevenscore}</td>
+                                            <td className="click">{eightscore}</td>
+                                            <td className="click">{ninescore}</td>
+                                            <td className='bold'>{frontscore}</td>
+                                        </>
+                                        :
+                                        <>
+                                            <td className="click">{onescore}</td>
+                                            <td className="click">{twoscore}</td>
+                                            <td className="click">{threescore}</td>
+                                            <td className="click">{fourscore}</td>
+                                            <td className="click">{fivescore}</td>
+                                            <td className="click">{sixscore}</td>
+                                            <td className="click">{sevenscore}</td>
+                                            <td className="click">{eightscore}</td>
+                                            <td className="click">{ninescore}</td>
+                                            <td className='bold'>{frontscore}</td>
+                                            <td className="click">{tenscore}</td>
+                                            <td className="click">{elevenscore}</td>
+                                            <td className="click">{twelvescore}</td>
+                                            <td className="click">{thirteenscore}</td>
+                                            <td className="click">{fourteenscore}</td>
+                                            <td className="click">{fifteenscore}</td>
+                                            <td className="click">{sixteenscore}</td>
+                                            <td className="click">{seventeenscore}</td>
+                                            <td className="click">{eighteenscore}</td>
+                                            <td className='bold'>{backscore}</td>
+                                            <td className='bold'>{totalscore}</td>
+                                        </>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <button onClick={(event) => strokesgainedholeone(oneshots)}>Strokes Gained</button>
+                <div className='statscontainer'>
+                    <div className='gridd'>
+                        <div className='graph'>
+                            <Radar data={data} options={options} />
+                        </div>
+                        <div className='analysis'>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Total SG</th>
+                                        <th>SG Putting</th>
+                                        <th>SG Short Game</th>
+                                        <th>SG Approach</th>
+                                        <th>SG Driving</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>This Round</td>
+                                        <td>{/* totalsg */}</td>
+                                        <td>{/* totalsgputting */}</td>
+                                        <td>{/* totalsgshortgame */}</td>
+                                        <td>{/* totalsgapproach */}</td>
+                                        <td>{/* totalsgdriving */}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PGA Tour Player Average</td>
+                                        <td>{/*Find the data here */}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gap</td>
+                                        <td>{/* Find the Difference Here*/}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div className='buttoncontainer2'>
+                        <p className={statshowing === "putting" ? "active2" : ""} onClick={() => setstatshowing('putting')}>Putting</p>
+                        <p className={statshowing === "shortgame" ? "active2" : ""} onClick={() => setstatshowing('shortgame')}>Short Game</p>
+                        <p className={statshowing === "approach" ? "active2" : ""} onClick={() => setstatshowing("approach")}>Approach</p>
+                        <p className={statshowing === "driving" ? "active2" : ""} onClick={() => setstatshowing("driving")}>Driving</p>
+                    </div>
+                    {statshowing === "putting" && (
+                        <div>
+                            putting
+                        </div>
+                    )}
+                    {statshowing === "shortgame" && (
+                        <div>
+                            short game
+                        </div>
+                    )}
+                    {statshowing === "approach" && (
+                        <div>
+                            approach
+                        </div>
+                    )}
+                    {statshowing === "driving" && (
+                        <div>
+                            driving
+                        </div>
+                    )}
+                </div>
             </>
         )
     }
