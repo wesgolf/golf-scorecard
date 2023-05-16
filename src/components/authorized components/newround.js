@@ -755,8 +755,8 @@ export default function Newround() {
     {/* Part 3 Logic */ }
     {/* The Strokes Gained Database */ }
     const tee = { 100: 2.92, 120: 2.99, 140: 2.97, 160: 2.99, 180: 3.05, 200: 3.12, 220: 3.17, 240: 3.25, 260: 3.45, 280: 3.65, 300: 3.71, 320: 3.79, 340: 3.86, 360: 3.92, 380: 3.96, 400: 3.99, 420: 4.02, 440: 4.08, 460: 4.17, 480: 4.28, 500: 4.41, 520: 4.54, 540: 4.65, 560: 4.74, 580: 4.79, 600: 4.82 }
-    const green = { 1: 1.04, 2: 1.04, 3: 1.04, 4: 1.13, 5: 1.23, 6: 1.34, 7: 1.42, 8: 1.50, 9: 1.56, 10: 1.61, 11: 1.61, 12: 1.61, 13: 1.61, 14: 1.61, 15: 1.78, 16: 1.78, 17: 1.78, 18: 1.78, 19: 1.78, 20: 1.87, 21: 1.87, 22: 1.87, 23: 1.87, 24: 1.87, 25: 1.87, 26: 1.87, 27: 1.87, 28: 1.87, 29: 1.87, 30: 1.98, 31: 1.98, 32: 1.98, 33: 1.98, 34: 1.98, 35: 1.98, 36: 1.98, 37: 1.98, 38: 1.98, 39: 2.06, 40: 2.14, 41: 2.14, 42: 2.14, 43: 2.14, 44: 2.14, 45: 2.14, 46: 2.14, 47: 2.14, 48: 2.14, 49: 2.14, 50: 2.21, 51: 2.21, 52: 2.21, 53: 2.21, 54: 2.21, 55: 2.21, 56: 2.21, 57: 2.21, 58: 2.21, 59: 2.21, 60: 2.40, 61: 2.40, 62: 2.40, 63: 2.40, 64: 2.40, 65: 2.40, 66: 2.40, 67: 2.40, 68: 2.40, 69: 2.40, 70: 2.40, 71: 2.40, 72: 2.40, 73: 2.40, 74: 2.40, 75: 2.40, 76: 2.40, 77: 2.40, 78: 2.40, 79: 2.40, 80: 2.40, 81: 2.40, 82: 2.40, 80: 2.31, 81: 2.32, 82: 2.33, 83: 2.34, 84: 2.35, 85: 2.36, 86: 2.37, 87: 2.38, 88: 2.39, 89: 2.39, 90: 2.40, 91: 2.41, 92: 2.42, 93: 2.43, 94: 2.44, 95: 2.45, 96: 2.46, 97: 2.47, 98: 2.48, 99: 2.49, 100: 2.50 }
-    const sand = {}
+    const green = { 1: 1.00, 2: 1.02, 3: 1.04, 4: 1.13, 5: 1.23, 6: 1.34, 7: 1.42, 8: 1.50, 9: 1.56, 10: 1.61, 15: 1.78, 20: 1.87, 30: 1.98, 40: 2.06, 50: 2.14, 60: 2.21, 90: 2.40, 100: 2.50 }
+    const sand = { 20: 2.53, 40: 2.82, 60: 3.15, 80: 3.24, 100: 3.23, 120: 3.21, 140: 3.22, 160: 3.28, 180: 3.40, 200: 3.55, 220: 3.70, 240: 2.84, 260: 3.93, 280: 4.00, 320: 4.12, 340: 4.26, 360: 4.41, 380: 4.55, 400: 4.69, 420: 4.73, 440: 4.78, 460: 4.87, 480: 4.98, 500: 5.11, 520: 5.24, 540: 5.36, 560: 5.44, 580: 5.49, 600: 5.52 }
     const rough = {}
     const fairway = {}
 
@@ -766,6 +766,42 @@ export default function Newround() {
     const [onesgshortgame, setonesgshortgame] = useState(0)
     const [onesgapproach, setonesgapproach] = useState(0)
     const [onesgtee, setonesgtee] = useState(0)
+
+    function rounding(distance, lie) {
+        const keys = Object.keys(lie);
+        let upperKey = null;
+        let lowerKey = null;
+        let upperDiff = Infinity;
+        let lowerDiff = Infinity;
+
+        if (distance in lie) {
+            return lie[distance];
+        } else if (distance < parseInt(keys[keys.length - 1]) && distance > parseInt(keys[0])) {
+            for (let i = 0; i < keys.length - 1; i++) {
+                if (distance > keys[i] && distance < keys[i + 1]) {
+                    upperKey = keys[i + 1];
+                    lowerKey = keys[i];
+                    lowerDiff = distance - lowerKey;
+                    upperDiff = upperKey - distance;
+                    break;
+                }
+            }
+        }
+
+        const uppervalue = lie[upperKey]
+        const lowervalue = lie[lowerKey]
+        const totalgap = upperDiff + lowerDiff
+
+        const lowerWeight = lowerDiff / totalgap
+        const upperWeight = upperDiff / totalgap
+
+        const returnn = (lowerWeight * lowervalue) + (upperWeight * uppervalue)
+
+        return returnn
+
+    }
+
+
 
     function strokesgainedholeone(dict) {
         const values = Object.values(dict);
@@ -865,25 +901,25 @@ export default function Newround() {
 
     const options = {
         scale: {
-          pointLabels: {
-            fontSize: 14,
-            fontColor: '#333',
-          },
-          ticks: {
-            suggestedMin: -2,
-            suggestedMax: 2,
-          },
-          angleLines: {
-            color: '#ddd',
-            lineWidth: 1,
-          },
-          gridLines: {
-            color: 'transparent',
-          },
-          backgroundColor: 'transparent',
+            pointLabels: {
+                fontSize: 14,
+                fontColor: '#333',
+            },
+            ticks: {
+                suggestedMin: -2,
+                suggestedMax: 2,
+            },
+            angleLines: {
+                color: '#ddd',
+                lineWidth: 1,
+            },
+            gridLines: {
+                color: 'transparent',
+            },
+            backgroundColor: 'transparent',
         },
-      };
-      
+    };
+
 
 
     const [statshowing, setstatshowing] = useState("putting")
@@ -1955,6 +1991,7 @@ export default function Newround() {
                         <p className={statshowing === "shortgame" ? "active2" : ""} onClick={() => setstatshowing('shortgame')}>Short Game</p>
                         <p className={statshowing === "approach" ? "active2" : ""} onClick={() => setstatshowing("approach")}>Approach</p>
                         <p className={statshowing === "driving" ? "active2" : ""} onClick={() => setstatshowing("driving")}>Driving</p>
+                        {/*<p>Function Tester</p>*/}
                     </div>
                     {statshowing === "putting" && (
                         <div>
