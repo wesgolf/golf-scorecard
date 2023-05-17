@@ -762,10 +762,96 @@ export default function Newround() {
 
 
     {/*Seting the strokes gained states */ }
-    const [onesgputting, setonesgputting] = useState(0)
-    const [onesgshortgame, setonesgshortgame] = useState(0)
-    const [onesgapproach, setonesgapproach] = useState(0)
-    const [onesgtee, setonesgtee] = useState(0)
+    const [oneputtingsg, setoneputtingsg] = useState(0)
+    const [oneshortgamesg, setoneshortgamesg] = useState(0)
+    const [oneapproachsg, setoneapproachsg] = useState(0)
+    const [oneteesg, setoneteesg] = useState(0)
+
+    const [twoputtingsg, settwoputtingsg] = useState(0)
+    const [twoshortgamesg, settwoshortgamesg] = useState(0)
+    const [twoapproachsg, settwoapproachsg] = useState(0)
+    const [twoteesg, settwoteesg] = useState(0)
+
+    const [threeputtingsg, setthreeputtingsg] = useState(0)
+    const [threeshortgamesg, setthreeshortgamesg] = useState(0)
+    const [threeapproachsg, setthreeapproachsg] = useState(0)
+    const [threeteesg, setthreeteesg] = useState(0)
+
+    const [fourputtingsg, setfourputtingsg] = useState(0)
+    const [fourshortgamesg, setfourshortgamesg] = useState(0)
+    const [fourapproachsg, setfourapproachsg] = useState(0)
+    const [fourteesg, setfourteesg] = useState(0)
+
+    const [fiveputtingsg, setfiveputtingsg] = useState(0)
+    const [fiveshortgamesg, setfiveshortgamesg] = useState(0)
+    const [fiveapproachsg, setfiveapproachsg] = useState(0)
+    const [fiveteesg, setfiveteesg] = useState(0)
+
+    const [sixputtingsg, setsixputtingsg] = useState(0)
+    const [sixshortgamesg, setsixshortgamesg] = useState(0)
+    const [sixapproachsg, setsixapproachsg] = useState(0)
+    const [sixteesg, setsixteesg] = useState(0)
+
+    const [sevenputtingsg, setsevenputtingsg] = useState(0)
+    const [sevenshortgamesg, setsevenshortgamesg] = useState(0)
+    const [sevenapproachsg, setsevenapproachsg] = useState(0)
+    const [seventeesg, setseventeesg] = useState(0)
+
+    const [eightputtingsg, seteightputtingsg] = useState(0)
+    const [eightshortgamesg, seteightshortgamesg] = useState(0)
+    const [eightapproachsg, seteightapproachsg] = useState(0)
+    const [eightteesg, seteightteesg] = useState(0)
+
+    const [nineputtingsg, setnineputtingsg] = useState(0)
+    const [nineshortgamesg, setnineshortgamesg] = useState(0)
+    const [nineapproachsg, setnineapproachsg] = useState(0)
+    const [nineteesg, setnineteesg] = useState(0)
+
+    const [tenputtingsg, settenputtingsg] = useState(0)
+    const [tenshortgamesg, settenshortgamesg] = useState(0)
+    const [tenapproachsg, settenapproachsg] = useState(0)
+    const [tenteesg, settenteesg] = useState(0)
+
+    const [elevenputtingsg, setelevenputtingsg] = useState(0)
+    const [elevenshortgamesg, setelevenshortgamesg] = useState(0)
+    const [elevenapproachsg, setelevenapproachsg] = useState(0)
+    const [eleventeesg, seteleventeesg] = useState(0)
+
+    const [twelveputtingsg, settwelveputtingsg] = useState(0)
+    const [twelveshortgamesg, settwelveshortgamesg] = useState(0)
+    const [twelveapproachsg, settwelveapproachsg] = useState(0)
+    const [twelveteesg, settwelveteesg] = useState(0)
+
+    const [thirteenputtingsg, setthirteenputtingsg] = useState(0)
+    const [thirteenshortgamesg, setthirteenshortgamesg] = useState(0)
+    const [thirteenapproachsg, setthirteenapproachsg] = useState(0)
+    const [thirteenteesg, setthirteenteesg] = useState(0)
+
+    const [fourteenputtingsg, setfourteenputtingsg] = useState(0)
+    const [fourteenshortgamesg, setfourteenshortgamesg] = useState(0)
+    const [fourteenapproachsg, setfourteenapproachsg] = useState(0)
+    const [fourteenteesg, setfourteenteesg] = useState(0)
+
+    const [fifteenputtingsg, setfifteenputtingsg] = useState(0)
+    const [fifteenshortgamesg, setfifteenshortgamesg] = useState(0)
+    const [fifteenapproachsg, setfifteenapproachsg] = useState(0)
+    const [fifteenteesg, setfifteenteesg] = useState(0)
+
+    const [sixteenputtingsg, setsixteenputtingsg] = useState(0)
+    const [sixteenshortgamesg, setsixteenshortgamesg] = useState(0)
+    const [sixteenapproachsg, setsixteenapproachsg] = useState(0)
+    const [sixteenteesg, setsixteenteesg] = useState(0)
+
+    const [seventeenputtingsg, setseventeenputtingsg] = useState(0)
+    const [seventeenshortgamesg, setseventeenshortgamesg] = useState(0)
+    const [seventeenapproachsg, setseventeenapproachsg] = useState(0)
+    const [seventeenteesg, setseventeenteesg] = useState(0)
+
+    const [eighteenputtingsg, seteighteenputtingsg] = useState(0)
+    const [eighteenshortgamesg, seteighteenshortgamesg] = useState(0)
+    const [eighteenapproachsg, seteighteenapproachsg] = useState(0)
+    const [eighteenteesg, seteighteenteesg] = useState(0)
+
 
     function rounding(distance, lie) {
         const keys = Object.keys(lie);
@@ -804,94 +890,1858 @@ export default function Newround() {
 
 
     function strokesgainedholeone(dict) {
+        let onesgputting = 0
+        let onesgapproach = 0
+        let onesgshortgame = 0
+        let onesgtee = 0
+
         const values = Object.values(dict);
         const numValues = values.length;
+        
+        
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
             if (i === numValues - 1) {
                 const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
                 if (lie === "Tee") {
-                    setonesgtee(tee[distance] - 1 + onesgtee)
-                    alert("Hole in One!!")
-                } if (distance <= 50 && lie !== "Green") {
+                    onesgtee = rounding(distance, tee) - 1 + onesgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
                     if (lie === "Rough") {
-                        setonesgshortgame(rough[distance] - 1 + onesgshortgame)
+                        onesgshortgame = rounding(distance, rough) - 1 + onesgshortgame
                     } else if (lie === "Fairway") {
-                        setonesgshortgame(fairway[distance] - 1 + onesgshortgame)
+                        onesgshortgame = rounding(distance, fairway) - 1 + onesgshortgame
                     } else if (lie === "Sand") {
-                        setonesgshortgame(sand[distance] - 1 + onesgshortgame)
+                        onesgshortgame = rounding(distance, sand) - 1 + onesgshortgame
                     }
                 }
+                /* This is the assumption that they holed out from outisde of 50 yards */
                 else if (lie === "Fairway") {
-                    setonesgapproach(fairway[distance] - 1 + onesgapproach)
+                    onesgapproach = rounding(distance, fairway) - 1 + onesgapproach
                 } else if (lie === "Rough") {
-                    setonesgapproach(rough[distance] - 1 + onesgapproach)
+                    onesgapproach = rounding(distance, rough) - 1 + onesgapproach
                 } else if (lie === "Sand") {
-                    setonesgapproach(sand[distance] - 1 + onesgapproach)
-                } else {
-                    setonesgputting(green[distance] - 1 + onesgputting)
+                    onesgapproach = rounding(distance, sand) - 1 + onesgapproach
                 }
-            } else {
+                /* This is the assumption that they putted in */
+                else {
+                    onesgputting = rounding(distance, green) - 1 + onesgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
                 const plusonelie = dict[i + 1].startingLie
                 const plusonedistance = dict[i + 1].distanceToHole
-                const plusonesg = 0
+                
+                let plusonesg = 0
                 if (plusonelie === "Green") {
-                    const plusonesg = green[plusonedistance]
+                    plusonesg = rounding(plusonedistance, green)
                 } else if (plusonelie === "Rough") {
-                    const plusonesg = rough[plusonedistance]
+                    plusonesg = rounding(plusonedistance, rough)
                 } else if (plusonelie === "Fairway") {
-                    const plusonesg = fairway[plusonedistance]
+                    plusonesg = rounding(plusonedistance, fairway)
                 } else if (plusonelie === "Sand") {
-                    const plusonesg = sand[plusonedistance]
+                    plusonesg = rounding(plusonedistance, sand)
                 }
                 const currentlie = dict[i].startingLie
                 const distance = dict[i].distanceToHole
+                let currentsg = null
                 if (distance <= 50 && currentlie !== "Green") {
                     if (currentlie === "Rough") {
-                        const currentsg = rough[distance]
-                        setonesgapproach(currentsg - plusonesg - 1 + onesgapproach)
+                        currentsg = rounding(distance, rough)
+                        onesgshortgame = currentsg - plusonesg - 1 + onesgshortgame
                     } else if (currentlie === "Fairway") {
-                        const currentsg = fairway[distance]
-                        setonesgapproach(currentsg - plusonesg - 1 + onesgapproach)
+                        currentsg = rounding(distance, fairway)
+                        onesgshortgame = currentsg - plusonesg - 1 + onesgshortgame
                     } else if (currentlie === "Sand") {
-                        const currentsg = sand[distance]
-                        setonesgapproach(currentsg - plusonesg - 1 + onesgapproach)
+                        currentsg = rounding(distance, sand)
+                        onesgshortgame = currentsg - plusonesg - 1 + onesgshortgame
                     }
                 }
                 else if (currentlie === "Green") {
-                    const currentsg = green[distance]
-                    setonesgputting(currentsg - plusonesg - 1 + onesgputting)
+                    currentsg = rounding(distance, green)
+                    onesgputting = currentsg - plusonesg - 1 + onesgputting
                 } else if (currentlie === "Tee") {
-                    const currentsg = tee[distance]
-                    setonesgtee(currentsg - plusonesg - 1 + onesgtee)
+                    currentsg = rounding(distance, tee)
+                    onesgtee = currentsg - plusonesg - 1 + onesgtee
                 } else if (currentlie === "Rough") {
-                    const currentsg = rough[distance]
-                    setonesgapproach(currentsg - plusonesg - 1 + onesgapproach)
+                    currentsg = rounding(distance, rough)
+                    onesgapproach = currentsg - plusonesg - 1 + onesgapproach
                 } else if (currentlie === "Fairway") {
-                    const currentsg = fairway[distance]
-                    setonesgapproach(currentsg - plusonesg - 1 + onesgapproach)
+                    currentsg = rounding(distance, fairway)
+                    onesgapproach = currentsg - plusonesg - 1 + onesgapproach
                 } else if (currentlie === "Sand") {
-                    const currentsg = sand[distance]
-                    setonesgapproach(currentsg - plusonesg - 1 + onesgapproach)
+                    currentsg = rounding(distance, sand)
+                    onesgapproach = currentsg - plusonesg - 1 + onesgapproach
                 }
             }
         }
+        setoneputtingsg(onesgputting)
+        setoneshortgamesg(onesgshortgame)
+        setoneapproachsg(onesgapproach)
+        setoneteesg(onesgtee)
     }
 
-    {/* Chart Config */ }
+
+    useEffect(() => {
+        strokesgainedholeone(oneshots);
+    }, [oneshots]);
+
+    function strokesgainedholetwo(dict) {
+        let twosgputting = 0
+        let twosgapproach = 0
+        let twosgshortgame = 0
+        let twosgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    twosgtee = rounding(distance, tee) - 1 + twosgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        twosgshortgame = rounding(distance, rough) - 1 + twosgshortgame
+                    } else if (lie === "Fairway") {
+                        twosgshortgame = rounding(distance, fairway) - 1 + twosgshortgame
+                    } else if (lie === "Sand") {
+                        twosgshortgame = rounding(distance, sand) - 1 + twosgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    twosgapproach = rounding(distance, fairway) - 1 + twosgapproach
+                } else if (lie === "Rough") {
+                    twosgapproach = rounding(distance, rough) - 1 + twosgapproach
+                } else if (lie === "Sand") {
+                    twosgapproach = rounding(distance, sand) - 1 + twosgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    twosgputting = rounding(distance, green) - 1 + twosgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plustwolie = dict[i + 1].startingLie
+                const plustwodistance = dict[i + 1].distanceToHole
+                
+                let plustwosg = 0
+                if (plustwolie === "Green") {
+                    plustwosg = rounding(plustwodistance, green)
+                } else if (plustwolie === "Rough") {
+                    plustwosg = rounding(plustwodistance, rough)
+                } else if (plustwolie === "Fairway") {
+                    plustwosg = rounding(plustwodistance, fairway)
+                } else if (plustwolie === "Sand") {
+                    plustwosg = rounding(plustwodistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        twosgshortgame = currentsg - plustwosg - 1 + twosgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        twosgshortgame = currentsg - plustwosg - 1 + twosgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        twosgshortgame = currentsg - plustwosg - 1 + twosgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    twosgputting = currentsg - plustwosg - 1 + twosgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    twosgtee = currentsg - plustwosg - 1 + twosgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    twosgapproach = currentsg - plustwosg - 1 + twosgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    twosgapproach = currentsg - plustwosg - 1 + twosgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    twosgapproach = currentsg - plustwosg - 1 + twosgapproach
+                }
+            }
+        }
+        settwoputtingsg(twosgputting)
+        settwoshortgamesg(twosgshortgame)
+        settwoapproachsg(twosgapproach)
+        settwoteesg(twosgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholetwo(twoshots);
+    }, [twoshots]);
+
+    function strokesgainedholethree(dict) {
+        let threesgputting = 0
+        let threesgapproach = 0
+        let threesgshortgame = 0
+        let threesgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    threesgtee = rounding(distance, tee) - 1 + threesgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        threesgshortgame = rounding(distance, rough) - 1 + threesgshortgame
+                    } else if (lie === "Fairway") {
+                        threesgshortgame = rounding(distance, fairway) - 1 + threesgshortgame
+                    } else if (lie === "Sand") {
+                        threesgshortgame = rounding(distance, sand) - 1 + threesgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    threesgapproach = rounding(distance, fairway) - 1 + threesgapproach
+                } else if (lie === "Rough") {
+                    threesgapproach = rounding(distance, rough) - 1 + threesgapproach
+                } else if (lie === "Sand") {
+                    threesgapproach = rounding(distance, sand) - 1 + threesgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    threesgputting = rounding(distance, green) - 1 + threesgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusthreelie = dict[i + 1].startingLie
+                const plusthreedistance = dict[i + 1].distanceToHole
+                
+                let plusthreesg = 0
+                if (plusthreelie === "Green") {
+                    plusthreesg = rounding(plusthreedistance, green)
+                } else if (plusthreelie === "Rough") {
+                    plusthreesg = rounding(plusthreedistance, rough)
+                } else if (plusthreelie === "Fairway") {
+                    plusthreesg = rounding(plusthreedistance, fairway)
+                } else if (plusthreelie === "Sand") {
+                    plusthreesg = rounding(plusthreedistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        threesgshortgame = currentsg - plusthreesg - 1 + threesgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        threesgshortgame = currentsg - plusthreesg - 1 + threesgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        threesgshortgame = currentsg - plusthreesg - 1 + threesgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    threesgputting = currentsg - plusthreesg - 1 + threesgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    threesgtee = currentsg - plusthreesg - 1 + threesgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    threesgapproach = currentsg - plusthreesg - 1 + threesgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    threesgapproach = currentsg - plusthreesg - 1 + threesgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    threesgapproach = currentsg - plusthreesg - 1 + threesgapproach
+                }
+            }
+        }
+        setthreeputtingsg(threesgputting)
+        setthreeshortgamesg(threesgshortgame)
+        setthreeapproachsg(threesgapproach)
+        setthreeteesg(threesgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholethree(threeshots);
+    }, [threeshots]);
+
+    function strokesgainedholefour(dict) {
+        let foursgputting = 0
+        let foursgapproach = 0
+        let foursgshortgame = 0
+        let foursgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    foursgtee = rounding(distance, tee) - 1 + foursgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        foursgshortgame = rounding(distance, rough) - 1 + foursgshortgame
+                    } else if (lie === "Fairway") {
+                        foursgshortgame = rounding(distance, fairway) - 1 + foursgshortgame
+                    } else if (lie === "Sand") {
+                        foursgshortgame = rounding(distance, sand) - 1 + foursgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    foursgapproach = rounding(distance, fairway) - 1 + foursgapproach
+                } else if (lie === "Rough") {
+                    foursgapproach = rounding(distance, rough) - 1 + foursgapproach
+                } else if (lie === "Sand") {
+                    foursgapproach = rounding(distance, sand) - 1 + foursgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    foursgputting = rounding(distance, green) - 1 + foursgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusfourlie = dict[i + 1].startingLie
+                const plusfourdistance = dict[i + 1].distanceToHole
+                
+                let plusfoursg = 0
+                if (plusfourlie === "Green") {
+                    plusfoursg = rounding(plusfourdistance, green)
+                } else if (plusfourlie === "Rough") {
+                    plusfoursg = rounding(plusfourdistance, rough)
+                } else if (plusfourlie === "Fairway") {
+                    plusfoursg = rounding(plusfourdistance, fairway)
+                } else if (plusfourlie === "Sand") {
+                    plusfoursg = rounding(plusfourdistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        foursgshortgame = currentsg - plusfoursg - 1 + foursgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        foursgshortgame = currentsg - plusfoursg - 1 + foursgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        foursgshortgame = currentsg - plusfoursg - 1 + foursgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    foursgputting = currentsg - plusfoursg - 1 + foursgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    foursgtee = currentsg - plusfoursg - 1 + foursgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    foursgapproach = currentsg - plusfoursg - 1 + foursgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    foursgapproach = currentsg - plusfoursg - 1 + foursgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    foursgapproach = currentsg - plusfoursg - 1 + foursgapproach
+                }
+            }
+        }
+        setfourputtingsg(foursgputting)
+        setfourshortgamesg(foursgshortgame)
+        setfourapproachsg(foursgapproach)
+        setfourteesg(foursgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholefour(fourshots);
+    }, [fourshots]);
+
+    function strokesgainedholefive(dict) {
+        let fivesgputting = 0
+        let fivesgapproach = 0
+        let fivesgshortgame = 0
+        let fivesgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    fivesgtee = rounding(distance, tee) - 1 + fivesgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        fivesgshortgame = rounding(distance, rough) - 1 + fivesgshortgame
+                    } else if (lie === "Fairway") {
+                        fivesgshortgame = rounding(distance, fairway) - 1 + fivesgshortgame
+                    } else if (lie === "Sand") {
+                        fivesgshortgame = rounding(distance, sand) - 1 + fivesgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    fivesgapproach = rounding(distance, fairway) - 1 + fivesgapproach
+                } else if (lie === "Rough") {
+                    fivesgapproach = rounding(distance, rough) - 1 + fivesgapproach
+                } else if (lie === "Sand") {
+                    fivesgapproach = rounding(distance, sand) - 1 + fivesgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    fivesgputting = rounding(distance, green) - 1 + fivesgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusfivelie = dict[i + 1].startingLie
+                const plusfivedistance = dict[i + 1].distanceToHole
+                
+                let plusfivesg = 0
+                if (plusfivelie === "Green") {
+                    plusfivesg = rounding(plusfivedistance, green)
+                } else if (plusfivelie === "Rough") {
+                    plusfivesg = rounding(plusfivedistance, rough)
+                } else if (plusfivelie === "Fairway") {
+                    plusfivesg = rounding(plusfivedistance, fairway)
+                } else if (plusfivelie === "Sand") {
+                    plusfivesg = rounding(plusfivedistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        fivesgshortgame = currentsg - plusfivesg - 1 + fivesgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        fivesgshortgame = currentsg - plusfivesg - 1 + fivesgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        fivesgshortgame = currentsg - plusfivesg - 1 + fivesgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    fivesgputting = currentsg - plusfivesg - 1 + fivesgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    fivesgtee = currentsg - plusfivesg - 1 + fivesgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    fivesgapproach = currentsg - plusfivesg - 1 + fivesgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    fivesgapproach = currentsg - plusfivesg - 1 + fivesgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    fivesgapproach = currentsg - plusfivesg - 1 + fivesgapproach
+                }
+            }
+        }
+        setfiveputtingsg(fivesgputting)
+        setfiveshortgamesg(fivesgshortgame)
+        setfiveapproachsg(fivesgapproach)
+        setfiveteesg(fivesgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholefive(fiveshots);
+    }, [fiveshots]);
+
+    function strokesgainedholesix(dict) {
+        let sixsgputting = 0
+        let sixsgapproach = 0
+        let sixsgshortgame = 0
+        let sixsgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    sixsgtee = rounding(distance, tee) - 1 + sixsgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        sixsgshortgame = rounding(distance, rough) - 1 + sixsgshortgame
+                    } else if (lie === "Fairway") {
+                        sixsgshortgame = rounding(distance, fairway) - 1 + sixsgshortgame
+                    } else if (lie === "Sand") {
+                        sixsgshortgame = rounding(distance, sand) - 1 + sixsgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    sixsgapproach = rounding(distance, fairway) - 1 + sixsgapproach
+                } else if (lie === "Rough") {
+                    sixsgapproach = rounding(distance, rough) - 1 + sixsgapproach
+                } else if (lie === "Sand") {
+                    sixsgapproach = rounding(distance, sand) - 1 + sixsgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    sixsgputting = rounding(distance, green) - 1 + sixsgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plussixlie = dict[i + 1].startingLie
+                const plussixdistance = dict[i + 1].distanceToHole
+                
+                let plussixsg = 0
+                if (plussixlie === "Green") {
+                    plussixsg = rounding(plussixdistance, green)
+                } else if (plussixlie === "Rough") {
+                    plussixsg = rounding(plussixdistance, rough)
+                } else if (plussixlie === "Fairway") {
+                    plussixsg = rounding(plussixdistance, fairway)
+                } else if (plussixlie === "Sand") {
+                    plussixsg = rounding(plussixdistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        sixsgshortgame = currentsg - plussixsg - 1 + sixsgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        sixsgshortgame = currentsg - plussixsg - 1 + sixsgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        sixsgshortgame = currentsg - plussixsg - 1 + sixsgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    sixsgputting = currentsg - plussixsg - 1 + sixsgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    sixsgtee = currentsg - plussixsg - 1 + sixsgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    sixsgapproach = currentsg - plussixsg - 1 + sixsgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    sixsgapproach = currentsg - plussixsg - 1 + sixsgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    sixsgapproach = currentsg - plussixsg - 1 + sixsgapproach
+                }
+            }
+        }
+        setsixputtingsg(sixsgputting)
+        setsixshortgamesg(sixsgshortgame)
+        setsixapproachsg(sixsgapproach)
+        setsixteesg(sixsgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholesix(sixshots);
+    }, [sixshots]);
+
+    function strokesgainedholeseven(dict) {
+        let sevensgputting = 0
+        let sevensgapproach = 0
+        let sevensgshortgame = 0
+        let sevensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    sevensgtee = rounding(distance, tee) - 1 + sevensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        sevensgshortgame = rounding(distance, rough) - 1 + sevensgshortgame
+                    } else if (lie === "Fairway") {
+                        sevensgshortgame = rounding(distance, fairway) - 1 + sevensgshortgame
+                    } else if (lie === "Sand") {
+                        sevensgshortgame = rounding(distance, sand) - 1 + sevensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    sevensgapproach = rounding(distance, fairway) - 1 + sevensgapproach
+                } else if (lie === "Rough") {
+                    sevensgapproach = rounding(distance, rough) - 1 + sevensgapproach
+                } else if (lie === "Sand") {
+                    sevensgapproach = rounding(distance, sand) - 1 + sevensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    sevensgputting = rounding(distance, green) - 1 + sevensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plussevenlie = dict[i + 1].startingLie
+                const plussevendistance = dict[i + 1].distanceToHole
+                
+                let plussevensg = 0
+                if (plussevenlie === "Green") {
+                    plussevensg = rounding(plussevendistance, green)
+                } else if (plussevenlie === "Rough") {
+                    plussevensg = rounding(plussevendistance, rough)
+                } else if (plussevenlie === "Fairway") {
+                    plussevensg = rounding(plussevendistance, fairway)
+                } else if (plussevenlie === "Sand") {
+                    plussevensg = rounding(plussevendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        sevensgshortgame = currentsg - plussevensg - 1 + sevensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        sevensgshortgame = currentsg - plussevensg - 1 + sevensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        sevensgshortgame = currentsg - plussevensg - 1 + sevensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    sevensgputting = currentsg - plussevensg - 1 + sevensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    sevensgtee = currentsg - plussevensg - 1 + sevensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    sevensgapproach = currentsg - plussevensg - 1 + sevensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    sevensgapproach = currentsg - plussevensg - 1 + sevensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    sevensgapproach = currentsg - plussevensg - 1 + sevensgapproach
+                }
+            }
+        }
+        setsevenputtingsg(sevensgputting)
+        setsevenshortgamesg(sevensgshortgame)
+        setsevenapproachsg(sevensgapproach)
+        setseventeesg(sevensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholeseven(sevenshots);
+    }, [sevenshots]);
+
+    function strokesgainedholeeight(dict) {
+        let eightsgputting = 0
+        let eightsgapproach = 0
+        let eightsgshortgame = 0
+        let eightsgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    eightsgtee = rounding(distance, tee) - 1 + eightsgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        eightsgshortgame = rounding(distance, rough) - 1 + eightsgshortgame
+                    } else if (lie === "Fairway") {
+                        eightsgshortgame = rounding(distance, fairway) - 1 + eightsgshortgame
+                    } else if (lie === "Sand") {
+                        eightsgshortgame = rounding(distance, sand) - 1 + eightsgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    eightsgapproach = rounding(distance, fairway) - 1 + eightsgapproach
+                } else if (lie === "Rough") {
+                    eightsgapproach = rounding(distance, rough) - 1 + eightsgapproach
+                } else if (lie === "Sand") {
+                    eightsgapproach = rounding(distance, sand) - 1 + eightsgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    eightsgputting = rounding(distance, green) - 1 + eightsgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const pluseightlie = dict[i + 1].startingLie
+                const pluseightdistance = dict[i + 1].distanceToHole
+                
+                let pluseightsg = 0
+                if (pluseightlie === "Green") {
+                    pluseightsg = rounding(pluseightdistance, green)
+                } else if (pluseightlie === "Rough") {
+                    pluseightsg = rounding(pluseightdistance, rough)
+                } else if (pluseightlie === "Fairway") {
+                    pluseightsg = rounding(pluseightdistance, fairway)
+                } else if (pluseightlie === "Sand") {
+                    pluseightsg = rounding(pluseightdistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        eightsgshortgame = currentsg - pluseightsg - 1 + eightsgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        eightsgshortgame = currentsg - pluseightsg - 1 + eightsgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        eightsgshortgame = currentsg - pluseightsg - 1 + eightsgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    eightsgputting = currentsg - pluseightsg - 1 + eightsgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    eightsgtee = currentsg - pluseightsg - 1 + eightsgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    eightsgapproach = currentsg - pluseightsg - 1 + eightsgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    eightsgapproach = currentsg - pluseightsg - 1 + eightsgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    eightsgapproach = currentsg - pluseightsg - 1 + eightsgapproach
+                }
+            }
+        }
+        seteightputtingsg(eightsgputting)
+        seteightshortgamesg(eightsgshortgame)
+        seteightapproachsg(eightsgapproach)
+        seteightteesg(eightsgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholeeight(eightshots);
+    }, [eightshots]);
+
+    function strokesgainedholenine(dict) {
+        let ninesgputting = 0
+        let ninesgapproach = 0
+        let ninesgshortgame = 0
+        let ninesgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    ninesgtee = rounding(distance, tee) - 1 + ninesgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        ninesgshortgame = rounding(distance, rough) - 1 + ninesgshortgame
+                    } else if (lie === "Fairway") {
+                        ninesgshortgame = rounding(distance, fairway) - 1 + ninesgshortgame
+                    } else if (lie === "Sand") {
+                        ninesgshortgame = rounding(distance, sand) - 1 + ninesgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    ninesgapproach = rounding(distance, fairway) - 1 + ninesgapproach
+                } else if (lie === "Rough") {
+                    ninesgapproach = rounding(distance, rough) - 1 + ninesgapproach
+                } else if (lie === "Sand") {
+                    ninesgapproach = rounding(distance, sand) - 1 + ninesgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    ninesgputting = rounding(distance, green) - 1 + ninesgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusninelie = dict[i + 1].startingLie
+                const plusninedistance = dict[i + 1].distanceToHole
+                
+                let plusninesg = 0
+                if (plusninelie === "Green") {
+                    plusninesg = rounding(plusninedistance, green)
+                } else if (plusninelie === "Rough") {
+                    plusninesg = rounding(plusninedistance, rough)
+                } else if (plusninelie === "Fairway") {
+                    plusninesg = rounding(plusninedistance, fairway)
+                } else if (plusninelie === "Sand") {
+                    plusninesg = rounding(plusninedistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        ninesgshortgame = currentsg - plusninesg - 1 + ninesgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        ninesgshortgame = currentsg - plusninesg - 1 + ninesgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        ninesgshortgame = currentsg - plusninesg - 1 + ninesgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    ninesgputting = currentsg - plusninesg - 1 + ninesgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    ninesgtee = currentsg - plusninesg - 1 + ninesgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    ninesgapproach = currentsg - plusninesg - 1 + ninesgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    ninesgapproach = currentsg - plusninesg - 1 + ninesgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    ninesgapproach = currentsg - plusninesg - 1 + ninesgapproach
+                }
+            }
+        }
+        setnineputtingsg(ninesgputting)
+        setnineshortgamesg(ninesgshortgame)
+        setnineapproachsg(ninesgapproach)
+        setnineteesg(ninesgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholenine(nineshots);
+    }, [nineshots]);
+
+    function strokesgainedholeten(dict) {
+        let tensgputting = 0
+        let tensgapproach = 0
+        let tensgshortgame = 0
+        let tensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    tensgtee = rounding(distance, tee) - 1 + tensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        tensgshortgame = rounding(distance, rough) - 1 + tensgshortgame
+                    } else if (lie === "Fairway") {
+                        tensgshortgame = rounding(distance, fairway) - 1 + tensgshortgame
+                    } else if (lie === "Sand") {
+                        tensgshortgame = rounding(distance, sand) - 1 + tensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    tensgapproach = rounding(distance, fairway) - 1 + tensgapproach
+                } else if (lie === "Rough") {
+                    tensgapproach = rounding(distance, rough) - 1 + tensgapproach
+                } else if (lie === "Sand") {
+                    tensgapproach = rounding(distance, sand) - 1 + tensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    tensgputting = rounding(distance, green) - 1 + tensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plustenlie = dict[i + 1].startingLie
+                const plustendistance = dict[i + 1].distanceToHole
+                
+                let plustensg = 0
+                if (plustenlie === "Green") {
+                    plustensg = rounding(plustendistance, green)
+                } else if (plustenlie === "Rough") {
+                    plustensg = rounding(plustendistance, rough)
+                } else if (plustenlie === "Fairway") {
+                    plustensg = rounding(plustendistance, fairway)
+                } else if (plustenlie === "Sand") {
+                    plustensg = rounding(plustendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        tensgshortgame = currentsg - plustensg - 1 + tensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        tensgshortgame = currentsg - plustensg - 1 + tensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        tensgshortgame = currentsg - plustensg - 1 + tensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    tensgputting = currentsg - plustensg - 1 + tensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    tensgtee = currentsg - plustensg - 1 + tensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    tensgapproach = currentsg - plustensg - 1 + tensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    tensgapproach = currentsg - plustensg - 1 + tensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    tensgapproach = currentsg - plustensg - 1 + tensgapproach
+                }
+            }
+        }
+        settenputtingsg(tensgputting)
+        settenshortgamesg(tensgshortgame)
+        settenapproachsg(tensgapproach)
+        settenteesg(tensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholeten(tenshots);
+    }, [tenshots]);
+
+    function strokesgainedholeeleven(dict) {
+        let elevensgputting = 0
+        let elevensgapproach = 0
+        let elevensgshortgame = 0
+        let elevensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    elevensgtee = rounding(distance, tee) - 1 + elevensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        elevensgshortgame = rounding(distance, rough) - 1 + elevensgshortgame
+                    } else if (lie === "Fairway") {
+                        elevensgshortgame = rounding(distance, fairway) - 1 + elevensgshortgame
+                    } else if (lie === "Sand") {
+                        elevensgshortgame = rounding(distance, sand) - 1 + elevensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    elevensgapproach = rounding(distance, fairway) - 1 + elevensgapproach
+                } else if (lie === "Rough") {
+                    elevensgapproach = rounding(distance, rough) - 1 + elevensgapproach
+                } else if (lie === "Sand") {
+                    elevensgapproach = rounding(distance, sand) - 1 + elevensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    elevensgputting = rounding(distance, green) - 1 + elevensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const pluselevenlie = dict[i + 1].startingLie
+                const pluselevendistance = dict[i + 1].distanceToHole
+                
+                let pluselevensg = 0
+                if (pluselevenlie === "Green") {
+                    pluselevensg = rounding(pluselevendistance, green)
+                } else if (pluselevenlie === "Rough") {
+                    pluselevensg = rounding(pluselevendistance, rough)
+                } else if (pluselevenlie === "Fairway") {
+                    pluselevensg = rounding(pluselevendistance, fairway)
+                } else if (pluselevenlie === "Sand") {
+                    pluselevensg = rounding(pluselevendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        elevensgshortgame = currentsg - pluselevensg - 1 + elevensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        elevensgshortgame = currentsg - pluselevensg - 1 + elevensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        elevensgshortgame = currentsg - pluselevensg - 1 + elevensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    elevensgputting = currentsg - pluselevensg - 1 + elevensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    elevensgtee = currentsg - pluselevensg - 1 + elevensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    elevensgapproach = currentsg - pluselevensg - 1 + elevensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    elevensgapproach = currentsg - pluselevensg - 1 + elevensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    elevensgapproach = currentsg - pluselevensg - 1 + elevensgapproach
+                }
+            }
+        }
+        setelevenputtingsg(elevensgputting)
+        setelevenshortgamesg(elevensgshortgame)
+        setelevenapproachsg(elevensgapproach)
+        seteleventeesg(elevensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholeeleven(elevenshots);
+    }, [elevenshots]);
+
+    function strokesgainedholetwelve(dict) {
+        let twelvesgputting = 0
+        let twelvesgapproach = 0
+        let twelvesgshortgame = 0
+        let twelvesgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    twelvesgtee = rounding(distance, tee) - 1 + twelvesgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        twelvesgshortgame = rounding(distance, rough) - 1 + twelvesgshortgame
+                    } else if (lie === "Fairway") {
+                        twelvesgshortgame = rounding(distance, fairway) - 1 + twelvesgshortgame
+                    } else if (lie === "Sand") {
+                        twelvesgshortgame = rounding(distance, sand) - 1 + twelvesgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    twelvesgapproach = rounding(distance, fairway) - 1 + twelvesgapproach
+                } else if (lie === "Rough") {
+                    twelvesgapproach = rounding(distance, rough) - 1 + twelvesgapproach
+                } else if (lie === "Sand") {
+                    twelvesgapproach = rounding(distance, sand) - 1 + twelvesgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    twelvesgputting = rounding(distance, green) - 1 + twelvesgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plustwelvelie = dict[i + 1].startingLie
+                const plustwelvedistance = dict[i + 1].distanceToHole
+                
+                let plustwelvesg = 0
+                if (plustwelvelie === "Green") {
+                    plustwelvesg = rounding(plustwelvedistance, green)
+                } else if (plustwelvelie === "Rough") {
+                    plustwelvesg = rounding(plustwelvedistance, rough)
+                } else if (plustwelvelie === "Fairway") {
+                    plustwelvesg = rounding(plustwelvedistance, fairway)
+                } else if (plustwelvelie === "Sand") {
+                    plustwelvesg = rounding(plustwelvedistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        twelvesgshortgame = currentsg - plustwelvesg - 1 + twelvesgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        twelvesgshortgame = currentsg - plustwelvesg - 1 + twelvesgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        twelvesgshortgame = currentsg - plustwelvesg - 1 + twelvesgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    twelvesgputting = currentsg - plustwelvesg - 1 + twelvesgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    twelvesgtee = currentsg - plustwelvesg - 1 + twelvesgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    twelvesgapproach = currentsg - plustwelvesg - 1 + twelvesgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    twelvesgapproach = currentsg - plustwelvesg - 1 + twelvesgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    twelvesgapproach = currentsg - plustwelvesg - 1 + twelvesgapproach
+                }
+            }
+        }
+        settwelveputtingsg(twelvesgputting)
+        settwelveshortgamesg(twelvesgshortgame)
+        settwelveapproachsg(twelvesgapproach)
+        settwelveteesg(twelvesgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholetwelve(twelveshots);
+    }, [twelveshots]);
+
+    function strokesgainedholethirteen(dict) {
+        let thirteensgputting = 0
+        let thirteensgapproach = 0
+        let thirteensgshortgame = 0
+        let thirteensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    thirteensgtee = rounding(distance, tee) - 1 + thirteensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        thirteensgshortgame = rounding(distance, rough) - 1 + thirteensgshortgame
+                    } else if (lie === "Fairway") {
+                        thirteensgshortgame = rounding(distance, fairway) - 1 + thirteensgshortgame
+                    } else if (lie === "Sand") {
+                        thirteensgshortgame = rounding(distance, sand) - 1 + thirteensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    thirteensgapproach = rounding(distance, fairway) - 1 + thirteensgapproach
+                } else if (lie === "Rough") {
+                    thirteensgapproach = rounding(distance, rough) - 1 + thirteensgapproach
+                } else if (lie === "Sand") {
+                    thirteensgapproach = rounding(distance, sand) - 1 + thirteensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    thirteensgputting = rounding(distance, green) - 1 + thirteensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusthirteenlie = dict[i + 1].startingLie
+                const plusthirteendistance = dict[i + 1].distanceToHole
+                
+                let plusthirteensg = 0
+                if (plusthirteenlie === "Green") {
+                    plusthirteensg = rounding(plusthirteendistance, green)
+                } else if (plusthirteenlie === "Rough") {
+                    plusthirteensg = rounding(plusthirteendistance, rough)
+                } else if (plusthirteenlie === "Fairway") {
+                    plusthirteensg = rounding(plusthirteendistance, fairway)
+                } else if (plusthirteenlie === "Sand") {
+                    plusthirteensg = rounding(plusthirteendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        thirteensgshortgame = currentsg - plusthirteensg - 1 + thirteensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        thirteensgshortgame = currentsg - plusthirteensg - 1 + thirteensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        thirteensgshortgame = currentsg - plusthirteensg - 1 + thirteensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    thirteensgputting = currentsg - plusthirteensg - 1 + thirteensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    thirteensgtee = currentsg - plusthirteensg - 1 + thirteensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    thirteensgapproach = currentsg - plusthirteensg - 1 + thirteensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    thirteensgapproach = currentsg - plusthirteensg - 1 + thirteensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    thirteensgapproach = currentsg - plusthirteensg - 1 + thirteensgapproach
+                }
+            }
+        }
+        setthirteenputtingsg(thirteensgputting)
+        setthirteenshortgamesg(thirteensgshortgame)
+        setthirteenapproachsg(thirteensgapproach)
+        setthirteenteesg(thirteensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholethirteen(thirteenshots);
+    }, [thirteenshots]);
+
+    function strokesgainedholefourteen(dict) {
+        let fourteensgputting = 0
+        let fourteensgapproach = 0
+        let fourteensgshortgame = 0
+        let fourteensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    fourteensgtee = rounding(distance, tee) - 1 + fourteensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        fourteensgshortgame = rounding(distance, rough) - 1 + fourteensgshortgame
+                    } else if (lie === "Fairway") {
+                        fourteensgshortgame = rounding(distance, fairway) - 1 + fourteensgshortgame
+                    } else if (lie === "Sand") {
+                        fourteensgshortgame = rounding(distance, sand) - 1 + fourteensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    fourteensgapproach = rounding(distance, fairway) - 1 + fourteensgapproach
+                } else if (lie === "Rough") {
+                    fourteensgapproach = rounding(distance, rough) - 1 + fourteensgapproach
+                } else if (lie === "Sand") {
+                    fourteensgapproach = rounding(distance, sand) - 1 + fourteensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    fourteensgputting = rounding(distance, green) - 1 + fourteensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusfourteenlie = dict[i + 1].startingLie
+                const plusfourteendistance = dict[i + 1].distanceToHole
+                
+                let plusfourteensg = 0
+                if (plusfourteenlie === "Green") {
+                    plusfourteensg = rounding(plusfourteendistance, green)
+                } else if (plusfourteenlie === "Rough") {
+                    plusfourteensg = rounding(plusfourteendistance, rough)
+                } else if (plusfourteenlie === "Fairway") {
+                    plusfourteensg = rounding(plusfourteendistance, fairway)
+                } else if (plusfourteenlie === "Sand") {
+                    plusfourteensg = rounding(plusfourteendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        fourteensgshortgame = currentsg - plusfourteensg - 1 + fourteensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        fourteensgshortgame = currentsg - plusfourteensg - 1 + fourteensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        fourteensgshortgame = currentsg - plusfourteensg - 1 + fourteensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    fourteensgputting = currentsg - plusfourteensg - 1 + fourteensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    fourteensgtee = currentsg - plusfourteensg - 1 + fourteensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    fourteensgapproach = currentsg - plusfourteensg - 1 + fourteensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    fourteensgapproach = currentsg - plusfourteensg - 1 + fourteensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    fourteensgapproach = currentsg - plusfourteensg - 1 + fourteensgapproach
+                }
+            }
+        }
+        setfourteenputtingsg(fourteensgputting)
+        setfourteenshortgamesg(fourteensgshortgame)
+        setfourteenapproachsg(fourteensgapproach)
+        setfourteenteesg(fourteensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholefourteen(fourteenshots);
+    }, [fourteenshots]);
+
+    function strokesgainedholefifteen(dict) {
+        let fifteensgputting = 0
+        let fifteensgapproach = 0
+        let fifteensgshortgame = 0
+        let fifteensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    fifteensgtee = rounding(distance, tee) - 1 + fifteensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        fifteensgshortgame = rounding(distance, rough) - 1 + fifteensgshortgame
+                    } else if (lie === "Fairway") {
+                        fifteensgshortgame = rounding(distance, fairway) - 1 + fifteensgshortgame
+                    } else if (lie === "Sand") {
+                        fifteensgshortgame = rounding(distance, sand) - 1 + fifteensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    fifteensgapproach = rounding(distance, fairway) - 1 + fifteensgapproach
+                } else if (lie === "Rough") {
+                    fifteensgapproach = rounding(distance, rough) - 1 + fifteensgapproach
+                } else if (lie === "Sand") {
+                    fifteensgapproach = rounding(distance, sand) - 1 + fifteensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    fifteensgputting = rounding(distance, green) - 1 + fifteensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusfifteenlie = dict[i + 1].startingLie
+                const plusfifteendistance = dict[i + 1].distanceToHole
+                
+                let plusfifteensg = 0
+                if (plusfifteenlie === "Green") {
+                    plusfifteensg = rounding(plusfifteendistance, green)
+                } else if (plusfifteenlie === "Rough") {
+                    plusfifteensg = rounding(plusfifteendistance, rough)
+                } else if (plusfifteenlie === "Fairway") {
+                    plusfifteensg = rounding(plusfifteendistance, fairway)
+                } else if (plusfifteenlie === "Sand") {
+                    plusfifteensg = rounding(plusfifteendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        fifteensgshortgame = currentsg - plusfifteensg - 1 + fifteensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        fifteensgshortgame = currentsg - plusfifteensg - 1 + fifteensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        fifteensgshortgame = currentsg - plusfifteensg - 1 + fifteensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    fifteensgputting = currentsg - plusfifteensg - 1 + fifteensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    fifteensgtee = currentsg - plusfifteensg - 1 + fifteensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    fifteensgapproach = currentsg - plusfifteensg - 1 + fifteensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    fifteensgapproach = currentsg - plusfifteensg - 1 + fifteensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    fifteensgapproach = currentsg - plusfifteensg - 1 + fifteensgapproach
+                }
+            }
+        }
+        setfifteenputtingsg(fifteensgputting)
+        setfifteenshortgamesg(fifteensgshortgame)
+        setfifteenapproachsg(fifteensgapproach)
+        setfifteenteesg(fifteensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholefifteen(fifteenshots);
+    }, [fifteenshots]);
+
+    function strokesgainedholesixteen(dict) {
+        let sixteensgputting = 0
+        let sixteensgapproach = 0
+        let sixteensgshortgame = 0
+        let sixteensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    sixteensgtee = rounding(distance, tee) - 1 + sixteensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        sixteensgshortgame = rounding(distance, rough) - 1 + sixteensgshortgame
+                    } else if (lie === "Fairway") {
+                        sixteensgshortgame = rounding(distance, fairway) - 1 + sixteensgshortgame
+                    } else if (lie === "Sand") {
+                        sixteensgshortgame = rounding(distance, sand) - 1 + sixteensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    sixteensgapproach = rounding(distance, fairway) - 1 + sixteensgapproach
+                } else if (lie === "Rough") {
+                    sixteensgapproach = rounding(distance, rough) - 1 + sixteensgapproach
+                } else if (lie === "Sand") {
+                    sixteensgapproach = rounding(distance, sand) - 1 + sixteensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    sixteensgputting = rounding(distance, green) - 1 + sixteensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plussixteenlie = dict[i + 1].startingLie
+                const plussixteendistance = dict[i + 1].distanceToHole
+                
+                let plussixteensg = 0
+                if (plussixteenlie === "Green") {
+                    plussixteensg = rounding(plussixteendistance, green)
+                } else if (plussixteenlie === "Rough") {
+                    plussixteensg = rounding(plussixteendistance, rough)
+                } else if (plussixteenlie === "Fairway") {
+                    plussixteensg = rounding(plussixteendistance, fairway)
+                } else if (plussixteenlie === "Sand") {
+                    plussixteensg = rounding(plussixteendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        sixteensgshortgame = currentsg - plussixteensg - 1 + sixteensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        sixteensgshortgame = currentsg - plussixteensg - 1 + sixteensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        sixteensgshortgame = currentsg - plussixteensg - 1 + sixteensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    sixteensgputting = currentsg - plussixteensg - 1 + sixteensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    sixteensgtee = currentsg - plussixteensg - 1 + sixteensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    sixteensgapproach = currentsg - plussixteensg - 1 + sixteensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    sixteensgapproach = currentsg - plussixteensg - 1 + sixteensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    sixteensgapproach = currentsg - plussixteensg - 1 + sixteensgapproach
+                }
+            }
+        }
+        setsixteenputtingsg(sixteensgputting)
+        setsixteenshortgamesg(sixteensgshortgame)
+        setsixteenapproachsg(sixteensgapproach)
+        setsixteenteesg(sixteensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholesixteen(sixteenshots);
+    }, [sixteenshots]);
+
+    function strokesgainedholeseventeen(dict) {
+        let seventeensgputting = 0
+        let seventeensgapproach = 0
+        let seventeensgshortgame = 0
+        let seventeensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    seventeensgtee = rounding(distance, tee) - 1 + seventeensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        seventeensgshortgame = rounding(distance, rough) - 1 + seventeensgshortgame
+                    } else if (lie === "Fairway") {
+                        seventeensgshortgame = rounding(distance, fairway) - 1 + seventeensgshortgame
+                    } else if (lie === "Sand") {
+                        seventeensgshortgame = rounding(distance, sand) - 1 + seventeensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    seventeensgapproach = rounding(distance, fairway) - 1 + seventeensgapproach
+                } else if (lie === "Rough") {
+                    seventeensgapproach = rounding(distance, rough) - 1 + seventeensgapproach
+                } else if (lie === "Sand") {
+                    seventeensgapproach = rounding(distance, sand) - 1 + seventeensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    seventeensgputting = rounding(distance, green) - 1 + seventeensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const plusseventeenlie = dict[i + 1].startingLie
+                const plusseventeendistance = dict[i + 1].distanceToHole
+                
+                let plusseventeensg = 0
+                if (plusseventeenlie === "Green") {
+                    plusseventeensg = rounding(plusseventeendistance, green)
+                } else if (plusseventeenlie === "Rough") {
+                    plusseventeensg = rounding(plusseventeendistance, rough)
+                } else if (plusseventeenlie === "Fairway") {
+                    plusseventeensg = rounding(plusseventeendistance, fairway)
+                } else if (plusseventeenlie === "Sand") {
+                    plusseventeensg = rounding(plusseventeendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        seventeensgshortgame = currentsg - plusseventeensg - 1 + seventeensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        seventeensgshortgame = currentsg - plusseventeensg - 1 + seventeensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        seventeensgshortgame = currentsg - plusseventeensg - 1 + seventeensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    seventeensgputting = currentsg - plusseventeensg - 1 + seventeensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    seventeensgtee = currentsg - plusseventeensg - 1 + seventeensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    seventeensgapproach = currentsg - plusseventeensg - 1 + seventeensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    seventeensgapproach = currentsg - plusseventeensg - 1 + seventeensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    seventeensgapproach = currentsg - plusseventeensg - 1 + seventeensgapproach
+                }
+            }
+        }
+        setseventeenputtingsg(seventeensgputting)
+        setseventeenshortgamesg(seventeensgshortgame)
+        setseventeenapproachsg(seventeensgapproach)
+        setseventeenteesg(seventeensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholeseventeen(seventeenshots);
+    }, [seventeenshots]);
+
+    function strokesgainedholeeighteen(dict) {
+        let eighteensgputting = 0
+        let eighteensgapproach = 0
+        let eighteensgshortgame = 0
+        let eighteensgtee = 0
+
+        const values = Object.values(dict);
+        const numValues = values.length;
+        
+        
+        for (let i = numValues - 1; i >= 0; i--) {
+            const lie = dict[i].startingLie;
+            /* The "if" statement Below is the last shot for each hole */
+            if (i === numValues - 1) {
+                const distance = dict[i].distanceToHole
+                /* This is the assumption that they made a hole in one */
+                if (lie === "Tee") {
+                    eighteensgtee = rounding(distance, tee) - 1 + eighteensgtee
+                }
+                /* This is the assumption that they chipped in from the short game area */
+                if (distance <= 50 && lie !== "Green") {
+                    if (lie === "Rough") {
+                        eighteensgshortgame = rounding(distance, rough) - 1 + eighteensgshortgame
+                    } else if (lie === "Fairway") {
+                        eighteensgshortgame = rounding(distance, fairway) - 1 + eighteensgshortgame
+                    } else if (lie === "Sand") {
+                        eighteensgshortgame = rounding(distance, sand) - 1 + eighteensgshortgame
+                    }
+                }
+                /* This is the assumption that they holed out from outisde of 50 yards */
+                else if (lie === "Fairway") {
+                    eighteensgapproach = rounding(distance, fairway) - 1 + eighteensgapproach
+                } else if (lie === "Rough") {
+                    eighteensgapproach = rounding(distance, rough) - 1 + eighteensgapproach
+                } else if (lie === "Sand") {
+                    eighteensgapproach = rounding(distance, sand) - 1 + eighteensgapproach
+                }
+                /* This is the assumption that they putted in */
+                else {
+                    eighteensgputting = rounding(distance, green) - 1 + eighteensgputting
+                }
+            
+            }
+            /* This is assuming that this current shot did not hole out */
+            else {
+                const pluseighteenlie = dict[i + 1].startingLie
+                const pluseighteendistance = dict[i + 1].distanceToHole
+                
+                let pluseighteensg = 0
+                if (pluseighteenlie === "Green") {
+                    pluseighteensg = rounding(pluseighteendistance, green)
+                } else if (pluseighteenlie === "Rough") {
+                    pluseighteensg = rounding(pluseighteendistance, rough)
+                } else if (pluseighteenlie === "Fairway") {
+                    pluseighteensg = rounding(pluseighteendistance, fairway)
+                } else if (pluseighteenlie === "Sand") {
+                    pluseighteensg = rounding(pluseighteendistance, sand)
+                }
+                const currentlie = dict[i].startingLie
+                const distance = dict[i].distanceToHole
+                let currentsg = null
+                if (distance <= 50 && currentlie !== "Green") {
+                    if (currentlie === "Rough") {
+                        currentsg = rounding(distance, rough)
+                        eighteensgshortgame = currentsg - pluseighteensg - 1 + eighteensgshortgame
+                    } else if (currentlie === "Fairway") {
+                        currentsg = rounding(distance, fairway)
+                        eighteensgshortgame = currentsg - pluseighteensg - 1 + eighteensgshortgame
+                    } else if (currentlie === "Sand") {
+                        currentsg = rounding(distance, sand)
+                        eighteensgshortgame = currentsg - pluseighteensg - 1 + eighteensgshortgame
+                    }
+                }
+                else if (currentlie === "Green") {
+                    currentsg = rounding(distance, green)
+                    eighteensgputting = currentsg - pluseighteensg - 1 + eighteensgputting
+                } else if (currentlie === "Tee") {
+                    currentsg = rounding(distance, tee)
+                    eighteensgtee = currentsg - pluseighteensg - 1 + eighteensgtee
+                } else if (currentlie === "Rough") {
+                    currentsg = rounding(distance, rough)
+                    eighteensgapproach = currentsg - pluseighteensg - 1 + eighteensgapproach
+                } else if (currentlie === "Fairway") {
+                    currentsg = rounding(distance, fairway)
+                    eighteensgapproach = currentsg - pluseighteensg - 1 + eighteensgapproach
+                } else if (currentlie === "Sand") {
+                    currentsg = rounding(distance, sand)
+                    eighteensgapproach = currentsg - pluseighteensg - 1 + eighteensgapproach
+                }
+            }
+        }
+        seteighteenputtingsg(eighteensgputting)
+        seteighteenshortgamesg(eighteensgshortgame)
+        seteighteenapproachsg(eighteensgapproach)
+        seteighteenteesg(eighteensgtee)
+    }
+
+
+    useEffect(() => {
+        strokesgainedholeeighteen(eighteenshots);
+    }, [eighteenshots]);
+
+    {/* Calculating Total SG */}
+    const totalputtingsg = oneputtingsg + twoputtingsg + threeputtingsg + fourputtingsg + fiveputtingsg + sixputtingsg + sevenputtingsg + eightputtingsg + nineputtingsg + tenputtingsg + elevenputtingsg + twelveputtingsg + thirteenputtingsg + fourteenputtingsg + fifteenputtingsg + sixteenputtingsg + seventeenputtingsg + eighteenputtingsg
+
+    {/* Chart Config */}
     const data = {
         labels: ["SG Putting", 'SG Short Game', 'SG Approach', 'SG Driving'],
         datasets: [
             {
                 label: 'Personal SG',
-                data: [onesgputting, 0, 0, 1],
+                data: [0.12, 1, 0.2, 2],
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
             },
             {
                 label: 'PGA Tour Average',
-                data: [-0.012, 1.2, 0.92, 0.32],
+                data: [0.17, 0.64, 0.64, 0.32],
                 backgroundColor: 'rgba(99, 132, 255, 0.2)',
                 borderColor: 'rgba(99, 132, 255, 1)',
                 borderWidth: 1,
@@ -1991,7 +3841,8 @@ export default function Newround() {
                         <p className={statshowing === "shortgame" ? "active2" : ""} onClick={() => setstatshowing('shortgame')}>Short Game</p>
                         <p className={statshowing === "approach" ? "active2" : ""} onClick={() => setstatshowing("approach")}>Approach</p>
                         <p className={statshowing === "driving" ? "active2" : ""} onClick={() => setstatshowing("driving")}>Driving</p>
-                        {/*<p>Function Tester</p>*/}
+                        <p onClick={()=>{strokesgainedholeone([{ startingLie: "Tee", distanceToHole: 0 }])}}>Function Tester</p>
+                        <p>{totalputtingsg}</p>
                     </div>
                     {statshowing === "putting" && (
                         <div>
