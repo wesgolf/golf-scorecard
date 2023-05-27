@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 
 /* Style Import */
-import '../../Styles/homepage.css';
 
 /* Firebase Imports */
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
