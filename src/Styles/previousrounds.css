@@ -1,0 +1,76 @@
+.gray {
+    background-color: gainsboro;
+}
+
+
+.round {
+    width: 70%;
+    margin: auto;
+    padding-top: 10%;
+
+}
+
+.roundgrid {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    display: grid;
+    grid-template-columns: 200px 1fr 50px;
+    margin-bottom: 30px;
+}
+
+
+.sggrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+}
+
+.roundgrid h4 {
+    text-align: left;
+    margin-left: 15%;
+    margin-bottom: none;
+    margin-top: 5px;
+    font-size: 30px;
+}
+
+
+.date {
+    margin-left: 15%;
+    font-family: 'Darker Grotesque';
+    font-size: 20px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+}
+
+.sggrid p{
+    text-align: center;
+}
+
+.number {
+    margin-top: 12.5px;
+    font-family: 'IBM Plex Sans Condensed';
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.description {
+    margin-top: -15px;
+    font-family: 'Darker Grotesque';
+    font-size: 17.5px;
+    margin-bottom: 10px;
+}
+
+.score {
+    font-family: 'IBM Plex Sans Condensed';
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.marginn {
+    margin-top: 22.5px;
+    font-weight: 100;
+}

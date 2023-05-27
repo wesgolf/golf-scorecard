@@ -1,0 +1,15 @@
+.newroundbutton {
+    position: fixed;
+    bottom: 75px;
+    right: 75px;
+    color: white;
+    font-size: 30px;
+    background-color: rgb(0,15,52);
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.newroundbutton :hover {
+    color: rgb(157,213,255);
+}

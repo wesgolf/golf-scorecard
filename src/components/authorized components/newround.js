@@ -12,7 +12,7 @@ import Chart from 'chart.js/auto';
 
 export default function Newround() {
     {/*General Form Logic */ }
-    const [page, setPage] = useState(3)
+    const [page, setPage] = useState(1)
 
     {/*First part Form Logic */ }
     const [date, setDate] = useState("")
@@ -159,7 +159,6 @@ export default function Newround() {
             setonescore(onescore - 1)
             const updatedOneshots = oneshots.slice(0, -1);
             setoneshots(updatedOneshots);
-
         }
     }
 
@@ -170,8 +169,6 @@ export default function Newround() {
         setoneshots(updatedOneshots);
     }
 
-
-
     function changeholeOneDistance(index, event) {
         const value = event.target.value;
         const updatedOneshots = [...oneshots]
@@ -179,7 +176,7 @@ export default function Newround() {
         setoneshots(updatedOneshots);
     }
 
-    {/* Hole two Functions */ }
+    {/* Hole 2 Functions */ }
     function handleTwoParChange(event) {
         settwopar(parseInt(event.target.value));
     }
@@ -187,6 +184,8 @@ export default function Newround() {
     function handleAddShotHoleTwo(event) {
         event.preventDefault();
         settwoscore(twoscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        settwoshots([...twoshots, ...newShots]);
     }
 
     function handleRemoveShotHoleTwo(event) {
@@ -195,22 +194,26 @@ export default function Newround() {
         }
         else {
             settwoscore(twoscore - 1)
+            const updatedtwoshots = twoshots.slice(0, -1);
+            settwoshots(updatedtwoshots);
         }
     }
 
-    function changeHoleTwo(event, index) {
+    function changeHoleTwo(index, event) {
         const value = event.target.value;
-        const updatedTwoshots = [...twoshots];
-        updatedTwoshots[index] = { ...updatedTwoshots[index], startingLie: value };
-        settwoshots(updatedTwoshots);
-    }
-    function changeholeTwoDistance(event, index) {
-        const value = event.target.value;
-        const updatedTwoshots = [{ ...twoshots[index], distanceToHole: value }];
-        settwoshots(updatedTwoshots);
+        const updatedtwoshots = [...twoshots];
+        updatedtwoshots[index] = { ...updatedtwoshots[index], startingLie: value };
+        settwoshots(updatedtwoshots);
     }
 
-    {/* Hole three Functions */ }
+    function changeholeTwoDistance(index, event) {
+        const value = event.target.value;
+        const updatedtwoshots = [...twoshots]
+        updatedtwoshots[index] = { ...updatedtwoshots[index], distanceToHole: value };
+        settwoshots(updatedtwoshots);
+    }
+
+    {/* Hole 3 Functions */ }
     function handleThreeParChange(event) {
         setthreepar(parseInt(event.target.value));
     }
@@ -218,6 +221,8 @@ export default function Newround() {
     function handleAddShotHoleThree(event) {
         event.preventDefault();
         setthreescore(threescore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setthreeshots([...threeshots, ...newShots]);
     }
 
     function handleRemoveShotHoleThree(event) {
@@ -226,22 +231,26 @@ export default function Newround() {
         }
         else {
             setthreescore(threescore - 1)
+            const updatedthreeshots = threeshots.slice(0, -1);
+            setthreeshots(updatedthreeshots);
         }
     }
 
-    function changeHoleThree(event, index) {
+    function changeHoleThree(index, event) {
         const value = event.target.value;
-        const updatedThreeshots = [...threeshots];
-        updatedThreeshots[index] = { ...updatedThreeshots[index], startingLie: value };
-        setthreeshots(updatedThreeshots);
-    }
-    function changeholeThreeDistance(event, index) {
-        const value = event.target.value;
-        const updatedThreeshots = [{ ...threeshots[index], distanceToHole: value }];
-        setthreeshots(updatedThreeshots);
+        const updatedthreeshots = [...threeshots];
+        updatedthreeshots[index] = { ...updatedthreeshots[index], startingLie: value };
+        setthreeshots(updatedthreeshots);
     }
 
-    {/* Hole four Functions */ }
+    function changeholeThreeDistance(index, event) {
+        const value = event.target.value;
+        const updatedthreeshots = [...threeshots]
+        updatedthreeshots[index] = { ...updatedthreeshots[index], distanceToHole: value };
+        setthreeshots(updatedthreeshots);
+    }
+
+    {/* Hole 4 Functions */ }
     function handleFourParChange(event) {
         setfourpar(parseInt(event.target.value));
     }
@@ -249,6 +258,8 @@ export default function Newround() {
     function handleAddShotHoleFour(event) {
         event.preventDefault();
         setfourscore(fourscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setfourshots([...fourshots, ...newShots]);
     }
 
     function handleRemoveShotHoleFour(event) {
@@ -257,22 +268,26 @@ export default function Newround() {
         }
         else {
             setfourscore(fourscore - 1)
+            const updatedfourshots = fourshots.slice(0, -1);
+            setfourshots(updatedfourshots);
         }
     }
 
-    function changeHoleFour(event, index) {
+    function changeHoleFour(index, event) {
         const value = event.target.value;
         const updatedfourshots = [...fourshots];
         updatedfourshots[index] = { ...updatedfourshots[index], startingLie: value };
         setfourshots(updatedfourshots);
     }
-    function changeholeFourDistance(event, index) {
+
+    function changeholeFourDistance(index, event) {
         const value = event.target.value;
-        const updatedfourshots = [{ ...fourshots[index], distanceToHole: value }];
+        const updatedfourshots = [...fourshots]
+        updatedfourshots[index] = { ...updatedfourshots[index], distanceToHole: value };
         setfourshots(updatedfourshots);
     }
 
-    {/* Hole five Functions */ }
+    {/* Hole 5 Functions */ }
     function handleFiveParChange(event) {
         setfivepar(parseInt(event.target.value));
     }
@@ -280,6 +295,8 @@ export default function Newround() {
     function handleAddShotHoleFive(event) {
         event.preventDefault();
         setfivescore(fivescore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setfiveshots([...fiveshots, ...newShots]);
     }
 
     function handleRemoveShotHoleFive(event) {
@@ -288,22 +305,26 @@ export default function Newround() {
         }
         else {
             setfivescore(fivescore - 1)
+            const updatedfiveshots = fiveshots.slice(0, -1);
+            setfiveshots(updatedfiveshots);
         }
     }
 
-    function changeHoleFive(event, index) {
+    function changeHoleFive(index, event) {
         const value = event.target.value;
         const updatedfiveshots = [...fiveshots];
         updatedfiveshots[index] = { ...updatedfiveshots[index], startingLie: value };
         setfiveshots(updatedfiveshots);
     }
-    function changeholeFiveDistance(event, index) {
+
+    function changeholeFiveDistance(index, event) {
         const value = event.target.value;
-        const updatedfiveshots = [{ ...fiveshots[index], distanceToHole: value }];
+        const updatedfiveshots = [...fiveshots]
+        updatedfiveshots[index] = { ...updatedfiveshots[index], distanceToHole: value };
         setfiveshots(updatedfiveshots);
     }
 
-    {/* Hole six Functions */ }
+    {/* Hole 6 Functions */ }
     function handleSixParChange(event) {
         setsixpar(parseInt(event.target.value));
     }
@@ -311,6 +332,8 @@ export default function Newround() {
     function handleAddShotHoleSix(event) {
         event.preventDefault();
         setsixscore(sixscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setsixshots([...sixshots, ...newShots]);
     }
 
     function handleRemoveShotHoleSix(event) {
@@ -319,22 +342,26 @@ export default function Newround() {
         }
         else {
             setsixscore(sixscore - 1)
+            const updatedsixshots = sixshots.slice(0, -1);
+            setsixshots(updatedsixshots);
         }
     }
 
-    function changeHoleSix(event, index) {
+    function changeHoleSix(index, event) {
         const value = event.target.value;
         const updatedsixshots = [...sixshots];
         updatedsixshots[index] = { ...updatedsixshots[index], startingLie: value };
         setsixshots(updatedsixshots);
     }
-    function changeholeSixDistance(event, index) {
+
+    function changeholeSixDistance(index, event) {
         const value = event.target.value;
-        const updatedsixshots = [{ ...sixshots[index], distanceToHole: value }];
+        const updatedsixshots = [...sixshots]
+        updatedsixshots[index] = { ...updatedsixshots[index], distanceToHole: value };
         setsixshots(updatedsixshots);
     }
 
-    {/* Hole seven Functions */ }
+    {/* Hole 7 Functions */ }
     function handleSevenParChange(event) {
         setsevenpar(parseInt(event.target.value));
     }
@@ -342,6 +369,8 @@ export default function Newround() {
     function handleAddShotHoleSeven(event) {
         event.preventDefault();
         setsevenscore(sevenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setsevenshots([...sevenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleSeven(event) {
@@ -350,22 +379,26 @@ export default function Newround() {
         }
         else {
             setsevenscore(sevenscore - 1)
+            const updatedsevenshots = sevenshots.slice(0, -1);
+            setsevenshots(updatedsevenshots);
         }
     }
 
-    function changeHoleSeven(event, index) {
+    function changeHoleSeven(index, event) {
         const value = event.target.value;
         const updatedsevenshots = [...sevenshots];
         updatedsevenshots[index] = { ...updatedsevenshots[index], startingLie: value };
         setsevenshots(updatedsevenshots);
     }
-    function changeholeSevenDistance(event, index) {
+
+    function changeholeSevenDistance(index, event) {
         const value = event.target.value;
-        const updatedsevenshots = [{ ...sevenshots[index], distanceToHole: value }];
+        const updatedsevenshots = [...sevenshots]
+        updatedsevenshots[index] = { ...updatedsevenshots[index], distanceToHole: value };
         setsevenshots(updatedsevenshots);
     }
 
-    {/* Hole eight Functions */ }
+    {/* Hole 8 Functions */ }
     function handleEightParChange(event) {
         seteightpar(parseInt(event.target.value));
     }
@@ -373,6 +406,8 @@ export default function Newround() {
     function handleAddShotHoleEight(event) {
         event.preventDefault();
         seteightscore(eightscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        seteightshots([...eightshots, ...newShots]);
     }
 
     function handleRemoveShotHoleEight(event) {
@@ -381,22 +416,26 @@ export default function Newround() {
         }
         else {
             seteightscore(eightscore - 1)
+            const updatedeightshots = eightshots.slice(0, -1);
+            seteightshots(updatedeightshots);
         }
     }
 
-    function changeHoleEight(event, index) {
+    function changeHoleEight(index, event) {
         const value = event.target.value;
         const updatedeightshots = [...eightshots];
         updatedeightshots[index] = { ...updatedeightshots[index], startingLie: value };
         seteightshots(updatedeightshots);
     }
-    function changeholeEightDistance(event, index) {
+
+    function changeholeEightDistance(index, event) {
         const value = event.target.value;
-        const updatedeightshots = [{ ...eightshots[index], distanceToHole: value }];
+        const updatedeightshots = [...eightshots]
+        updatedeightshots[index] = { ...updatedeightshots[index], distanceToHole: value };
         seteightshots(updatedeightshots);
     }
 
-    {/* Hole nine Functions */ }
+    {/* Hole 9 Functions */ }
     function handleNineParChange(event) {
         setninepar(parseInt(event.target.value));
     }
@@ -404,6 +443,8 @@ export default function Newround() {
     function handleAddShotHoleNine(event) {
         event.preventDefault();
         setninescore(ninescore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setnineshots([...nineshots, ...newShots]);
     }
 
     function handleRemoveShotHoleNine(event) {
@@ -412,22 +453,26 @@ export default function Newround() {
         }
         else {
             setninescore(ninescore - 1)
+            const updatednineshots = nineshots.slice(0, -1);
+            setnineshots(updatednineshots);
         }
     }
 
-    function changeHoleNine(event, index) {
+    function changeHoleNine(index, event) {
         const value = event.target.value;
         const updatednineshots = [...nineshots];
         updatednineshots[index] = { ...updatednineshots[index], startingLie: value };
         setnineshots(updatednineshots);
     }
-    function changeholeNineDistance(event, index) {
+
+    function changeholeNineDistance(index, event) {
         const value = event.target.value;
-        const updatednineshots = [{ ...nineshots[index], distanceToHole: value }];
+        const updatednineshots = [...nineshots]
+        updatednineshots[index] = { ...updatednineshots[index], distanceToHole: value };
         setnineshots(updatednineshots);
     }
 
-    {/* Hole ten Functions */ }
+    {/* Hole 10 Functions */ }
     function handleTenParChange(event) {
         settenpar(parseInt(event.target.value));
     }
@@ -435,6 +480,8 @@ export default function Newround() {
     function handleAddShotHoleTen(event) {
         event.preventDefault();
         settenscore(tenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        settenshots([...tenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleTen(event) {
@@ -443,22 +490,26 @@ export default function Newround() {
         }
         else {
             settenscore(tenscore - 1)
+            const updatedtenshots = tenshots.slice(0, -1);
+            settenshots(updatedtenshots);
         }
     }
 
-    function changeHoleTen(event, index) {
+    function changeHoleTen(index, event) {
         const value = event.target.value;
         const updatedtenshots = [...tenshots];
         updatedtenshots[index] = { ...updatedtenshots[index], startingLie: value };
         settenshots(updatedtenshots);
     }
-    function changeholeTenDistance(event, index) {
+
+    function changeholeTenDistance(index, event) {
         const value = event.target.value;
-        const updatedtenshots = [{ ...tenshots[index], distanceToHole: value }];
+        const updatedtenshots = [...tenshots]
+        updatedtenshots[index] = { ...updatedtenshots[index], distanceToHole: value };
         settenshots(updatedtenshots);
     }
 
-    {/* Hole eleven Functions */ }
+    {/* Hole 11 Functions */ }
     function handleElevenParChange(event) {
         setelevenpar(parseInt(event.target.value));
     }
@@ -466,6 +517,8 @@ export default function Newround() {
     function handleAddShotHoleEleven(event) {
         event.preventDefault();
         setelevenscore(elevenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setelevenshots([...elevenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleEleven(event) {
@@ -474,22 +527,26 @@ export default function Newround() {
         }
         else {
             setelevenscore(elevenscore - 1)
+            const updatedelevenshots = elevenshots.slice(0, -1);
+            setelevenshots(updatedelevenshots);
         }
     }
 
-    function changeHoleEleven(event, index) {
+    function changeHoleEleven(index, event) {
         const value = event.target.value;
         const updatedelevenshots = [...elevenshots];
         updatedelevenshots[index] = { ...updatedelevenshots[index], startingLie: value };
         setelevenshots(updatedelevenshots);
     }
-    function changeholeElevenDistance(event, index) {
+
+    function changeholeElevenDistance(index, event) {
         const value = event.target.value;
-        const updatedelevenshots = [{ ...elevenshots[index], distanceToHole: value }];
+        const updatedelevenshots = [...elevenshots]
+        updatedelevenshots[index] = { ...updatedelevenshots[index], distanceToHole: value };
         setelevenshots(updatedelevenshots);
     }
 
-    {/* Hole twelve Functions */ }
+    {/* Hole 12 Functions */ }
     function handleTwelveParChange(event) {
         settwelvepar(parseInt(event.target.value));
     }
@@ -497,6 +554,8 @@ export default function Newround() {
     function handleAddShotHoleTwelve(event) {
         event.preventDefault();
         settwelvescore(twelvescore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        settwelveshots([...twelveshots, ...newShots]);
     }
 
     function handleRemoveShotHoleTwelve(event) {
@@ -505,22 +564,26 @@ export default function Newround() {
         }
         else {
             settwelvescore(twelvescore - 1)
+            const updatedtwelveshots = twelveshots.slice(0, -1);
+            settwelveshots(updatedtwelveshots);
         }
     }
 
-    function changeHoleTwelve(event, index) {
+    function changeHoleTwelve(index, event) {
         const value = event.target.value;
         const updatedtwelveshots = [...twelveshots];
         updatedtwelveshots[index] = { ...updatedtwelveshots[index], startingLie: value };
         settwelveshots(updatedtwelveshots);
     }
-    function changeholeTwelveDistance(event, index) {
+
+    function changeholeTwelveDistance(index, event) {
         const value = event.target.value;
-        const updatedtwelveshots = [{ ...twelveshots[index], distanceToHole: value }];
+        const updatedtwelveshots = [...twelveshots]
+        updatedtwelveshots[index] = { ...updatedtwelveshots[index], distanceToHole: value };
         settwelveshots(updatedtwelveshots);
     }
 
-    {/* Hole thirteen Functions */ }
+    {/* Hole 13 Functions */ }
     function handleThirteenParChange(event) {
         setthirteenpar(parseInt(event.target.value));
     }
@@ -528,6 +591,8 @@ export default function Newround() {
     function handleAddShotHoleThirteen(event) {
         event.preventDefault();
         setthirteenscore(thirteenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setthirteenshots([...thirteenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleThirteen(event) {
@@ -536,22 +601,26 @@ export default function Newround() {
         }
         else {
             setthirteenscore(thirteenscore - 1)
+            const updatedthirteenshots = thirteenshots.slice(0, -1);
+            setthirteenshots(updatedthirteenshots);
         }
     }
 
-    function changeHoleThirteen(event, index) {
+    function changeHoleThirteen(index, event) {
         const value = event.target.value;
         const updatedthirteenshots = [...thirteenshots];
         updatedthirteenshots[index] = { ...updatedthirteenshots[index], startingLie: value };
         setthirteenshots(updatedthirteenshots);
     }
-    function changeholeThirteenDistance(event, index) {
+
+    function changeholeThirteenDistance(index, event) {
         const value = event.target.value;
-        const updatedthirteenshots = [{ ...thirteenshots[index], distanceToHole: value }];
+        const updatedthirteenshots = [...thirteenshots]
+        updatedthirteenshots[index] = { ...updatedthirteenshots[index], distanceToHole: value };
         setthirteenshots(updatedthirteenshots);
     }
 
-    {/* Hole fourteen Functions */ }
+    {/* Hole 14 Functions */ }
     function handleFourteenParChange(event) {
         setfourteenpar(parseInt(event.target.value));
     }
@@ -559,6 +628,8 @@ export default function Newround() {
     function handleAddShotHoleFourteen(event) {
         event.preventDefault();
         setfourteenscore(fourteenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setfourteenshots([...fourteenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleFourteen(event) {
@@ -567,22 +638,26 @@ export default function Newround() {
         }
         else {
             setfourteenscore(fourteenscore - 1)
+            const updatedfourteenshots = fourteenshots.slice(0, -1);
+            setfourteenshots(updatedfourteenshots);
         }
     }
 
-    function changeHoleFourteen(event, index) {
+    function changeHoleFourteen(index, event) {
         const value = event.target.value;
         const updatedfourteenshots = [...fourteenshots];
         updatedfourteenshots[index] = { ...updatedfourteenshots[index], startingLie: value };
         setfourteenshots(updatedfourteenshots);
     }
-    function changeholeFourteenDistance(event, index) {
+
+    function changeholeFourteenDistance(index, event) {
         const value = event.target.value;
-        const updatedfourteenshots = [{ ...fourteenshots[index], distanceToHole: value }];
+        const updatedfourteenshots = [...fourteenshots]
+        updatedfourteenshots[index] = { ...updatedfourteenshots[index], distanceToHole: value };
         setfourteenshots(updatedfourteenshots);
     }
 
-    {/* Hole fifteen Functions */ }
+    {/* Hole 15 Functions */ }
     function handleFifteenParChange(event) {
         setfifteenpar(parseInt(event.target.value));
     }
@@ -590,6 +665,8 @@ export default function Newround() {
     function handleAddShotHoleFifteen(event) {
         event.preventDefault();
         setfifteenscore(fifteenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setfifteenshots([...fifteenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleFifteen(event) {
@@ -598,22 +675,26 @@ export default function Newround() {
         }
         else {
             setfifteenscore(fifteenscore - 1)
+            const updatedfifteenshots = fifteenshots.slice(0, -1);
+            setfifteenshots(updatedfifteenshots);
         }
     }
 
-    function changeHoleFifteen(event, index) {
+    function changeHoleFifteen(index, event) {
         const value = event.target.value;
         const updatedfifteenshots = [...fifteenshots];
         updatedfifteenshots[index] = { ...updatedfifteenshots[index], startingLie: value };
         setfifteenshots(updatedfifteenshots);
     }
-    function changeholeFifteenDistance(event, index) {
+
+    function changeholeFifteenDistance(index, event) {
         const value = event.target.value;
-        const updatedfifteenshots = [{ ...fifteenshots[index], distanceToHole: value }];
+        const updatedfifteenshots = [...fifteenshots]
+        updatedfifteenshots[index] = { ...updatedfifteenshots[index], distanceToHole: value };
         setfifteenshots(updatedfifteenshots);
     }
 
-    {/* Hole sixteen Functions */ }
+    {/* Hole 16 Functions */ }
     function handleSixteenParChange(event) {
         setsixteenpar(parseInt(event.target.value));
     }
@@ -621,6 +702,8 @@ export default function Newround() {
     function handleAddShotHoleSixteen(event) {
         event.preventDefault();
         setsixteenscore(sixteenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setsixteenshots([...sixteenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleSixteen(event) {
@@ -629,22 +712,26 @@ export default function Newround() {
         }
         else {
             setsixteenscore(sixteenscore - 1)
+            const updatedsixteenshots = sixteenshots.slice(0, -1);
+            setsixteenshots(updatedsixteenshots);
         }
     }
 
-    function changeHoleSixteen(event, index) {
+    function changeHoleSixteen(index, event) {
         const value = event.target.value;
         const updatedsixteenshots = [...sixteenshots];
         updatedsixteenshots[index] = { ...updatedsixteenshots[index], startingLie: value };
         setsixteenshots(updatedsixteenshots);
     }
-    function changeholeSixteenDistance(event, index) {
+
+    function changeholeSixteenDistance(index, event) {
         const value = event.target.value;
-        const updatedsixteenshots = [{ ...sixteenshots[index], distanceToHole: value }];
+        const updatedsixteenshots = [...sixteenshots]
+        updatedsixteenshots[index] = { ...updatedsixteenshots[index], distanceToHole: value };
         setsixteenshots(updatedsixteenshots);
     }
 
-    {/* Hole seventeen Functions */ }
+    {/* Hole 17 Functions */ }
     function handleSeventeenParChange(event) {
         setseventeenpar(parseInt(event.target.value));
     }
@@ -652,6 +739,8 @@ export default function Newround() {
     function handleAddShotHoleSeventeen(event) {
         event.preventDefault();
         setseventeenscore(seventeenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        setseventeenshots([...seventeenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleSeventeen(event) {
@@ -660,22 +749,26 @@ export default function Newround() {
         }
         else {
             setseventeenscore(seventeenscore - 1)
+            const updatedseventeenshots = seventeenshots.slice(0, -1);
+            setseventeenshots(updatedseventeenshots);
         }
     }
 
-    function changeHoleSeventeen(event, index) {
+    function changeHoleSeventeen(index, event) {
         const value = event.target.value;
         const updatedseventeenshots = [...seventeenshots];
         updatedseventeenshots[index] = { ...updatedseventeenshots[index], startingLie: value };
         setseventeenshots(updatedseventeenshots);
     }
-    function changeholeSeventeenDistance(event, index) {
+
+    function changeholeSeventeenDistance(index, event) {
         const value = event.target.value;
-        const updatedseventeenshots = [{ ...seventeenshots[index], distanceToHole: value }];
+        const updatedseventeenshots = [...seventeenshots]
+        updatedseventeenshots[index] = { ...updatedseventeenshots[index], distanceToHole: value };
         setseventeenshots(updatedseventeenshots);
     }
 
-    {/* Hole eighteen Functions */ }
+    {/* Hole 18 Functions */ }
     function handleEighteenParChange(event) {
         seteighteenpar(parseInt(event.target.value));
     }
@@ -683,6 +776,8 @@ export default function Newround() {
     function handleAddShotHoleEighteen(event) {
         event.preventDefault();
         seteighteenscore(eighteenscore + 1)
+        const newShots = [{ startingLie: "", distanceToHole: 0 }];
+        seteighteenshots([...eighteenshots, ...newShots]);
     }
 
     function handleRemoveShotHoleEighteen(event) {
@@ -691,20 +786,29 @@ export default function Newround() {
         }
         else {
             seteighteenscore(eighteenscore - 1)
+            const updatedeighteenshots = eighteenshots.slice(0, -1);
+            seteighteenshots(updatedeighteenshots);
         }
     }
 
-    function changeHoleEighteen(event, index) {
+    function changeHoleEighteen(index, event) {
         const value = event.target.value;
         const updatedeighteenshots = [...eighteenshots];
         updatedeighteenshots[index] = { ...updatedeighteenshots[index], startingLie: value };
         seteighteenshots(updatedeighteenshots);
     }
-    function changeholeEighteenDistance(event, index) {
+
+    function changeholeEighteenDistance(index, event) {
         const value = event.target.value;
-        const updatedeighteenshots = [{ ...eighteenshots[index], distanceToHole: value }];
+        const updatedeighteenshots = [...eighteenshots]
+        updatedeighteenshots[index] = { ...updatedeighteenshots[index], distanceToHole: value };
         seteighteenshots(updatedeighteenshots);
     }
+
+
+
+
+
 
 
     {/* Alerts to help user */ }
@@ -897,8 +1001,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -930,13 +1034,13 @@ export default function Newround() {
                 else {
                     onesgputting = rounding(distance, green) - 1 + onesgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusonelie = dict[i + 1].startingLie
                 const plusonedistance = dict[i + 1].distanceToHole
-                
+
                 let plusonesg = 0
                 if (plusonelie === "Green") {
                     plusonesg = rounding(plusonedistance, green)
@@ -999,8 +1103,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1032,13 +1136,13 @@ export default function Newround() {
                 else {
                     twosgputting = rounding(distance, green) - 1 + twosgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plustwolie = dict[i + 1].startingLie
                 const plustwodistance = dict[i + 1].distanceToHole
-                
+
                 let plustwosg = 0
                 if (plustwolie === "Green") {
                     plustwosg = rounding(plustwodistance, green)
@@ -1101,8 +1205,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1134,13 +1238,13 @@ export default function Newround() {
                 else {
                     threesgputting = rounding(distance, green) - 1 + threesgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusthreelie = dict[i + 1].startingLie
                 const plusthreedistance = dict[i + 1].distanceToHole
-                
+
                 let plusthreesg = 0
                 if (plusthreelie === "Green") {
                     plusthreesg = rounding(plusthreedistance, green)
@@ -1203,8 +1307,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1236,13 +1340,13 @@ export default function Newround() {
                 else {
                     foursgputting = rounding(distance, green) - 1 + foursgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusfourlie = dict[i + 1].startingLie
                 const plusfourdistance = dict[i + 1].distanceToHole
-                
+
                 let plusfoursg = 0
                 if (plusfourlie === "Green") {
                     plusfoursg = rounding(plusfourdistance, green)
@@ -1305,8 +1409,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1338,13 +1442,13 @@ export default function Newround() {
                 else {
                     fivesgputting = rounding(distance, green) - 1 + fivesgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusfivelie = dict[i + 1].startingLie
                 const plusfivedistance = dict[i + 1].distanceToHole
-                
+
                 let plusfivesg = 0
                 if (plusfivelie === "Green") {
                     plusfivesg = rounding(plusfivedistance, green)
@@ -1407,8 +1511,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1440,13 +1544,13 @@ export default function Newround() {
                 else {
                     sixsgputting = rounding(distance, green) - 1 + sixsgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plussixlie = dict[i + 1].startingLie
                 const plussixdistance = dict[i + 1].distanceToHole
-                
+
                 let plussixsg = 0
                 if (plussixlie === "Green") {
                     plussixsg = rounding(plussixdistance, green)
@@ -1509,8 +1613,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1542,13 +1646,13 @@ export default function Newround() {
                 else {
                     sevensgputting = rounding(distance, green) - 1 + sevensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plussevenlie = dict[i + 1].startingLie
                 const plussevendistance = dict[i + 1].distanceToHole
-                
+
                 let plussevensg = 0
                 if (plussevenlie === "Green") {
                     plussevensg = rounding(plussevendistance, green)
@@ -1611,8 +1715,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1644,13 +1748,13 @@ export default function Newround() {
                 else {
                     eightsgputting = rounding(distance, green) - 1 + eightsgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const pluseightlie = dict[i + 1].startingLie
                 const pluseightdistance = dict[i + 1].distanceToHole
-                
+
                 let pluseightsg = 0
                 if (pluseightlie === "Green") {
                     pluseightsg = rounding(pluseightdistance, green)
@@ -1713,8 +1817,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1746,13 +1850,13 @@ export default function Newround() {
                 else {
                     ninesgputting = rounding(distance, green) - 1 + ninesgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusninelie = dict[i + 1].startingLie
                 const plusninedistance = dict[i + 1].distanceToHole
-                
+
                 let plusninesg = 0
                 if (plusninelie === "Green") {
                     plusninesg = rounding(plusninedistance, green)
@@ -1815,8 +1919,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1848,13 +1952,13 @@ export default function Newround() {
                 else {
                     tensgputting = rounding(distance, green) - 1 + tensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plustenlie = dict[i + 1].startingLie
                 const plustendistance = dict[i + 1].distanceToHole
-                
+
                 let plustensg = 0
                 if (plustenlie === "Green") {
                     plustensg = rounding(plustendistance, green)
@@ -1917,8 +2021,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -1950,13 +2054,13 @@ export default function Newround() {
                 else {
                     elevensgputting = rounding(distance, green) - 1 + elevensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const pluselevenlie = dict[i + 1].startingLie
                 const pluselevendistance = dict[i + 1].distanceToHole
-                
+
                 let pluselevensg = 0
                 if (pluselevenlie === "Green") {
                     pluselevensg = rounding(pluselevendistance, green)
@@ -2019,8 +2123,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -2052,13 +2156,13 @@ export default function Newround() {
                 else {
                     twelvesgputting = rounding(distance, green) - 1 + twelvesgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plustwelvelie = dict[i + 1].startingLie
                 const plustwelvedistance = dict[i + 1].distanceToHole
-                
+
                 let plustwelvesg = 0
                 if (plustwelvelie === "Green") {
                     plustwelvesg = rounding(plustwelvedistance, green)
@@ -2121,8 +2225,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -2154,13 +2258,13 @@ export default function Newround() {
                 else {
                     thirteensgputting = rounding(distance, green) - 1 + thirteensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusthirteenlie = dict[i + 1].startingLie
                 const plusthirteendistance = dict[i + 1].distanceToHole
-                
+
                 let plusthirteensg = 0
                 if (plusthirteenlie === "Green") {
                     plusthirteensg = rounding(plusthirteendistance, green)
@@ -2223,8 +2327,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -2256,13 +2360,13 @@ export default function Newround() {
                 else {
                     fourteensgputting = rounding(distance, green) - 1 + fourteensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusfourteenlie = dict[i + 1].startingLie
                 const plusfourteendistance = dict[i + 1].distanceToHole
-                
+
                 let plusfourteensg = 0
                 if (plusfourteenlie === "Green") {
                     plusfourteensg = rounding(plusfourteendistance, green)
@@ -2325,8 +2429,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -2358,13 +2462,13 @@ export default function Newround() {
                 else {
                     fifteensgputting = rounding(distance, green) - 1 + fifteensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusfifteenlie = dict[i + 1].startingLie
                 const plusfifteendistance = dict[i + 1].distanceToHole
-                
+
                 let plusfifteensg = 0
                 if (plusfifteenlie === "Green") {
                     plusfifteensg = rounding(plusfifteendistance, green)
@@ -2427,8 +2531,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -2460,13 +2564,13 @@ export default function Newround() {
                 else {
                     sixteensgputting = rounding(distance, green) - 1 + sixteensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plussixteenlie = dict[i + 1].startingLie
                 const plussixteendistance = dict[i + 1].distanceToHole
-                
+
                 let plussixteensg = 0
                 if (plussixteenlie === "Green") {
                     plussixteensg = rounding(plussixteendistance, green)
@@ -2529,8 +2633,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -2562,13 +2666,13 @@ export default function Newround() {
                 else {
                     seventeensgputting = rounding(distance, green) - 1 + seventeensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const plusseventeenlie = dict[i + 1].startingLie
                 const plusseventeendistance = dict[i + 1].distanceToHole
-                
+
                 let plusseventeensg = 0
                 if (plusseventeenlie === "Green") {
                     plusseventeensg = rounding(plusseventeendistance, green)
@@ -2631,8 +2735,8 @@ export default function Newround() {
 
         const values = Object.values(dict);
         const numValues = values.length;
-        
-        
+
+
         for (let i = numValues - 1; i >= 0; i--) {
             const lie = dict[i].startingLie;
             /* The "if" statement Below is the last shot for each hole */
@@ -2664,13 +2768,13 @@ export default function Newround() {
                 else {
                     eighteensgputting = rounding(distance, green) - 1 + eighteensgputting
                 }
-            
+
             }
             /* This is assuming that this current shot did not hole out */
             else {
                 const pluseighteenlie = dict[i + 1].startingLie
                 const pluseighteendistance = dict[i + 1].distanceToHole
-                
+
                 let pluseighteensg = 0
                 if (pluseighteenlie === "Green") {
                     pluseighteensg = rounding(pluseighteendistance, green)
@@ -2725,23 +2829,28 @@ export default function Newround() {
         strokesgainedholeeighteen(eighteenshots);
     }, [eighteenshots]);
 
-    {/* Calculating Total SG */}
+    {/* Calculating Total SG */ }
     const totalputtingsg = oneputtingsg + twoputtingsg + threeputtingsg + fourputtingsg + fiveputtingsg + sixputtingsg + sevenputtingsg + eightputtingsg + nineputtingsg + tenputtingsg + elevenputtingsg + twelveputtingsg + thirteenputtingsg + fourteenputtingsg + fifteenputtingsg + sixteenputtingsg + seventeenputtingsg + eighteenputtingsg
+    const totalshortgamesg = oneshortgamesg + twoshortgamesg + threeshortgamesg + fourshortgamesg + fiveshortgamesg + sixshortgamesg + sevenshortgamesg + eightshortgamesg + nineshortgamesg + tenshortgamesg + elevenshortgamesg + twelveshortgamesg + thirteenshortgamesg + fourteenshortgamesg + fifteenshortgamesg + sixteenshortgamesg + seventeenshortgamesg + eighteenshortgamesg
+    const totalapproachsg = oneapproachsg + twoapproachsg + threeapproachsg + fourapproachsg + fiveapproachsg + sixshortgamesg + sevenshortgamesg + eightapproachsg + nineapproachsg + tenapproachsg + elevenapproachsg + twelveapproachsg + thirteenapproachsg + fourteenapproachsg + fifteenapproachsg + sixteenapproachsg + seventeenapproachsg + eighteenapproachsg
+    const totalteesg = oneteesg + twoteesg + threeteesg + fourteesg + fiveteesg + sixteesg + seventeesg + eightteesg + nineteesg + tenteesg + eleventeesg + twelveteesg + thirteenteesg + fourteenteesg + fifteenteesg + sixteenteesg + seventeenteesg + eighteenteesg
 
-    {/* Chart Config */}
+    const totalsg = totalputtingsg + totalshortgamesg + totalapproachsg + totalteesg
+
+    {/* Chart Config */ }
     const data = {
         labels: ["SG Putting", 'SG Short Game', 'SG Approach', 'SG Driving'],
         datasets: [
             {
                 label: 'Personal SG',
-                data: [0.12, 1, 0.2, 2],
+                data: [totalputtingsg.toFixed(2), totalshortgamesg, totalapproachsg, totalteesg],
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
             },
             {
                 label: 'PGA Tour Average',
-                data: [0.17, 0.64, 0.64, 0.32],
+                data: [0.17, 0.32, 0.32, 0.32],
                 backgroundColor: 'rgba(99, 132, 255, 0.2)',
                 borderColor: 'rgba(99, 132, 255, 1)',
                 borderWidth: 1,
@@ -3021,14 +3130,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: twoscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTwo(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTwo(index, event)} value={twoshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTwoDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTwoDistance(index, event)} value={twoshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3059,14 +3168,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: threescore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleThree(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleThree(index, event)} value={threeshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeThreeDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeThreeDistance(index, event)} value={threeshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3097,14 +3206,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: fourscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFour(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFour(index, event)} value={fourshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFourDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFourDistance(index, event)} value={fourshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3135,14 +3244,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: fivescore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFive(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFive(index, event)} value={fiveshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFiveDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFiveDistance(index, event)} value={fiveshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3173,14 +3282,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: sixscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSix(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSix(index, event)} value={sixshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSixDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSixDistance(index, event)} value={sixshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3211,14 +3320,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: sevenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSeven(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSeven(index, event)} value={sevenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSevenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSevenDistance(index, event)} value={sevenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3249,14 +3358,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: eightscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEight(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEight(index, event)} value={eightshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeEightDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeEightDistance(index, event)} value={eightshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3287,14 +3396,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: ninescore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleNine(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleNine(index, event)} value={nineshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeNineDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeNineDistance(index, event)} value={nineshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3303,10 +3412,8 @@ export default function Newround() {
                                 </div>
                                 <div>
                                     <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    {holes === 9
-                                        ? <button onClick={finishround} className="nexthole">Finish Round<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                        : <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                    }
+                                    {(holes === 18 || holes === "") && (<button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>)}
+                                    {holes === 9 && (<button onClick={finishround} className="nexthole">Finish Round<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>)}
                                 </div>
                             </form>
                         </div>)}
@@ -3328,14 +3435,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: tenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTen(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTen(index, event)} value={tenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTenDistance(index, event)} value={tenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3366,14 +3473,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: elevenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEleven(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEleven(index, event)} value={elevenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeElevenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeElevenDistance(index, event)} value={elevenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3404,14 +3511,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: twelvescore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTwelve(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTwelve(index, event)} value={twelveshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTwelveDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTwelveDistance(index, event)} value={twelveshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3442,14 +3549,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: thirteenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleThirteen(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleThirteen(index, event)} value={thirteenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeThirteenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeThirteenDistance(index, event)} value={thirteenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3480,14 +3587,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: fourteenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFourteen(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFourteen(index, event)} value={fourteenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFourteenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFourteenDistance(index, event)} value={fourteenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3518,14 +3625,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: fifteenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFifteen(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFifteen(index, event)} value={fifteenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFifteenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFifteenDistance(index, event)} value={fifteenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3556,14 +3663,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: sixteenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSixteen(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSixteen(index, event)} value={sixteenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSixteenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSixteenDistance(index, event)} value={sixteenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3594,14 +3701,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: seventeenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSeventeen(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSeventeen(index, event)} value={seventeenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSeventeenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSeventeenDistance(index, event)} value={seventeenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3632,14 +3739,14 @@ export default function Newround() {
                                 </div>
                                 {Array.from({ length: eighteenscore }).map((_, index) => (
                                     <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEighteen(index)}>
+                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEighteen(index, event)} value={eighteenshots[index].startingLie} >
                                             <option>Tee</option>
                                             <option>Fairway</option>
                                             <option>Green</option>
                                             <option>Sand</option>
                                             <option>Rough</option>
                                         </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeEighteenDistance(event, index)} />
+                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeEighteenDistance(index, event)} value={eighteenshots[index].distanceToHole} />
                                     </div>
                                 ))}
                                 <div className='buttoncontainer'>
@@ -3817,20 +3924,29 @@ export default function Newround() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>This Round</td>
-                                        <td>{/* totalsg */}</td>
-                                        <td>{/* totalsgputting */}</td>
-                                        <td>{/* totalsgshortgame */}</td>
-                                        <td>{/* totalsgapproach */}</td>
-                                        <td>{/* totalsgdriving */}</td>
+                                        <td className='title1'>This Round</td>
+                                        <td>{totalsg.toFixed(2)}</td>
+                                        <td>{totalputtingsg.toFixed(2)}</td>
+                                        <td>{totalshortgamesg.toFixed(2)}</td>
+                                        <td>{totalapproachsg.toFixed(2)}</td>
+                                        <td>{totalteesg.toFixed(2)}</td>
                                     </tr>
                                     <tr>
-                                        <td>PGA Tour Player Average</td>
-                                        <td>{/*Find the data here */}</td>
+                                        <td className='title1'>PGA Tour Player Average</td>
+                                        <td>{1.32}</td>
+                                        <td>{0.17}</td>
+                                        <td>{0.32}</td>
+                                        <td>{0.32}</td>
+                                        <td>{0.32}</td>
+
                                     </tr>
                                     <tr>
-                                        <td>Gap</td>
-                                        <td>{/* Find the Difference Here*/}</td>
+                                        <td className='title1'>Gap</td>
+                                        <td className={((totalsg - 1.32) < 0) ? "red" : "green"}>{(Math.abs(1.32 - totalsg.toFixed(2))).toFixed(2)}</td>
+                                        <td className={((totalputtingsg - 0.17) < 0) ? "red" : "green"}>{(Math.abs(0.17 - totalputtingsg.toFixed(2))).toFixed(2)}</td>
+                                        <td className={((totalshortgamesg - 0.32) < 0) ? "red" : "green"}>{(Math.abs(0.32 - totalshortgamesg.toFixed(2))).toFixed(2)}</td>
+                                        <td className={((totalapproachsg - 0.32) < 0) ? "red" : "green"}>{(Math.abs(0.32 - totalapproachsg.toFixed(2))).toFixed(2)}</td>
+                                        <td className={((totalteesg - 0.32) < 0) ? "red" : "green"}>{(Math.abs(0.32 - totalteesg.toFixed(2))).toFixed(2)}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -3841,12 +3957,81 @@ export default function Newround() {
                         <p className={statshowing === "shortgame" ? "active2" : ""} onClick={() => setstatshowing('shortgame')}>Short Game</p>
                         <p className={statshowing === "approach" ? "active2" : ""} onClick={() => setstatshowing("approach")}>Approach</p>
                         <p className={statshowing === "driving" ? "active2" : ""} onClick={() => setstatshowing("driving")}>Driving</p>
-                        <p onClick={()=>{strokesgainedholeone([{ startingLie: "Tee", distanceToHole: 0 }])}}>Function Tester</p>
-                        <p>{totalputtingsg}</p>
+                        <p className={statshowing === "scoring" ? "active2" : ""} onClick={()=> setstatshowing("scoring")}>Scoring</p>
                     </div>
                     {statshowing === "putting" && (
-                        <div>
-                            putting
+                        <div className='putting'>
+                            <div className='puttinggrid'>
+                                <div>
+                                    <h4>Basic Statistics</h4>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>This Round</th>
+                                                <th>PGA Tour Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Putts Per Round</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Putts Per GIR</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>One Putt Percentage</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Three Putt Percentage</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Total Distance of Putts Made</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <h4>Percentage Made from Each Distance</h4>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>This Round</th>
+                                                <th>PGA Tour Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>0-5 Feet</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5-10 Feet</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-15 Feet</td>
+                                            </tr>
+                                            <tr>
+                                                <td>15-20 Feet</td>
+                                            </tr>
+                                            <tr>
+                                                <td>20+ Feet</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <h4>Advanced Strokes gained Data</h4>
+                                </div>
+                            </div>
+
                         </div>
                     )}
                     {statshowing === "shortgame" && (
@@ -3862,6 +4047,10 @@ export default function Newround() {
                     {statshowing === "driving" && (
                         <div>
                             driving
+                        </div>
+                    )}
+                    {statshowing === "scoring" && (
+                        <div>
                         </div>
                     )}
                 </div>

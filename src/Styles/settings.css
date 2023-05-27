@@ -15,7 +15,7 @@
     backdrop-filter: blur(5.2px);
     -webkit-backdrop-filter: blur(5.2px);
     border: 1px solid rgba(255, 255, 255, 0.44);
-    height: 200px;
+    height: 145px;
 }
 
 .settingsgrid1 ul {
@@ -72,5 +72,73 @@
     font-family: 'Darker Grotesque';
     color: rgb(207, 0, 0);
 }
+
+
+.settingsgrid2 h4 {
+    text-align: left;
+    font-size: 32px;
+    margin-left: 10%;
+    margin-top: 3%;
+}
+
+.settingsform {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-left: 10%;
+    width: 30%;
+    gap: 20px;
+}
+
+.settingsgrid2 label {
+    font-size: 25px;
+    font-family: 'Darker Grotesque';
+}
+
+.settingsgrid2 input {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    height: 30px;
+    width: 200px;
+    font-family: 'Darker Grotesque';
+    padding-left: 10px;
+    font-size: 20px;
+}
+.blue {
+    color: rgb(84, 181, 255);
+}
+
+.marginleft {
+    margin-left: 10%;
+}
+
+.settingsform2 {
+    display: grid;
+    grid-template-columns: 200px 200px 300px;
+    margin-left: 10%;
+    gap: 30px;
+    width: 70%;
+}
+
+.settingsgrid2 button {
+    margin-top: 50px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 5px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    height: 40px;
+    width: 210px;
+    margin-left: 10%;
+    cursor: pointer;
+    font-family: 'Darker Grotesque';
+    font-size: 25px;
+}
+
 
 

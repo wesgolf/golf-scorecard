@@ -340,3 +340,72 @@
     -webkit-backdrop-filter: blur(5.2px);
     border: 1px solid rgba(255, 255, 255, 0.44);
 }
+
+
+/* Main Data table */
+.analysis th {
+    font-family: 'IBM Plex Sans Condensed';
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.analysis td {
+    padding-top: 70px;
+    text-align: center;
+}
+
+.title1 {
+    text-align: center;
+    font-family: 'Darker Grotesque';
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+
+/* Putting */
+.putting {
+    padding-top: 50px;
+    width: 100vw;
+    padding-bottom: 50px;
+}
+.puttinggrid {
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    margin: auto;
+}
+
+.puttinggrid div {
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.puttinggrid h4 {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.puttinggrid th {
+    font-size: 20px;
+    font-family: 'Darker Grotesque';
+    padding-left: 5px;
+    padding-right: 5px;
+}
