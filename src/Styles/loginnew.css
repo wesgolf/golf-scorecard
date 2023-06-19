@@ -1,0 +1,153 @@
+.login-container {
+    display: grid;
+    grid-template-columns: 0.70fr 1.3fr;
+    width: 100%;
+    height: 100vh;
+}
+
+.login-with {
+    margin-top: 50px;
+}
+
+.login-box h1 {
+    font-family: Decimal, sans-serif;
+    padding-top: 2.5%;
+    padding-left: 15%;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+.login-box a {
+    text-decoration: none;
+    color: #3E4C5B;
+}
+
+.login-image {
+    background-size: cover;
+    background-image: url(https://my.causal.app/_next/static/media/Background.e0ff5210.png);
+}
+
+.login-with a {
+    margin: auto;
+    text-align: center;
+    border: .7px solid #e3e3e8;
+    box-shadow: 3px 3px 20px rgba(42, 49, 64, .06);
+    border-radius: 10px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.login-with div:hover {
+    background-color: #f2f3f4
+}
+
+.login-with p {
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: 'Inter';
+    text-decoration: none solid rgb(62, 76, 91);
+    color: #3E4C5B;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.login-with img {
+    height: 14px;
+}
+
+.login-box form {
+    margin-left: 15%;
+    width: 70%;
+}
+
+.login-box label {
+    font-family: 'Inter';
+    text-decoration: none solid rgb(62, 76, 91);
+    color: #3E4C5B;
+    font-weight: 550;
+    font-size: 16px;
+}
+
+.login-box input {
+    width: calc(100% - 20px);
+    border: .7px solid #e3e3e8;
+    box-shadow: 3px 3px 20px rgba(42, 49, 64, .06);
+    font-family: 'Inter';
+    line-height: 2em;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    text-decoration: none solid rgb(62, 76, 91);
+    color: #3E4C5B;
+    border-radius: 5px;
+}
+
+.login-box button {
+    border-radius: 5px;
+    width: 100%;
+    border: none;
+    font-family: 'Inter';
+    line-height: 2em;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-decoration: none solid rgb(62, 76, 91);
+    color: white;
+    cursor: pointer;
+    background-color: rgb(67, 114, 211);
+    margin-top: 20px;
+}
+
+.login-box button:hover {
+    background-color: rgb(47, 83, 156);
+}
+
+.or-container {
+    width: 100%;
+    height: 5vh;
+}
+
+.or-container p {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -18%);
+    font-family: 'Inter';
+    line-height: 2em;
+    font-size: 14px;
+    color: #aeafb0;
+    background-color: white;
+    width: fit-content;
+    padding: 0px 10px;
+    border-radius: 50%;
+}
+
+.or-container div {
+    background-color: #aeafb0;
+    height: 1px;
+    width: 70%;
+    margin: auto;
+    position: relative;
+    top: 50%;
+}
+
+.forgot-grid {
+    display: flex;
+    margin-left: 15%;
+}
+
+.forgot-grid a {
+    margin-right: 10px;
+    color: rgb(67, 114, 211) !important;
+    font-family: 'Inter';
+    font-weight: 500;
+    margin-top: 0%;
+    font-size: 14px;
+    cursor: pointer;
+}
+

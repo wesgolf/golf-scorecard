@@ -1,0 +1,191 @@
+@import url('https://fonts.cdnfonts.com/css/geograph-edit');
+
+.blog-hero {
+    background-color: #f3f7fd;
+    background-image: url(https://assets-global.website-files.com/61e8494b1e8e024a7113bd50/61f2a64bf707f62b2ea2e141_Grid.svg);
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 50vh;
+}
+
+.blog-hero h1 {
+    text-align: center;
+    margin: 0;
+    padding-top: 200px;
+    font-family: Decimal, sans-serif;
+    width: 50%;
+    margin: auto;
+}
+
+.blog-hero p {
+    font-family: "Open sans", sans-serif;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Header */
+.blog-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    width: 70%;
+    margin-top: 30px;
+}
+
+.blog-header div {
+    margin: auto 0;
+}
+
+
+
+
+.blog-header ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.blog-header li {
+    display: inline-block;
+    margin-right: 15px;
+    font-family: 'TT Norms Pro', sans-serif;
+    cursor: pointer;
+}
+
+.blog-blue {
+    color: #1d75dd;
+    font-weight: 700;
+}
+
+.blog-header input {
+    float: right;
+    border: .7px solid #e3e3e8;
+    box-shadow: 3px 3px 20px rgba(42, 49, 64, .06);
+    height: 40px;
+    width: 250px;
+    border-radius: 10px;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+/* Posts */
+.blog-post-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: auto;
+    width: 70%;
+    margin-top: 30px;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.blog-post {
+    border: .7px solid #e3e3e8;
+    box-shadow: 3px 3px 20px rgba(42, 49, 64, .06);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.blog-post img {
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    height: 17.5vh;
+    object-fit: cover;
+}
+
+.blog-post h1 {
+    margin-left: 10%;
+    font-size: 15px;
+    color: #1d75dd;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.blog-post h2 {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 22px;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.blog-post p {
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+    font-size: 16px;
+}
+
+
+/* Actual Blog Post */
+/* Actual Blog Post Header */
+
+.blog-two-header {
+    height: 60vh;
+    background-image: linear-gradient(129deg, #fff, rgba(0, 0, 0, 0) 54%), linear-gradient(294deg, #e0e9f6, rgba(255, 255, 255, .41) 70%), url(https://assets-global.website-files.com/61e8494b1e8e024a7113bd50/63ea45f7e8d15c22f0338724_Spreadsheet.png);
+    border-bottom: 0.75px solid rgb(108, 108, 108, 0.5);
+    margin-bottom: 22vh;
+}
+
+.blog-two-header h2 {
+    font-family: 'TT Norms Pro', sans-serif;
+    padding-top: 10%;
+    margin-left: 20%;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #1d75dd;
+}
+
+.blog-two-header h1 {
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-left: 20%;
+}
+
+.blog-two-header h3 {
+    margin-left: 20%;
+    margin-right: 20%;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.blog-two-header img {
+    width: 60%;
+    margin-left: 20%;
+    border-radius: 10px;
+    height: 60%;
+    resize: none;
+}
+
+.blog-two-header-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    width: 60%;
+    margin-bottom: 20px;
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-top: 30px;
+    font-weight: 500;
+}
+
+.blog-float-right {
+    text-align: right;
+}
+
+.blog-post-content {
+    width: 60%;
+    margin: auto;
+    font-family: 'TT Norms Pro', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 2;
+    margin-bottom: 30px;
+}

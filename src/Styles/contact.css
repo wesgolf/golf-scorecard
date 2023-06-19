@@ -1,0 +1,164 @@
+.contact-background {
+    background-image: url("https://assets-global.website-files.com/61e8494b1e8e024a7113bd50/61f96b196de962c37ec8f0ab_Grid%20(1).svg");
+    height: 100vh;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(243,247,253);
+    margin-bottom: 40px;
+}
+
+.contact-buffer {
+    height: 17.5vh;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 70%;
+    margin: auto;
+    height: 65vh;
+    gap: 30px;
+}
+
+.contact-form-container {
+    background-color: white;
+    border-radius: 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.contact-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 50px;
+}
+
+/* Form */
+.contact-form-container label {
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-left: 10%;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.contact-form-container input {
+    margin-left: 10%;
+    width: 74.5%;
+    height: 20px;
+    margin-top: 8%;
+    color: #3e4c5b;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(78, 90, 104, .25);
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 0 2px rgba(62, 76, 91, .08);
+    font-size: 16px;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.contact-form-container textarea {
+    margin-left: 5%;
+    width: 87.5%;
+    color: #3e4c5b;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(78, 90, 104, .25);
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 0 2px rgba(62, 76, 91, .08);
+    font-size: 16px;
+    font-family: 'TT Norms Pro', sans-serif;
+    resize: none;
+    margin-top: 5%;
+    height: 100px;
+}
+
+.contact-form-container button {
+    margin-left: 5%;
+    width: 90%;
+    margin-top: 20px;
+    height: 40px;
+    color: white;
+    border: 1px solid rgba(78, 90, 104, .25);
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 0 2px rgba(62, 76, 91, .08);
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'TT Norms Pro', sans-serif;
+    background-color: rgb(29,117,221);
+}
+
+
+.contact-form-container p {
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 12px;
+    color: rgba(78, 90, 104);
+    margin-top: 40px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Left Side */
+
+.contact-grid h1 {
+    margin-left: 10%;
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-bottom: 30px;
+    margin-right: 10%;
+}
+
+.contact-grid h2 {
+    margin-left: 10%;
+    font-size: 20px;
+    color: #3e4c5b;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.75em;
+    margin-right: 10%;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.contact-grid ul {
+    padding-left: 0;
+    list-style: none;
+    color: #3e4c5b;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.75em;
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-left: 10%;
+    margin-top: 40px;
+}
+
+.contact-grid li {
+    margin-bottom: 20px;
+}
+
+.fa-contact {
+    margin-right: 20px;
+    color: rgb(29,117,221);
+}
+
+.contact-center {
+    margin: auto;
+}
+
+/* Error Handling */
+
+.error {
+    margin-top: 2px;
+    font-size: 12px;
+    color: red;
+    margin-bottom: 25px;
+    margin-left: 10%;
+}
+
+.error1 {
+    margin-top: 2px;
+    font-size: 12px;
+    color: red;
+    margin-bottom: 25px;
+    margin-left: 5%;  
+}

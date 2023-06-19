@@ -1,0 +1,57 @@
+.navbargrid {
+    position: absolute;
+    font-family: 'TT Norms Pro', sans-serif;
+    display: grid;
+    grid-template-columns: 175px 1fr 350px;
+    width: 80%;
+    margin: auto;
+    margin-left: 10%;
+    margin-top: none;
+    top: 0;
+}
+
+.navbargrid ul {
+    list-style-type: none;
+}
+
+.navbargrid li {
+    display: inline-block;
+    margin-right: 15px;
+    transition: background-color 0.3s ease; /* Optional: Add a transition effect for a smoother hover effect */
+    padding: 10px 12.5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.navbargrid li:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Adjust the RGBA values to darken the background color */
+}
+
+
+
+.navbargrid a {
+    color: rgb(52, 52, 52);
+    text-decoration: none;
+}
+
+.navbargrid div {
+    margin: auto 0;
+}
+
+.loginregistercontainer {
+    color: rgb(52, 52, 52);
+}
+
+.reg {
+    background-color: rgb(27,105,199);
+    padding: 10px 12.5px;
+    border-radius: 10px;
+    color: white;
+}
+
+.reg a {
+    color: white;
+}
+
+
+

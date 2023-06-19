@@ -6,7 +6,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthErrorCodes, signInWithEmailAndPassword} from 'firebase/auth';
 import { Navigate } from "react-router-dom";
-import { auth } from '../../firebase'
+import { auth } from '../firebase'
 
 
 export default function Login({ setShowLogin }) {

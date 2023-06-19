@@ -5,12 +5,13 @@ import '../../Styles/register.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { auth, db } from '../../firebase'
+import { auth, db } from '../firebase'
 import { getDatabase, ref, get } from 'firebase/database';
 
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from 'firebase/auth'
 import { addDoc, collection } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from 'firebase/firestore';
 
 
 export default function Register({ setShowRegister }) {

@@ -1,0 +1,54 @@
+.padding {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 52px;
+}
+
+.homepagecontainer1 {
+    padding-top: 100px;
+    background-color: rgb(231,230,233);
+}
+
+.homepagecontainer1 h2 {
+    font-family: 'TT Norms Pro', sans-serif;
+    font-weight: 400;
+    margin-left: 10%;
+    color: black;
+}
+
+.homepagecontainer1 h4 {
+    font-family: 'TT Norms Pro', sans-serif;
+    font-weight: 300;
+    margin-left: 10%;
+    text-align: left;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.rounds {
+    background-color: none;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    border: none;
+    background-color: transparent;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.homepagegrid1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    width: 80%;
+    margin: auto;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.homepagegrid1 div {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    height: 300px;
+}
