@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Navbar from '../components/unauthorized components/navbar';
 import '../Styles/mainpagenew.css';
 import Footer from './footer';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function Mainpage() {
   const [titleHelp, setTitleHelp] = useState('Improve your golf game');
@@ -42,6 +44,12 @@ export default function Mainpage() {
   useEffect(() => {
     setTitleHelp(help[currentIndex]);
   }, [currentIndex]);
+
+  useEffect(() => {
+    AOS.init({
+      // Customize AOS configuration options here (if needed)
+    });
+  }, []);
 
   return (
     <>
@@ -99,13 +107,13 @@ export default function Mainpage() {
 
           </div>
         </div>
-        <div className='text-container-1'>
+        <div className='text-container-1' data-aos="fade-left">
           <h5>1. Enter Round Informatation</h5>
           <h6>Enter general data from your round, including course and date</h6>
           <p><FontAwesomeIcon icon={faClock} /> 0.5 Minuites</p>
         </div>
 
-        <div className='text-container-1 left-align'>
+        <div className='text-container-1 left-align' data-aos="fade-right">
           <h5>2. Enter Shot Level Information</h5>
           <h6>Enter each of your shots into our intutive system</h6>
           <p><FontAwesomeIcon icon={faClock} /> 3 Minuites</p>
@@ -132,7 +140,7 @@ export default function Mainpage() {
 
           </div>
         </div>
-        <div className='text-container-1'>
+        <div className='text-container-1' data-aos="fade-left">
           <h5>3. Review and Confirm Data</h5>
           <h6>Take a moment to review the data that you entered is correct</h6>
           <p><FontAwesomeIcon icon={faClock} /> 1 Minuite</p>
