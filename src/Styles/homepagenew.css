@@ -1,54 +1,168 @@
-.padding {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 52px;
+.homepage-page {
+    padding-top: 60px;
+    margin-left: 12.5vw;
+    background-color: rgb(251,252,253);
+    min-height: calc(100vh - 60px);
 }
 
-.homepagecontainer1 {
-    padding-top: 100px;
-    background-color: rgb(231,230,233);
+.homepage-page h1 {
+    margin-top: 30px;
+    font-family: 'TT Norms Pro', sans-serif; 
 }
 
-.homepagecontainer1 h2 {
-    font-family: 'TT Norms Pro', sans-serif;
-    font-weight: 400;
-    margin-left: 10%;
-    color: black;
+.homepage-page h2 {
+    font-family: 'TT Norms Pro', sans-serif;   
 }
 
-.homepagecontainer1 h4 {
-    font-family: 'TT Norms Pro', sans-serif;
-    font-weight: 300;
-    margin-left: 10%;
-    text-align: left;
-    font-size: 25px;
+.homepage-container {
+    width: 70%;
+    margin: auto;
+}
+
+.homepage-grid-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin: auto;
     margin-top: 20px;
 }
 
-.rounds {
-    background-color: none;
-    font-size: inherit;
-    font-family: inherit;
-    font-weight: inherit;
-    border: none;
-    background-color: transparent;
-    margin-left: 5px;
-    margin-right: 5px;
+.homepage-grid-1 div {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
 }
 
-.homepagegrid1 {
+.homepage-page h3 {
+    margin: 0;
+    margin-top: 15px;
+    margin-left: 20px;
+    font-family: 'TT Norms Pro', sans-serif; 
+}
+
+.homepage-page h4 {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: 'TT Norms Pro', sans-serif; 
+}
+
+.two-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr ;
+    grid-template-columns: 3fr 1fr;
+}
+
+.two-grid-inner {
+    display: flex;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.two-grid-inner p {
+    margin-left: 10px;
+    font-weight: 300;
+}
+
+.second-selected {
+    color: rgb(0,128,241);
+    font-weight: 700 !important;
+}
+
+.two-chart-radar {
+    margin: auto;
+    width: 80%;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    margin-top: -85px;
+    margin-bottom: -50px;
+}
+
+.homepage-page h5 {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.homepage-button-container {
+    display: flex;
+}
+
+.homepage-button-container p {
+    margin-right: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+
+.homepage-fourth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    padding-bottom: 30px;
+}
+
+.homepage-fourth-grid div {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
+}
+
+.homepage-fourth-grid table {
+    width: 91%;
+    margin: auto;
+    font-size: 14px;
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-bottom: 20px;
+}
+
+.homepage-fourth-grid th {
+    text-align: center;
+}
+
+.homepage-fourth-grid td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.click {
+    cursor: pointer;
+}
+
+.two-chart-table table {
     width: 80%;
     margin: auto;
-    gap: 50px;
-    margin-top: 50px;
+    font-size: 14px;
+    font-family: 'TT Norms Pro', sans-serif;
+    margin-bottom: 20px;
 }
 
-.homepagegrid1 div {
-    width: 100%;
-    background-color: white;
-    border-radius: 10px;
-    height: 300px;
+.two-chart-table td {
+    padding-top: 10px;
 }
+
+.select-number-rounds {
+    border: 0px;
+    background-color: transparent;
+    font-family: 'TT Norms Pro', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    margin: 0px 5px;
+}
+
+.homepage-bar-chart {
+    border: 0px solid !important;
+    box-shadow: none !important;
+    margin: auto;
+    width: 90%;
+}
+
+
+

@@ -147,6 +147,14 @@
 
 /* Error Handling */
 
+.error-contact {
+    margin-top: 2px;
+    font-size: 12px;
+    color: red;
+    margin-bottom: 25px;
+    margin-left: 10%;
+}
+
 .error {
     margin-top: 2px;
     font-size: 12px;
@@ -162,3 +170,4 @@
     margin-bottom: 25px;
     margin-left: 5%;  
 }
+

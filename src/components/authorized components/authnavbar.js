@@ -1,31 +1,33 @@
-/* React Imports */
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown, faCircleQuestion, faClock, faGear, faHouse, faRightFromBracket, faUser, faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { signOut } from 'firebase/auth';
+import { Navigate } from 'react-router-dom';
+import { collection, getDocs, query, where, updateDoc } from 'firebase/firestore';
 
-/* Style Import */
-import "../../Styles/authnavbarnew.css"
+import "../../Styles/authnavbarnew.css";
 
 /* Firebase Imports */
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDoc, collection, getDocs, query, where} from 'firebase/firestore';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
-/* FA Imports */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch, faBell, faHouse, faClock, faGear, faCircleQuestion, faUserGroup, faTimes, faChevronDown, faArrowRightFromBracket, faPlus } from '@fortawesome/free-solid-svg-icons';
+export default function Authnavbar({ page }) {
+    const [user, setUser] = useState("");
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [username, setUsername] = useState("");
 
-/* Images */
-import profileImage from '../../blank-profile-picture-973460_1280.webp'
 
-export default function Authnavbar() {
-    const [user, setUser] = useState(null)
-    const [firstName, setFirstName] = useState(null)
-    const [lastName, setLastName] = useState(null)
-
-    const [selected, setSelected] = useState("dashboard")
-    const [navbarVisibilty, setNavbarVisibility] = useState(false)
     const [dropdown, setDropdown] = useState(false)
+    const [signout, setSignout] = useState(false)
 
     const [searchQuery, setSearchQuery] = useState("")
-    const [usernames, setUsernames] = useState([])
+    const [userList, setUserList] = useState([]);
+    const [addedFriends, setAddedFriends] = useState([]);
+
+    const [click, setClick] = useState(false)
+    const [clickedUID, setClickedUID] = useState("")
+
 
 
     useEffect(() => {
@@ -40,10 +42,11 @@ export default function Authnavbar() {
                 const userDocSnapshot = await getDoc(userDocRef);
                 if (userDocSnapshot.exists()) {
                     const userData = userDocSnapshot.data();
-                    setFirstName(userData.firstname);
-                    setLastName(userData.lastname)
+                    setUsername(userData.username);
+                    setFirstName(userData.firstName)
+                    setLastName(userData.lastName)
+                    setAddedFriends(userData.friends)
                 }
-
             }
         });
 
@@ -51,93 +54,122 @@ export default function Authnavbar() {
         return () => unsubscribe();
     }, []);
 
-    // ...
-
-    // ...
-
-useEffect(() => {
-    const fetchUsernames = async () => {
-      if (searchQuery !== "") {
-        const db = getFirestore();
-        const usernamesCollectionRef = collection(db, 'user');
-        const usernamesQuery = query(usernamesCollectionRef, where('username', '>=', searchQuery));
-        const snapshot = await getDocs(usernamesQuery);
-        const usernamesData = snapshot.docs.map(doc => doc.data().username);
-        setUsernames(usernamesData);
-      } else {
-        setUsernames([]); // Clear the usernames list when the search query is empty
-      }
+    const handleLogout = async () => {
+        try {
+            const auth = getAuth();
+            await signOut(auth); // Sign out the user
+            setSignout(true)
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
     };
-  
-    fetchUsernames();
-  }, [searchQuery]);
-  
-  async function addFriend(username) {
-    const db = getFirestore()
-    const userDocRef = doc(db, 'user', user.uid)
-    const userDocSnapshot = await getDoc(userDocRef)
+
+    useEffect(() => {
+        const fetchUsernames = async () => {
+            if (searchQuery !== "") {
+                const db = getFirestore();
+                const usernamesCollectionRef = collection(db, 'user');
+                const usernamesQuery = query(usernamesCollectionRef, where('username', '>=', searchQuery));
+                const snapshot = await getDocs(usernamesQuery);
+                const usersData = snapshot.docs.map(doc => {
+                    const userData = doc.data();
+                    return { username: userData.username, firstName: userData.firstName, lastName: userData.lastName, userId: doc.id };
+                }).filter(user => user.username !== username);
+                setUserList(usersData);
+            } else {
+                setUserList([]); // Clear the user list when the search query is empty
+            }
+        };
+
+
+        fetchUsernames();
+    }, [searchQuery]);
+
+    async function addFriend(userId) {
+        const db = getFirestore();
+        const userDocRef = doc(db, 'user', user.uid);
+
+        // Get the current user's data
+        const userDocSnapshot = await getDoc(userDocRef);
+        if (userDocSnapshot.exists()) {
+            const userData = userDocSnapshot.data();
+
+            // Update the friends array with the new friend's userId
+            const updatedFriends = [...userData.friends, userId];
+
+            // Update the user document with the new friends array
+            await updateDoc(userDocRef, { friends: updatedFriends });
+        }
+        setAddedFriends([...addedFriends, userId])
+    }
 
 
 
-  }
+    if (signout === true) {
+        return (
+            <Navigate to="/" />
+        )
+    }
+
+    if (click === true) {
+        return (
+            <Navigate to='/friend' state={{ userId: clickedUID }} />
+        )
+    }    
 
 
     return (
         <>
-            <div className="top">
-                <div className="left">
-                    {!navbarVisibilty ? (
-                        <FontAwesomeIcon icon={faBars} className="fa click" onClick={() => setNavbarVisibility(true)} />
-                    ) : <FontAwesomeIcon icon={faTimes} className="fa click" onClick={() => setNavbarVisibility(false)} />}
-                    <p>Course IQ</p>
-                </div>
-                <div className="right">
-                    <form>
-                        <input type="search" placeholder="Find friends..." className="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} />
-                        <FontAwesomeIcon icon={faSearch} className="fa" />
-                    </form>
-                    <FontAwesomeIcon icon={faBell} className="fa" />
-                    <p className="click" onClick={() => setDropdown(!dropdown)}>{firstName} {lastName} <FontAwesomeIcon icon={faChevronDown} className="fa1" /></p>
+            <div className="nav-bar-header">
+                <div className="nav-bar-header-grid">
+                    <div>
+                        <h1>CourseIQ</h1>
+                    </div>
+                    <div className="content-right">
+                        <input placeholder="Find Friends..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                        <div className='peron click' onClick={() => setDropdown(!dropdown)}>
+                            <h4>{firstName[0]}{lastName[0]}</h4>
+                            <h3>{username}</h3>
+                            <FontAwesomeIcon icon={faCaretDown} className='fa' />
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            {
-                dropdown && (
-                    <div className="dropdown">
-                        <ul>
-                            <li><a>Settings<FontAwesomeIcon icon={faGear} className="falist" /></a></li>
-                            <li><a>Logout <FontAwesomeIcon icon={faArrowRightFromBracket} className="falist" /></a></li>
-                        </ul>
-                    </div>
-                )
-            }
 
-            {
-                navbarVisibilty && (
-                    <div className="leftmenu">
-                        <ul>
-                            <li className={(selected === "dashboard") ? "bluebackground click" : "click"} onClick={() => setSelected("dashboard")}><a className={(selected === "dashboard") ? "bluebackground click" : "click"}>Dashboard <FontAwesomeIcon icon={faHouse} className="falist" /></a></li>
-                            <li className={(selected === "previous") ? "bluebackground click" : "click"} onClick={() => setSelected("previous")}><a className={(selected === "previous") ? "bluebackground click" : "click"}>Previous Rounds <FontAwesomeIcon icon={faClock} className="falist" /></a></li>
-                            <li className={(selected === "friends") ? "bluebackground click" : "click"} onClick={() => setSelected("friends")}><a className={(selected === "friends") ? "bluebackground click" : "click"}>Friends <FontAwesomeIcon icon={faUserGroup} className="falist" /></a></li>
-                        </ul>
-                        <p>Preferences</p>
-                        <ul>
-                            <li><a href="/settings">Settings <FontAwesomeIcon icon={faGear} className="falist" /></a></li>
-                            <li><a>Help <FontAwesomeIcon icon={faCircleQuestion} className="falist" /></a></li>
-                        </ul>
-                    </div>
-                )
-            }
-            <div className="usernames">
-                {usernames.slice(0, 3).map((username, index) => (
+            <div className='nav-bar-left'>
+                <ul>
+                    <li className={(page === "dashboard") ? "nav-bar-left-selected click" : 'click'}><a href='/dashboard'><FontAwesomeIcon icon={faHouse} className="falist" />Dashboard</a></li>
+                    <li className={(page === "previous rounds") ? "nav-bar-left-selected click" : 'click'}><a href='/previousrounds'><FontAwesomeIcon icon={faClock} className="falist" />Previous Rounds</a></li>
+                    <li className={(page === "friends") ? "nav-bar-left-selected click" : 'click'}><a href='/friends'><FontAwesomeIcon icon={faUserGroup} className="falist" />Friends</a></li>
+                </ul>
+                <p>Preferences</p>
+                <div className='vertical-line'></div>
+                <ul>
+                    <li className={(page === "settings") ? "nav-bar-left-selected click" : 'click'}><a href='/settings'><FontAwesomeIcon icon={faGear} className="falist" />Settings </a></li>
+                    {/* <li onClick={() => setSelected("help")} className={(selected === "help") ? "nav-bar-left-selected click" : 'click'}><a><FontAwesomeIcon icon={faCircleQuestion} className="falist" />Help</a></li> */}
+                </ul>
+            </div>
+            {dropdown &&
+                <div className='auth-drop-down'>
+                    <a href='/settings'><FontAwesomeIcon icon={faUser} className="fa" />Profile</a> <br />
+                    <a style={{ borderTop: "0.5px solid rgba(0, 0, 0, 0.4)" }} className="red" onClick={() => handleLogout()}><FontAwesomeIcon icon={faRightFromBracket} className="fa" />Logout</a> <br />
+                </div>}
+            <div className='usernames'>
+                {userList.slice(0, 3).map((user, index) => (
                     <div className="griduser">
-                        <img src={profileImage} />
-                        <p key={index}>{username}</p>
-                        <FontAwesomeIcon icon={faPlus} className="fa click" onClick={() => addFriend(username)} />
+                        <div>
+                            <h6>{user.firstName[0]}{user.lastName[0]}</h6>
+                        </div>
+                        <p key={index} onClick={() => {setClickedUID(user.userId); setClick(true)}}>{user.username}</p>
+                        {addedFriends.includes(user.userId) ? (
+                            <p style={{ fontSize: "20px" }}></p>
+                        ) : (
+                            <p onClick={() => addFriend(user.userId)} style={{ fontSize: "20px" }}>+</p>
+                        )}
                     </div>
                 ))}
             </div>
-
-
         </>
-    )
+    );
 }

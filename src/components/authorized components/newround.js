@@ -1,961 +1,584 @@
-import { useRef, useState, useEffect } from 'react'
+/* React Imports */
+import { useState } from "react";
+
+/* Component Imports */
+import Authnavbar from "./authnavbar";
+
+/* Style Import */
 import '../../Styles/newround.css'
 
+/* FA Imports */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faCircleQuestion, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-
-
-import { Radar } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
-
-
+import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 
 export default function Newround() {
-    {/*General Form Logic */ }
-    const [page, setPage] = useState(1)
+    /* Navigation States */
+    const [part, setPart] = useState(1)
+    const [hole, setHole] = useState(0)
+    const [holes, setHoles] = useState(18)
 
-    {/*First part Form Logic */ }
-    const [date, setDate] = useState("")
-    const [holes, setHoles] = useState("")
     const [course, setCourse] = useState("")
+    const [date, setDate] = useState("")
 
-    const [error, setError] = useState("")
-    const [formValidated, setFormValidated] = useState(false)
+    const [errors, setErrors] = useState({})
 
-    {/* Setting Part 1 form states */ }
-    function handleChangeDate(event) {
-        setDate(event.target.value)
-    }
-    function handleChangeHoles(event) {
-        setHoles(parseInt(event.target.value))
-    }
-    function handleCourseChange(event) {
-        setCourse(event.target.value)
-    }
-
-    {/* Handle Submit of the first form */ }
-    function handlesubmit1(event) {
+    const [analysisSelect, setAnalysisSelect] = useState("tee")
+    function firstPartFormSubmit(event) {
         event.preventDefault()
-        if (date.length === 0) {
-            setError("Please enter a valid Date")
+        const newErrors = {}
+        if (course.length < 1) {
+            newErrors.course = "Please enter a valid course name"
         }
-        else if (holes.length === 0) {
-            setError("Please select the number of holes that you played")
+        if (date.length < 1) {
+            newErrors.date = "Please enter a valid date"
         }
-        else if (course.length === 0) {
-            setError("Please enter a valid golf course")
-        }
-        else {
-            setFormValidated(true)
-        }
-    }
-
-    useEffect(() => {
-        if (formValidated) {
-            setPage(2);
-        }
-    }, [formValidated]);
-
-
-    useEffect(() => {
-        if (error) {
-            alert(error)
-            setError("")
-        }
-    }, [error])
-
-    {/* Second Part States */ }
-
-    const [currenthole, setCurrenthole] = useState(1)
-
-    {/* Setting Par for each Hole */ }
-    const [onepar, setonepar] = useState(4)
-    const [twopar, settwopar] = useState(4)
-    const [threepar, setthreepar] = useState(4)
-    const [fourpar, setfourpar] = useState(4)
-    const [fivepar, setfivepar] = useState(4)
-    const [sixpar, setsixpar] = useState(4)
-    const [sevenpar, setsevenpar] = useState(4)
-    const [eightpar, seteightpar] = useState(4)
-    const [ninepar, setninepar] = useState(4)
-    const [tenpar, settenpar] = useState(4)
-    const [elevenpar, setelevenpar] = useState(4)
-    const [twelvepar, settwelvepar] = useState(4)
-    const [thirteenpar, setthirteenpar] = useState(4)
-    const [fourteenpar, setfourteenpar] = useState(4)
-    const [fifteenpar, setfifteenpar] = useState(4)
-    const [sixteenpar, setsixteenpar] = useState(4)
-    const [seventeenpar, setseventeenpar] = useState(4)
-    const [eighteenpar, seteighteenpar] = useState(4)
-
-    {/* Calculations for total par */ }
-    const frontpar = onepar + twopar + threepar + fourpar + fivepar + sixpar + sevenpar + eightpar + ninepar
-    const backpar = tenpar + elevenpar + twelvepar + thirteenpar + fourteenpar + fifteenpar + sixteenpar + seventeenpar + eighteenpar
-    const totalpar = frontpar + backpar
-
-    {/*Setting the states for each score for each hole */ }
-    const [onescore, setonescore] = useState(1)
-    const [twoscore, settwoscore] = useState(1)
-    const [threescore, setthreescore] = useState(1)
-    const [fourscore, setfourscore] = useState(1)
-    const [fivescore, setfivescore] = useState(1)
-    const [sixscore, setsixscore] = useState(1)
-    const [sevenscore, setsevenscore] = useState(1)
-    const [eightscore, seteightscore] = useState(1)
-    const [ninescore, setninescore] = useState(1)
-    const [tenscore, settenscore] = useState(1)
-    const [elevenscore, setelevenscore] = useState(1)
-    const [twelvescore, settwelvescore] = useState(1)
-    const [thirteenscore, setthirteenscore] = useState(1)
-    const [fourteenscore, setfourteenscore] = useState(1)
-    const [fifteenscore, setfifteenscore] = useState(1)
-    const [sixteenscore, setsixteenscore] = useState(1)
-    const [seventeenscore, setseventeenscore] = useState(1)
-    const [eighteenscore, seteighteenscore] = useState(1)
-
-    {/* Calculations for Total Score */ }
-    const frontscore = onescore + twoscore + threescore + fourscore + fivescore + sixscore + sevenscore + eightscore + ninescore
-    const backscore = tenscore + elevenscore + twelvescore + thirteenscore + fourteenscore + fifteenscore + sixteenscore + seventeenscore + eighteenscore
-    const totalscore = frontscore + backscore
-
-    {/* Setting the shot collection template for each hole */ }
-    const [oneshots, setoneshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [twoshots, settwoshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [threeshots, setthreeshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [fourshots, setfourshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [fiveshots, setfiveshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [sixshots, setsixshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [sevenshots, setsevenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [eightshots, seteightshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [nineshots, setnineshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [tenshots, settenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [elevenshots, setelevenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [twelveshots, settwelveshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [thirteenshots, setthirteenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [fourteenshots, setfourteenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [fifteenshots, setfifteenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [sixteenshots, setsixteenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [seventeenshots, setseventeenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-    const [eighteenshots, seteighteenshots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
-
-    {/* Functions for each hole */ }
-    {/* Hole one Functions */ }
-    function handleOneParChange(event) {
-        setonepar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleOne(event) {
-        event.preventDefault();
-        setonescore(onescore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setoneshots([...oneshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleOne(event) {
-        event.preventDefault();
-        if (onescore <= 1) {
-        }
-        else {
-            setonescore(onescore - 1)
-            const updatedOneshots = oneshots.slice(0, -1);
-            setoneshots(updatedOneshots);
-        }
-    }
-
-    function changeHoleOne(index, event) {
-        const value = event.target.value;
-        const updatedOneshots = [...oneshots];
-        updatedOneshots[index] = { ...updatedOneshots[index], startingLie: value };
-        setoneshots(updatedOneshots);
-    }
-
-    function changeholeOneDistance(index, event) {
-        const value = event.target.value;
-        const updatedOneshots = [...oneshots]
-        updatedOneshots[index] = { ...updatedOneshots[index], distanceToHole: value };
-        setoneshots(updatedOneshots);
-    }
-
-    {/* Hole 2 Functions */ }
-    function handleTwoParChange(event) {
-        settwopar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleTwo(event) {
-        event.preventDefault();
-        settwoscore(twoscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        settwoshots([...twoshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleTwo(event) {
-        event.preventDefault();
-        if (twoscore <= 1) {
-        }
-        else {
-            settwoscore(twoscore - 1)
-            const updatedtwoshots = twoshots.slice(0, -1);
-            settwoshots(updatedtwoshots);
-        }
-    }
-
-    function changeHoleTwo(index, event) {
-        const value = event.target.value;
-        const updatedtwoshots = [...twoshots];
-        updatedtwoshots[index] = { ...updatedtwoshots[index], startingLie: value };
-        settwoshots(updatedtwoshots);
-    }
-
-    function changeholeTwoDistance(index, event) {
-        const value = event.target.value;
-        const updatedtwoshots = [...twoshots]
-        updatedtwoshots[index] = { ...updatedtwoshots[index], distanceToHole: value };
-        settwoshots(updatedtwoshots);
-    }
-
-    {/* Hole 3 Functions */ }
-    function handleThreeParChange(event) {
-        setthreepar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleThree(event) {
-        event.preventDefault();
-        setthreescore(threescore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setthreeshots([...threeshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleThree(event) {
-        event.preventDefault();
-        if (threescore <= 1) {
-        }
-        else {
-            setthreescore(threescore - 1)
-            const updatedthreeshots = threeshots.slice(0, -1);
-            setthreeshots(updatedthreeshots);
-        }
-    }
-
-    function changeHoleThree(index, event) {
-        const value = event.target.value;
-        const updatedthreeshots = [...threeshots];
-        updatedthreeshots[index] = { ...updatedthreeshots[index], startingLie: value };
-        setthreeshots(updatedthreeshots);
-    }
-
-    function changeholeThreeDistance(index, event) {
-        const value = event.target.value;
-        const updatedthreeshots = [...threeshots]
-        updatedthreeshots[index] = { ...updatedthreeshots[index], distanceToHole: value };
-        setthreeshots(updatedthreeshots);
-    }
-
-    {/* Hole 4 Functions */ }
-    function handleFourParChange(event) {
-        setfourpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleFour(event) {
-        event.preventDefault();
-        setfourscore(fourscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setfourshots([...fourshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleFour(event) {
-        event.preventDefault();
-        if (fourscore <= 1) {
-        }
-        else {
-            setfourscore(fourscore - 1)
-            const updatedfourshots = fourshots.slice(0, -1);
-            setfourshots(updatedfourshots);
-        }
-    }
-
-    function changeHoleFour(index, event) {
-        const value = event.target.value;
-        const updatedfourshots = [...fourshots];
-        updatedfourshots[index] = { ...updatedfourshots[index], startingLie: value };
-        setfourshots(updatedfourshots);
-    }
-
-    function changeholeFourDistance(index, event) {
-        const value = event.target.value;
-        const updatedfourshots = [...fourshots]
-        updatedfourshots[index] = { ...updatedfourshots[index], distanceToHole: value };
-        setfourshots(updatedfourshots);
-    }
-
-    {/* Hole 5 Functions */ }
-    function handleFiveParChange(event) {
-        setfivepar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleFive(event) {
-        event.preventDefault();
-        setfivescore(fivescore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setfiveshots([...fiveshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleFive(event) {
-        event.preventDefault();
-        if (fivescore <= 1) {
-        }
-        else {
-            setfivescore(fivescore - 1)
-            const updatedfiveshots = fiveshots.slice(0, -1);
-            setfiveshots(updatedfiveshots);
-        }
-    }
-
-    function changeHoleFive(index, event) {
-        const value = event.target.value;
-        const updatedfiveshots = [...fiveshots];
-        updatedfiveshots[index] = { ...updatedfiveshots[index], startingLie: value };
-        setfiveshots(updatedfiveshots);
-    }
-
-    function changeholeFiveDistance(index, event) {
-        const value = event.target.value;
-        const updatedfiveshots = [...fiveshots]
-        updatedfiveshots[index] = { ...updatedfiveshots[index], distanceToHole: value };
-        setfiveshots(updatedfiveshots);
-    }
-
-    {/* Hole 6 Functions */ }
-    function handleSixParChange(event) {
-        setsixpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleSix(event) {
-        event.preventDefault();
-        setsixscore(sixscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setsixshots([...sixshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleSix(event) {
-        event.preventDefault();
-        if (sixscore <= 1) {
-        }
-        else {
-            setsixscore(sixscore - 1)
-            const updatedsixshots = sixshots.slice(0, -1);
-            setsixshots(updatedsixshots);
-        }
-    }
-
-    function changeHoleSix(index, event) {
-        const value = event.target.value;
-        const updatedsixshots = [...sixshots];
-        updatedsixshots[index] = { ...updatedsixshots[index], startingLie: value };
-        setsixshots(updatedsixshots);
-    }
-
-    function changeholeSixDistance(index, event) {
-        const value = event.target.value;
-        const updatedsixshots = [...sixshots]
-        updatedsixshots[index] = { ...updatedsixshots[index], distanceToHole: value };
-        setsixshots(updatedsixshots);
-    }
-
-    {/* Hole 7 Functions */ }
-    function handleSevenParChange(event) {
-        setsevenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleSeven(event) {
-        event.preventDefault();
-        setsevenscore(sevenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setsevenshots([...sevenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleSeven(event) {
-        event.preventDefault();
-        if (sevenscore <= 1) {
-        }
-        else {
-            setsevenscore(sevenscore - 1)
-            const updatedsevenshots = sevenshots.slice(0, -1);
-            setsevenshots(updatedsevenshots);
-        }
-    }
-
-    function changeHoleSeven(index, event) {
-        const value = event.target.value;
-        const updatedsevenshots = [...sevenshots];
-        updatedsevenshots[index] = { ...updatedsevenshots[index], startingLie: value };
-        setsevenshots(updatedsevenshots);
-    }
-
-    function changeholeSevenDistance(index, event) {
-        const value = event.target.value;
-        const updatedsevenshots = [...sevenshots]
-        updatedsevenshots[index] = { ...updatedsevenshots[index], distanceToHole: value };
-        setsevenshots(updatedsevenshots);
-    }
-
-    {/* Hole 8 Functions */ }
-    function handleEightParChange(event) {
-        seteightpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleEight(event) {
-        event.preventDefault();
-        seteightscore(eightscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        seteightshots([...eightshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleEight(event) {
-        event.preventDefault();
-        if (eightscore <= 1) {
-        }
-        else {
-            seteightscore(eightscore - 1)
-            const updatedeightshots = eightshots.slice(0, -1);
-            seteightshots(updatedeightshots);
-        }
-    }
-
-    function changeHoleEight(index, event) {
-        const value = event.target.value;
-        const updatedeightshots = [...eightshots];
-        updatedeightshots[index] = { ...updatedeightshots[index], startingLie: value };
-        seteightshots(updatedeightshots);
-    }
-
-    function changeholeEightDistance(index, event) {
-        const value = event.target.value;
-        const updatedeightshots = [...eightshots]
-        updatedeightshots[index] = { ...updatedeightshots[index], distanceToHole: value };
-        seteightshots(updatedeightshots);
-    }
-
-    {/* Hole 9 Functions */ }
-    function handleNineParChange(event) {
-        setninepar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleNine(event) {
-        event.preventDefault();
-        setninescore(ninescore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setnineshots([...nineshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleNine(event) {
-        event.preventDefault();
-        if (ninescore <= 1) {
-        }
-        else {
-            setninescore(ninescore - 1)
-            const updatednineshots = nineshots.slice(0, -1);
-            setnineshots(updatednineshots);
-        }
-    }
-
-    function changeHoleNine(index, event) {
-        const value = event.target.value;
-        const updatednineshots = [...nineshots];
-        updatednineshots[index] = { ...updatednineshots[index], startingLie: value };
-        setnineshots(updatednineshots);
-    }
-
-    function changeholeNineDistance(index, event) {
-        const value = event.target.value;
-        const updatednineshots = [...nineshots]
-        updatednineshots[index] = { ...updatednineshots[index], distanceToHole: value };
-        setnineshots(updatednineshots);
-    }
-
-    {/* Hole 10 Functions */ }
-    function handleTenParChange(event) {
-        settenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleTen(event) {
-        event.preventDefault();
-        settenscore(tenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        settenshots([...tenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleTen(event) {
-        event.preventDefault();
-        if (tenscore <= 1) {
-        }
-        else {
-            settenscore(tenscore - 1)
-            const updatedtenshots = tenshots.slice(0, -1);
-            settenshots(updatedtenshots);
-        }
-    }
-
-    function changeHoleTen(index, event) {
-        const value = event.target.value;
-        const updatedtenshots = [...tenshots];
-        updatedtenshots[index] = { ...updatedtenshots[index], startingLie: value };
-        settenshots(updatedtenshots);
-    }
-
-    function changeholeTenDistance(index, event) {
-        const value = event.target.value;
-        const updatedtenshots = [...tenshots]
-        updatedtenshots[index] = { ...updatedtenshots[index], distanceToHole: value };
-        settenshots(updatedtenshots);
-    }
-
-    {/* Hole 11 Functions */ }
-    function handleElevenParChange(event) {
-        setelevenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleEleven(event) {
-        event.preventDefault();
-        setelevenscore(elevenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setelevenshots([...elevenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleEleven(event) {
-        event.preventDefault();
-        if (elevenscore <= 1) {
-        }
-        else {
-            setelevenscore(elevenscore - 1)
-            const updatedelevenshots = elevenshots.slice(0, -1);
-            setelevenshots(updatedelevenshots);
-        }
-    }
-
-    function changeHoleEleven(index, event) {
-        const value = event.target.value;
-        const updatedelevenshots = [...elevenshots];
-        updatedelevenshots[index] = { ...updatedelevenshots[index], startingLie: value };
-        setelevenshots(updatedelevenshots);
-    }
-
-    function changeholeElevenDistance(index, event) {
-        const value = event.target.value;
-        const updatedelevenshots = [...elevenshots]
-        updatedelevenshots[index] = { ...updatedelevenshots[index], distanceToHole: value };
-        setelevenshots(updatedelevenshots);
-    }
-
-    {/* Hole 12 Functions */ }
-    function handleTwelveParChange(event) {
-        settwelvepar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleTwelve(event) {
-        event.preventDefault();
-        settwelvescore(twelvescore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        settwelveshots([...twelveshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleTwelve(event) {
-        event.preventDefault();
-        if (twelvescore <= 1) {
-        }
-        else {
-            settwelvescore(twelvescore - 1)
-            const updatedtwelveshots = twelveshots.slice(0, -1);
-            settwelveshots(updatedtwelveshots);
-        }
-    }
-
-    function changeHoleTwelve(index, event) {
-        const value = event.target.value;
-        const updatedtwelveshots = [...twelveshots];
-        updatedtwelveshots[index] = { ...updatedtwelveshots[index], startingLie: value };
-        settwelveshots(updatedtwelveshots);
-    }
-
-    function changeholeTwelveDistance(index, event) {
-        const value = event.target.value;
-        const updatedtwelveshots = [...twelveshots]
-        updatedtwelveshots[index] = { ...updatedtwelveshots[index], distanceToHole: value };
-        settwelveshots(updatedtwelveshots);
-    }
-
-    {/* Hole 13 Functions */ }
-    function handleThirteenParChange(event) {
-        setthirteenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleThirteen(event) {
-        event.preventDefault();
-        setthirteenscore(thirteenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setthirteenshots([...thirteenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleThirteen(event) {
-        event.preventDefault();
-        if (thirteenscore <= 1) {
-        }
-        else {
-            setthirteenscore(thirteenscore - 1)
-            const updatedthirteenshots = thirteenshots.slice(0, -1);
-            setthirteenshots(updatedthirteenshots);
-        }
-    }
-
-    function changeHoleThirteen(index, event) {
-        const value = event.target.value;
-        const updatedthirteenshots = [...thirteenshots];
-        updatedthirteenshots[index] = { ...updatedthirteenshots[index], startingLie: value };
-        setthirteenshots(updatedthirteenshots);
-    }
-
-    function changeholeThirteenDistance(index, event) {
-        const value = event.target.value;
-        const updatedthirteenshots = [...thirteenshots]
-        updatedthirteenshots[index] = { ...updatedthirteenshots[index], distanceToHole: value };
-        setthirteenshots(updatedthirteenshots);
-    }
-
-    {/* Hole 14 Functions */ }
-    function handleFourteenParChange(event) {
-        setfourteenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleFourteen(event) {
-        event.preventDefault();
-        setfourteenscore(fourteenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setfourteenshots([...fourteenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleFourteen(event) {
-        event.preventDefault();
-        if (fourteenscore <= 1) {
-        }
-        else {
-            setfourteenscore(fourteenscore - 1)
-            const updatedfourteenshots = fourteenshots.slice(0, -1);
-            setfourteenshots(updatedfourteenshots);
-        }
-    }
-
-    function changeHoleFourteen(index, event) {
-        const value = event.target.value;
-        const updatedfourteenshots = [...fourteenshots];
-        updatedfourteenshots[index] = { ...updatedfourteenshots[index], startingLie: value };
-        setfourteenshots(updatedfourteenshots);
-    }
-
-    function changeholeFourteenDistance(index, event) {
-        const value = event.target.value;
-        const updatedfourteenshots = [...fourteenshots]
-        updatedfourteenshots[index] = { ...updatedfourteenshots[index], distanceToHole: value };
-        setfourteenshots(updatedfourteenshots);
-    }
-
-    {/* Hole 15 Functions */ }
-    function handleFifteenParChange(event) {
-        setfifteenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleFifteen(event) {
-        event.preventDefault();
-        setfifteenscore(fifteenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setfifteenshots([...fifteenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleFifteen(event) {
-        event.preventDefault();
-        if (fifteenscore <= 1) {
-        }
-        else {
-            setfifteenscore(fifteenscore - 1)
-            const updatedfifteenshots = fifteenshots.slice(0, -1);
-            setfifteenshots(updatedfifteenshots);
-        }
-    }
-
-    function changeHoleFifteen(index, event) {
-        const value = event.target.value;
-        const updatedfifteenshots = [...fifteenshots];
-        updatedfifteenshots[index] = { ...updatedfifteenshots[index], startingLie: value };
-        setfifteenshots(updatedfifteenshots);
-    }
-
-    function changeholeFifteenDistance(index, event) {
-        const value = event.target.value;
-        const updatedfifteenshots = [...fifteenshots]
-        updatedfifteenshots[index] = { ...updatedfifteenshots[index], distanceToHole: value };
-        setfifteenshots(updatedfifteenshots);
-    }
-
-    {/* Hole 16 Functions */ }
-    function handleSixteenParChange(event) {
-        setsixteenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleSixteen(event) {
-        event.preventDefault();
-        setsixteenscore(sixteenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setsixteenshots([...sixteenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleSixteen(event) {
-        event.preventDefault();
-        if (sixteenscore <= 1) {
-        }
-        else {
-            setsixteenscore(sixteenscore - 1)
-            const updatedsixteenshots = sixteenshots.slice(0, -1);
-            setsixteenshots(updatedsixteenshots);
-        }
-    }
-
-    function changeHoleSixteen(index, event) {
-        const value = event.target.value;
-        const updatedsixteenshots = [...sixteenshots];
-        updatedsixteenshots[index] = { ...updatedsixteenshots[index], startingLie: value };
-        setsixteenshots(updatedsixteenshots);
-    }
-
-    function changeholeSixteenDistance(index, event) {
-        const value = event.target.value;
-        const updatedsixteenshots = [...sixteenshots]
-        updatedsixteenshots[index] = { ...updatedsixteenshots[index], distanceToHole: value };
-        setsixteenshots(updatedsixteenshots);
-    }
-
-    {/* Hole 17 Functions */ }
-    function handleSeventeenParChange(event) {
-        setseventeenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleSeventeen(event) {
-        event.preventDefault();
-        setseventeenscore(seventeenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        setseventeenshots([...seventeenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleSeventeen(event) {
-        event.preventDefault();
-        if (seventeenscore <= 1) {
-        }
-        else {
-            setseventeenscore(seventeenscore - 1)
-            const updatedseventeenshots = seventeenshots.slice(0, -1);
-            setseventeenshots(updatedseventeenshots);
-        }
-    }
-
-    function changeHoleSeventeen(index, event) {
-        const value = event.target.value;
-        const updatedseventeenshots = [...seventeenshots];
-        updatedseventeenshots[index] = { ...updatedseventeenshots[index], startingLie: value };
-        setseventeenshots(updatedseventeenshots);
-    }
-
-    function changeholeSeventeenDistance(index, event) {
-        const value = event.target.value;
-        const updatedseventeenshots = [...seventeenshots]
-        updatedseventeenshots[index] = { ...updatedseventeenshots[index], distanceToHole: value };
-        setseventeenshots(updatedseventeenshots);
-    }
-
-    {/* Hole 18 Functions */ }
-    function handleEighteenParChange(event) {
-        seteighteenpar(parseInt(event.target.value));
-    }
-
-    function handleAddShotHoleEighteen(event) {
-        event.preventDefault();
-        seteighteenscore(eighteenscore + 1)
-        const newShots = [{ startingLie: "", distanceToHole: 0 }];
-        seteighteenshots([...eighteenshots, ...newShots]);
-    }
-
-    function handleRemoveShotHoleEighteen(event) {
-        event.preventDefault();
-        if (eighteenscore <= 1) {
-        }
-        else {
-            seteighteenscore(eighteenscore - 1)
-            const updatedeighteenshots = eighteenshots.slice(0, -1);
-            seteighteenshots(updatedeighteenshots);
-        }
-    }
-
-    function changeHoleEighteen(index, event) {
-        const value = event.target.value;
-        const updatedeighteenshots = [...eighteenshots];
-        updatedeighteenshots[index] = { ...updatedeighteenshots[index], startingLie: value };
-        seteighteenshots(updatedeighteenshots);
-    }
-
-    function changeholeEighteenDistance(index, event) {
-        const value = event.target.value;
-        const updatedeighteenshots = [...eighteenshots]
-        updatedeighteenshots[index] = { ...updatedeighteenshots[index], distanceToHole: value };
-        seteighteenshots(updatedeighteenshots);
-    }
-
-
-
-
-
-
-
-    {/* Alerts to help user */ }
-
-    function helpstartinglie() {
-        alert("The starting lie is where on the golf course you took your shot from. For example, your first shot would be from the Tee, as this is the starting lie for your first shot.")
-    }
-
-    function helpdistance() {
-        alert("The distance to hole is the distance to th hole that you had for your shot. For example, your first shot's distance to hole should be the length of the hole, as this is the distance to the hole from the starting position of the shot.")
-    }
-
-    {/* navigating holes and pages */ }
-    function tonexthole(event) {
-        event.preventDefault()
-        setCurrenthole(currenthole + 1)
-    }
-
-    function toprevhole(event) {
-        event.preventDefault()
-        setCurrenthole(currenthole - 1)
-    }
-
-    function backtoone() {
-        setPage(1)
-    }
-
-    function backtotwo() {
-        setPage(2)
-    }
-
-    function finishround() {
-        setPage(3)
-    }
-
-    function navigateholes(target) {
-        const current = currenthole
-        if (page === 3) {
-            setPage(2)
-            setCurrenthole(target)
-        }
-        else if (current >= target) {
-            setCurrenthole(target)
+        if (Object.keys(newErrors).length === 0) {
+            setHole(1)
+            setPart(2)
+            setErrors({})
         } else {
+            setErrors(newErrors)
         }
     }
 
-    {/* Part 3 Logic */ }
-    {/* The Strokes Gained Database */ }
+    function handleHoleChange(number) {
+        if (hole > number) {
+            setHole(number)
+        }
+    }
+
+    /* Alerts to help user */
+    function helpstartinglie() { alert("The starting lie is where on the golf course you took your shot from. For example, your first shot would be from the Tee, as this is the starting lie for your first shot.") }
+    function helpdistance() { alert("The distance to hole is the distance to th hole that you had for your shot. For example, your first shot's distance to hole should be the length of the hole, as this is the distance to the hole from the starting position of the shot.") }
+
+    function transformToDigit(int) {
+        if (int === 1) {
+            return "one"
+        } else if (int === 2) {
+            return "two"
+        } else if (int === 3) {
+            return "three"
+        } else if (int === 4) {
+            return "four"
+        } else if (int === 5) {
+            return "five"
+        } else if (int === 6) {
+            return "six"
+        } else if (int === 7) {
+            return "seven"
+        } else if (int === 8) {
+            return "eight"
+        } else if (int === 9) {
+            return "nine"
+        } else if (int === 10) {
+            return "ten"
+        } else if (int === 11) {
+            return "eleven"
+        } else if (int === 12) {
+            return "twelve"
+        } else if (int === 13) {
+            return "thirteen"
+        } else if (int === 14) {
+            return "fourteen"
+        } else if (int === 15) {
+            return "fifteen"
+        } else if (int === 16) {
+            return "sixteen"
+        } else if (int === 17) {
+            return "seventeen"
+        } else if (int === 18) {
+            return "eighteen"
+        }
+    }
+
+
+    /* Par States */
+    const [onePar, setOnePar] = useState(4)
+    const [twoPar, setTwoPar] = useState(4)
+    const [threePar, setThreePar] = useState(4)
+    const [fourPar, setFourPar] = useState(4)
+    const [fivePar, setFivePar] = useState(4)
+    const [sixPar, setSixPar] = useState(4)
+    const [sevenPar, setSevenPar] = useState(4)
+    const [eightPar, setEightPar] = useState(4)
+    const [ninePar, setNinePar] = useState(4)
+    const [tenPar, setTenPar] = useState(4)
+    const [elevenPar, setElevenPar] = useState(4)
+    const [twelvePar, setTwelvePar] = useState(4)
+    const [thirteenPar, setThirteenPar] = useState(4)
+    const [fourteenPar, setFourteenPar] = useState(4)
+    const [fifteenPar, setFifteenPar] = useState(4)
+    const [sixteenPar, setSixteenPar] = useState(4)
+    const [seventeenPar, setSeventeenPar] = useState(4)
+    const [eighteenPar, setEighteenPar] = useState(4)
+    const frontPar = onePar + twoPar + threePar + fourPar + fivePar + sixPar + sevenPar + eightPar + ninePar
+    const backPar = tenPar + elevenPar + twelvePar + thirteenPar + fourteenPar + fifteenPar + sixteenPar + seventeenPar + eighteenPar
+    const totalPar = frontPar + backPar
+
+    /* Scores */
+    const [oneScore, setOneScore] = useState(1)
+    const [twoScore, setTwoScore] = useState(1)
+    const [threeScore, setThreeScore] = useState(1)
+    const [fourScore, setFourScore] = useState(1)
+    const [fiveScore, setFiveScore] = useState(1)
+    const [sixScore, setSixScore] = useState(1)
+    const [sevenScore, setSevenScore] = useState(1)
+    const [eightScore, setEightScore] = useState(1)
+    const [nineScore, setNineScore] = useState(1)
+    const [tenScore, setTenScore] = useState(1)
+    const [elevenScore, setElevenScore] = useState(1)
+    const [twelveScore, setTwelveScore] = useState(1)
+    const [thirteenScore, setThirteenScore] = useState(1)
+    const [fourteenScore, setFourteenScore] = useState(1)
+    const [fifteenScore, setFifteenScore] = useState(1)
+    const [sixteenScore, setSixteenScore] = useState(1)
+    const [seventeenScore, setSeventeenScore] = useState(1)
+    const [eighteenScore, setEighteenScore] = useState(1)
+    const frontScore = oneScore + twoScore + threeScore + fourScore + fiveScore + sixScore + sevenScore + eightScore + nineScore
+    const backScore = tenScore + elevenScore + twelveScore + thirteenScore + fourteenScore + fifteenScore + sixteenScore + seventeenScore + eighteenScore
+    const totalScore = frontScore + backScore
+
+
+    const [oneShots, setOneShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [twoShots, setTwoShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [threeShots, setThreeShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [fourShots, setFourShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [fiveShots, setFiveShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [sixShots, setSixShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [sevenShots, setSevenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [eightShots, setEightShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [nineShots, setNineShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+
+    const [tenShots, setTenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [elevenShots, setElevenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [twelveShots, setTwelveShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [thirteenShots, setThirteenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [fourteenShots, setFourteenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [fifteenShots, setFifteenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [sixteenShots, setSixteenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [seventeenShots, setSeventeenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+    const [eighteenShots, setEighteenShots] = useState([{ startingLie: "Tee", distanceToHole: 0 }])
+
+    /* Hole One Functions */
+    function addNewShotHoleOne() {
+        const newShots = [{ startingLie: "", distanceToHole: 0 }]
+        setOneShots([...oneShots, ...newShots])
+    }
+
+    function removeShotHoleOne() {
+        const updatedOneShots = oneShots.slice(0, -1);
+        setOneShots(updatedOneShots);
+    }
+
+    function oneShotLie(event, index) {
+        const updatedOneshots = [...oneShots];
+        updatedOneshots[index] = { ...updatedOneshots[index], startingLie: event };
+        setOneShots(updatedOneshots);
+    }
+
+    function oneShotDistance(event, index) {
+        const updatedOneshots = [...oneShots]
+        updatedOneshots[index] = { ...updatedOneshots[index], distanceToHole: event };
+        setOneShots(updatedOneshots);
+    }
+
+    /* Hole two Functions */
+    function addNewShotHoleTwo() {
+        const newShots = [{ startingLie: "", distanceToHole: 0 }]
+        setTwoShots([...twoShots, ...newShots])
+    }
+
+    function removeShotHoleTwo() {
+        const updatedTwoShots = twoShots.slice(0, -1);
+        setTwoShots(updatedTwoShots);
+    }
+
+    function twoShotLie(event, index) {
+        const updatedTwoshots = [...twoShots];
+        updatedTwoshots[index] = { ...updatedTwoshots[index], startingLie: event };
+        setTwoShots(updatedTwoshots);
+    }
+
+    function twoShotDistance(event, index) {
+        const updatedTwoshots = [...twoShots]
+        updatedTwoshots[index] = { ...updatedTwoshots[index], distanceToHole: event };
+        setTwoShots(updatedTwoshots);
+    }
+
+    /* Hole three Functions */
+    function addNewShotHoleThree() {
+        const newShots = [{ startingLie: "", distanceToHole: 0 }]
+        setThreeShots([...threeShots, ...newShots])
+    }
+
+    function removeShotHoleThree() {
+        const updatedThreeShots = threeShots.slice(0, -1);
+        setThreeShots(updatedThreeShots);
+    }
+
+    function threeShotLie(event, index) {
+        const updatedThreeshots = [...threeShots];
+        updatedThreeshots[index] = { ...updatedThreeshots[index], startingLie: event };
+        setThreeShots(updatedThreeshots);
+    }
+
+    function threeShotDistance(event, index) {
+        const updatedThreeshots = [...threeShots]
+        updatedThreeshots[index] = { ...updatedThreeshots[index], distanceToHole: event };
+        setThreeShots(updatedThreeshots);
+    }
+
+    /* Hole four Functions */
+    function addNewShotHoleFour() {
+        const newShots = [{ startingLie: "", distanceToHole: 0 }]
+        setFourShots([...fourShots, ...newShots])
+    }
+
+    function removeShotHoleFour() {
+        const updatedFourShots = fourShots.slice(0, -1);
+        setFourShots(updatedFourShots);
+    }
+
+    function fourShotLie(event, index) {
+        const updatedFourshots = [...fourShots];
+        updatedFourshots[index] = { ...updatedFourshots[index], startingLie: event };
+        setFourShots(updatedFourshots);
+    }
+
+    function fourShotDistance(event, index) {
+        const updatedFourshots = [...fourShots]
+        updatedFourshots[index] = { ...updatedFourshots[index], distanceToHole: event };
+        setFourShots(updatedFourshots);
+    }
+
+    /* Hole five Functions */
+    function addNewShotHoleFive() {
+        const newShots = [{ startingLie: "", distanceToHole: 0 }]
+        setFiveShots([...fiveShots, ...newShots])
+    }
+
+    function removeShotHoleFive() {
+        const updatedFiveShots = fiveShots.slice(0, -1);
+        setFiveShots(updatedFiveShots);
+    }
+
+    function fiveShotLie(event, index) {
+        const updatedFiveshots = [...fiveShots];
+        updatedFiveshots[index] = { ...updatedFiveshots[index], startingLie: event };
+        setFiveShots(updatedFiveshots);
+    }
+
+    function fiveShotDistance(event, index) {
+        const updatedFiveshots = [...fiveShots]
+        updatedFiveshots[index] = { ...updatedFiveshots[index], distanceToHole: event };
+        setFiveShots(updatedFiveshots);
+    }
+
+    /* Hole six Functions */
+    function addNewShotHoleSix() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setSixShots([...sixShots, ...newShots])
+    }
+
+    function removeShotHoleSix() {
+        const updatedSixShots = sixShots.slice(0, -1);
+        setSixShots(updatedSixShots);
+    }
+
+    function sixShotLie(event, index) {
+        const updatedSixshots = [...sixShots];
+        updatedSixshots[index] = { ...updatedSixshots[index], startingLie: event };
+        setSixShots(updatedSixshots);
+    }
+
+    function sixShotDistance(event, index) {
+        const updatedSixshots = [...sixShots]
+        updatedSixshots[index] = { ...updatedSixshots[index], distanceToHole: event };
+        setSixShots(updatedSixshots);
+    }
+
+    /* Hole seven Functions */
+    function addNewShotHoleSeven() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setSevenShots([...sevenShots, ...newShots])
+    }
+
+    function removeShotHoleSeven() {
+        const updatedSevenShots = sevenShots.slice(0, -1);
+        setSevenShots(updatedSevenShots);
+    }
+
+    function sevenShotLie(event, index) {
+        const updatedSevenshots = [...sevenShots];
+        updatedSevenshots[index] = { ...updatedSevenshots[index], startingLie: event };
+        setSevenShots(updatedSevenshots);
+    }
+
+    function sevenShotDistance(event, index) {
+        const updatedSevenshots = [...sevenShots]
+        updatedSevenshots[index] = { ...updatedSevenshots[index], distanceToHole: event };
+        setSevenShots(updatedSevenshots);
+    }
+
+    /* Hole eight Functions */
+    function addNewShotHoleEight() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setEightShots([...eightShots, ...newShots])
+    }
+
+    function removeShotHoleEight() {
+        const updatedEightShots = eightShots.slice(0, -1);
+        setEightShots(updatedEightShots);
+    }
+
+    function eightShotLie(event, index) {
+        const updatedEightshots = [...eightShots];
+        updatedEightshots[index] = { ...updatedEightshots[index], startingLie: event };
+        setEightShots(updatedEightshots);
+    }
+
+    function eightShotDistance(event, index) {
+        const updatedEightshots = [...eightShots]
+        updatedEightshots[index] = { ...updatedEightshots[index], distanceToHole: event };
+        setEightShots(updatedEightshots);
+    }
+
+    /* Hole nine Functions */
+    function addNewShotHoleNine() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setNineShots([...nineShots, ...newShots])
+    }
+
+    function removeShotHoleNine() {
+        const updatedNineShots = nineShots.slice(0, -1);
+        setNineShots(updatedNineShots);
+    }
+
+    function nineShotLie(event, index) {
+        const updatedNineshots = [...nineShots];
+        updatedNineshots[index] = { ...updatedNineshots[index], startingLie: event };
+        setNineShots(updatedNineshots);
+    }
+
+    function nineShotDistance(event, index) {
+        const updatedNineshots = [...nineShots]
+        updatedNineshots[index] = { ...updatedNineshots[index], distanceToHole: event };
+        setNineShots(updatedNineshots);
+    }
+
+    /* Hole ten Functions */
+    function addNewShotHoleTen() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setTenShots([...tenShots, ...newShots])
+    }
+
+    function removeShotHoleTen() {
+        const updatedTenShots = tenShots.slice(0, -1);
+        setTenShots(updatedTenShots);
+    }
+
+    function tenShotLie(event, index) {
+        const updatedTenshots = [...tenShots];
+        updatedTenshots[index] = { ...updatedTenshots[index], startingLie: event };
+        setTenShots(updatedTenshots);
+    }
+
+    function tenShotDistance(event, index) {
+        const updatedTenshots = [...tenShots]
+        updatedTenshots[index] = { ...updatedTenshots[index], distanceToHole: event };
+        setTenShots(updatedTenshots);
+    }
+
+    /* Hole eleven Functions */
+    function addNewShotHoleEleven() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setElevenShots([...elevenShots, ...newShots])
+    }
+
+    function removeShotHoleEleven() {
+        const updatedElevenShots = elevenShots.slice(0, -1);
+        setElevenShots(updatedElevenShots);
+    }
+
+    function elevenShotLie(event, index) {
+        const updatedElevenshots = [...elevenShots];
+        updatedElevenshots[index] = { ...updatedElevenshots[index], startingLie: event };
+        setElevenShots(updatedElevenshots);
+    }
+
+    function elevenShotDistance(event, index) {
+        const updatedElevenshots = [...elevenShots]
+        updatedElevenshots[index] = { ...updatedElevenshots[index], distanceToHole: event };
+        setElevenShots(updatedElevenshots);
+    }
+
+    /* Hole twelve Functions */
+    function addNewShotHoleTwelve() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setTwelveShots([...twelveShots, ...newShots])
+    }
+
+    function removeShotHoleTwelve() {
+        const updatedTwelveShots = twelveShots.slice(0, -1);
+        setTwelveShots(updatedTwelveShots);
+    }
+
+    function twelveShotLie(event, index) {
+        const updatedTwelveshots = [...twelveShots];
+        updatedTwelveshots[index] = { ...updatedTwelveshots[index], startingLie: event };
+        setTwelveShots(updatedTwelveshots);
+    }
+
+    function twelveShotDistance(event, index) {
+        const updatedTwelveshots = [...twelveShots]
+        updatedTwelveshots[index] = { ...updatedTwelveshots[index], distanceToHole: event };
+        setTwelveShots(updatedTwelveshots);
+    }
+
+    /* Hole thirteen Functions */
+    function addNewShotHoleThirteen() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setThirteenShots([...thirteenShots, ...newShots])
+    }
+
+    function removeShotHoleThirteen() {
+        const updatedThirteenShots = thirteenShots.slice(0, -1);
+        setThirteenShots(updatedThirteenShots);
+    }
+
+    function thirteenShotLie(event, index) {
+        const updatedThirteenshots = [...thirteenShots];
+        updatedThirteenshots[index] = { ...updatedThirteenshots[index], startingLie: event };
+        setThirteenShots(updatedThirteenshots);
+    }
+
+    function thirteenShotDistance(event, index) {
+        const updatedThirteenshots = [...thirteenShots]
+        updatedThirteenshots[index] = { ...updatedThirteenshots[index], distanceToHole: event };
+        setThirteenShots(updatedThirteenshots);
+    }
+
+    /* Hole fourteen Functions */
+    function addNewShotHoleFourteen() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setFourteenShots([...fourteenShots, ...newShots])
+    }
+
+    function removeShotHoleFourteen() {
+        const updatedFourteenShots = fourteenShots.slice(0, -1);
+        setFourteenShots(updatedFourteenShots);
+    }
+
+    function fourteenShotLie(event, index) {
+        const updatedFourteenshots = [...fourteenShots];
+        updatedFourteenshots[index] = { ...updatedFourteenshots[index], startingLie: event };
+        setFourteenShots(updatedFourteenshots);
+    }
+
+    function fourteenShotDistance(event, index) {
+        const updatedFourteenshots = [...fourteenShots]
+        updatedFourteenshots[index] = { ...updatedFourteenshots[index], distanceToHole: event };
+        setFourteenShots(updatedFourteenshots);
+    }
+
+    /* Hole fifteen Functions */
+    function addNewShotHoleFifteen() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setFifteenShots([...fifteenShots, ...newShots])
+    }
+
+    function removeShotHoleFifteen() {
+        const updatedFifteenShots = fifteenShots.slice(0, -1);
+        setFifteenShots(updatedFifteenShots);
+    }
+
+    function fifteenShotLie(event, index) {
+        const updatedFifteenshots = [...fifteenShots];
+        updatedFifteenshots[index] = { ...updatedFifteenshots[index], startingLie: event };
+        setFifteenShots(updatedFifteenshots);
+    }
+
+    function fifteenShotDistance(event, index) {
+        const updatedFifteenshots = [...fifteenShots]
+        updatedFifteenshots[index] = { ...updatedFifteenshots[index], distanceToHole: event };
+        setFifteenShots(updatedFifteenshots);
+    }
+
+    /* Hole sixteen Functions */
+    function addNewShotHoleSixteen() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setSixteenShots([...sixteenShots, ...newShots])
+    }
+
+    function removeShotHoleSixteen() {
+        const updatedSixteenShots = sixteenShots.slice(0, -1);
+        setSixteenShots(updatedSixteenShots);
+    }
+
+    function sixteenShotLie(event, index) {
+        const updatedSixteenshots = [...sixteenShots];
+        updatedSixteenshots[index] = { ...updatedSixteenshots[index], startingLie: event };
+        setSixteenShots(updatedSixteenshots);
+    }
+
+    function sixteenShotDistance(event, index) {
+        const updatedSixteenshots = [...sixteenShots]
+        updatedSixteenshots[index] = { ...updatedSixteenshots[index], distanceToHole: event };
+        setSixteenShots(updatedSixteenshots);
+    }
+
+    /* Hole seventeen Functions */
+    function addNewShotHoleSeventeen() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setSeventeenShots([...seventeenShots, ...newShots])
+    }
+
+    function removeShotHoleSeventeen() {
+        const updatedSeventeenShots = seventeenShots.slice(0, -1);
+        setSeventeenShots(updatedSeventeenShots);
+    }
+
+    function seventeenShotLie(event, index) {
+        const updatedSeventeenshots = [...seventeenShots];
+        updatedSeventeenshots[index] = { ...updatedSeventeenshots[index], startingLie: event };
+        setSeventeenShots(updatedSeventeenshots);
+    }
+
+    function seventeenShotDistance(event, index) {
+        const updatedSeventeenshots = [...seventeenShots]
+        updatedSeventeenshots[index] = { ...updatedSeventeenshots[index], distanceToHole: event };
+        setSeventeenShots(updatedSeventeenshots);
+    }
+
+    /* Hole eighteen Functions */
+    function addNewShotHoleEighteen() {
+        const newShots = [{ startingLie: "Fairway", distanceToHole: 0 }]
+        setEighteenShots([...eighteenShots, ...newShots])
+    }
+
+    function removeShotHoleEighteen() {
+        const updatedEighteenShots = eighteenShots.slice(0, -1);
+        setEighteenShots(updatedEighteenShots);
+    }
+
+    function eighteenShotLie(event, index) {
+        const updatedEighteenshots = [...eighteenShots];
+        updatedEighteenshots[index] = { ...updatedEighteenshots[index], startingLie: event };
+        setEighteenShots(updatedEighteenshots);
+    }
+
+    function eighteenShotDistance(event, index) {
+        const updatedEighteenshots = [...eighteenShots]
+        updatedEighteenshots[index] = { ...updatedEighteenshots[index], distanceToHole: event };
+        setEighteenShots(updatedEighteenshots);
+    }
+
+    /* PGA Database */
     const tee = { 0: 1, 100: 2.92, 120: 2.99, 140: 2.97, 160: 2.99, 180: 3.05, 200: 3.12, 220: 3.17, 240: 3.25, 260: 3.45, 280: 3.65, 300: 3.71, 320: 3.79, 340: 3.86, 360: 3.92, 380: 3.96, 400: 3.99, 420: 4.02, 440: 4.08, 460: 4.17, 480: 4.28, 500: 4.41, 520: 4.54, 540: 4.65, 560: 4.74, 580: 4.79, 600: 4.82 }
     const green = { 0: 1, 1: 1.00, 2: 1.02, 3: 1.04, 4: 1.13, 5: 1.23, 6: 1.34, 7: 1.42, 8: 1.50, 9: 1.56, 10: 1.61, 15: 1.78, 20: 1.87, 30: 1.98, 40: 2.06, 50: 2.14, 60: 2.21, 90: 2.40, 100: 2.50 }
     const sand = { 0: 1, 20: 2.53, 40: 2.82, 60: 3.15, 80: 3.24, 100: 3.23, 120: 3.21, 140: 3.22, 160: 3.28, 180: 3.40, 200: 3.55, 220: 3.70, 240: 2.84, 260: 3.93, 280: 4.00, 320: 4.12, 340: 4.26, 360: 4.41, 380: 4.55, 400: 4.69, 420: 4.73, 440: 4.78, 460: 4.87, 480: 4.98, 500: 5.11, 520: 5.24, 540: 5.36, 560: 5.44, 580: 5.49, 600: 5.52 }
     const rough = { 0: 1, 20: 2.59, 40: 2.78, 60: 2.91, 80: 2.96, 100: 3.02, 120: 3.08, 140: 3.15, 160: 3.23, 180: 3.31, 200: 3.42, 220: 3.53, 240: 3.64, 260: 3.74, 280: 3.83, 300: 3.90, 320: 3.95, 340: 4.02, 360: 4.11, 380: 4.21, 400: 4.30, 420: 4.34, 440: 4.39, 460: 4.48, 480: 4.59, 500: 4.72, 520: 4.85, 540: 4.97, 560: 5.05, 580: 5.10, 600: 5.13 }
     const fairway = { 0: 1, 20: 2.40, 40: 2.60, 60: 2.70, 80: 2.75, 100: 2.80, 120: 2.85, 140: 2.91, 160: 2.98, 180: 3.08, 200: 3.19, 220: 3.32, 240: 3.45, 260: 3.58, 280: 3.69, 300: 3.78, 320: 3.84, 340: 3.88, 360: 3.95, 380: 4.03, 400: 4.11, 420: 4.15, 440: 4.20, 460: 4.29, 480: 4.40, 500: 4.53, 520: 4.66, 540: 4.78, 560: 4.86, 580: 4.91, 600: 4.94 }
-
-
-    {/*Seting the strokes gained states */ }
-    const [oneputtingsg, setoneputtingsg] = useState(0)
-    const [oneshortgamesg, setoneshortgamesg] = useState(0)
-    const [oneapproachsg, setoneapproachsg] = useState(0)
-    const [oneteesg, setoneteesg] = useState(0)
-
-    const [twoputtingsg, settwoputtingsg] = useState(0)
-    const [twoshortgamesg, settwoshortgamesg] = useState(0)
-    const [twoapproachsg, settwoapproachsg] = useState(0)
-    const [twoteesg, settwoteesg] = useState(0)
-
-    const [threeputtingsg, setthreeputtingsg] = useState(0)
-    const [threeshortgamesg, setthreeshortgamesg] = useState(0)
-    const [threeapproachsg, setthreeapproachsg] = useState(0)
-    const [threeteesg, setthreeteesg] = useState(0)
-
-    const [fourputtingsg, setfourputtingsg] = useState(0)
-    const [fourshortgamesg, setfourshortgamesg] = useState(0)
-    const [fourapproachsg, setfourapproachsg] = useState(0)
-    const [fourteesg, setfourteesg] = useState(0)
-
-    const [fiveputtingsg, setfiveputtingsg] = useState(0)
-    const [fiveshortgamesg, setfiveshortgamesg] = useState(0)
-    const [fiveapproachsg, setfiveapproachsg] = useState(0)
-    const [fiveteesg, setfiveteesg] = useState(0)
-
-    const [sixputtingsg, setsixputtingsg] = useState(0)
-    const [sixshortgamesg, setsixshortgamesg] = useState(0)
-    const [sixapproachsg, setsixapproachsg] = useState(0)
-    const [sixteesg, setsixteesg] = useState(0)
-
-    const [sevenputtingsg, setsevenputtingsg] = useState(0)
-    const [sevenshortgamesg, setsevenshortgamesg] = useState(0)
-    const [sevenapproachsg, setsevenapproachsg] = useState(0)
-    const [seventeesg, setseventeesg] = useState(0)
-
-    const [eightputtingsg, seteightputtingsg] = useState(0)
-    const [eightshortgamesg, seteightshortgamesg] = useState(0)
-    const [eightapproachsg, seteightapproachsg] = useState(0)
-    const [eightteesg, seteightteesg] = useState(0)
-
-    const [nineputtingsg, setnineputtingsg] = useState(0)
-    const [nineshortgamesg, setnineshortgamesg] = useState(0)
-    const [nineapproachsg, setnineapproachsg] = useState(0)
-    const [nineteesg, setnineteesg] = useState(0)
-
-    const [tenputtingsg, settenputtingsg] = useState(0)
-    const [tenshortgamesg, settenshortgamesg] = useState(0)
-    const [tenapproachsg, settenapproachsg] = useState(0)
-    const [tenteesg, settenteesg] = useState(0)
-
-    const [elevenputtingsg, setelevenputtingsg] = useState(0)
-    const [elevenshortgamesg, setelevenshortgamesg] = useState(0)
-    const [elevenapproachsg, setelevenapproachsg] = useState(0)
-    const [eleventeesg, seteleventeesg] = useState(0)
-
-    const [twelveputtingsg, settwelveputtingsg] = useState(0)
-    const [twelveshortgamesg, settwelveshortgamesg] = useState(0)
-    const [twelveapproachsg, settwelveapproachsg] = useState(0)
-    const [twelveteesg, settwelveteesg] = useState(0)
-
-    const [thirteenputtingsg, setthirteenputtingsg] = useState(0)
-    const [thirteenshortgamesg, setthirteenshortgamesg] = useState(0)
-    const [thirteenapproachsg, setthirteenapproachsg] = useState(0)
-    const [thirteenteesg, setthirteenteesg] = useState(0)
-
-    const [fourteenputtingsg, setfourteenputtingsg] = useState(0)
-    const [fourteenshortgamesg, setfourteenshortgamesg] = useState(0)
-    const [fourteenapproachsg, setfourteenapproachsg] = useState(0)
-    const [fourteenteesg, setfourteenteesg] = useState(0)
-
-    const [fifteenputtingsg, setfifteenputtingsg] = useState(0)
-    const [fifteenshortgamesg, setfifteenshortgamesg] = useState(0)
-    const [fifteenapproachsg, setfifteenapproachsg] = useState(0)
-    const [fifteenteesg, setfifteenteesg] = useState(0)
-
-    const [sixteenputtingsg, setsixteenputtingsg] = useState(0)
-    const [sixteenshortgamesg, setsixteenshortgamesg] = useState(0)
-    const [sixteenapproachsg, setsixteenapproachsg] = useState(0)
-    const [sixteenteesg, setsixteenteesg] = useState(0)
-
-    const [seventeenputtingsg, setseventeenputtingsg] = useState(0)
-    const [seventeenshortgamesg, setseventeenshortgamesg] = useState(0)
-    const [seventeenapproachsg, setseventeenapproachsg] = useState(0)
-    const [seventeenteesg, setseventeenteesg] = useState(0)
-
-    const [eighteenputtingsg, seteighteenputtingsg] = useState(0)
-    const [eighteenshortgamesg, seteighteenshortgamesg] = useState(0)
-    const [eighteenapproachsg, seteighteenapproachsg] = useState(0)
-    const [eighteenteesg, seteighteenteesg] = useState(0)
-
 
     function rounding(distance, lie) {
         const keys = Object.keys(lie);
@@ -988,3073 +611,2451 @@ export default function Newround() {
         const returnn = (lowerWeight * lowervalue) + (upperWeight * uppervalue)
 
         return returnn
-
     }
 
 
+    /* Statistics States "Tee" */
+    const [fairwaysPer, setFairwaysPer] = useState([0, 0])
+    const [fairwaysPer4, setFairwaysPer4] = useState([0, 0])
+    const [fairwaysPer5, setFairwaysPer5] = useState([0, 0])
 
-    function strokesgainedholeone(dict) {
-        let onesgputting = 0
-        let onesgapproach = 0
-        let onesgshortgame = 0
-        let onesgtee = 0
+    const [strokesGainedTee, setStrokesGainedTee] = useState([0, 0])
+    const [strokesGainedTee4, setStrokesGainedTee4] = useState([0, 0])
+    const [strokesGainedTee5, setStrokesGainedTee5] = useState([0, 0])
 
-        const values = Object.values(dict);
-        const numValues = values.length;
+    /* Strokes Gained "Approach" */
+    const [pthF100125, setpthF100125] = useState("N/A", 0)
+    const [pthF125150, setpthF125150] = useState("N/A", 0)
+    const [pthF150175, setpthF150175] = useState("N/A")
+    const [pthF175200, setpthF175200] = useState("N/A")
+    const [pthF200225, setpthF200225] = useState("N/A")
+    const [pthF225250, setpthF225250] = useState("N/A")
+    const [pthF250, setpthF250] = useState("N/A")
+
+    const [pthR100125, setpthR100125] = useState("N/A")
+    const [pthR125150, setpthR125150] = useState("N/A")
+    const [pthR150175, setpthR150175] = useState("N/A")
+    const [pthR175200, setpthR175200] = useState("N/A")
+    const [pthR200225, setpthR200225] = useState("N/A")
+    const [pthR225250, setpthR225250] = useState("N/A")
+    const [pthR250, setpthR250] = useState("N/A")
+
+    const [pthS100125, setpthS100125] = useState("N/A")
+    const [pthS125150, setpthS125150] = useState("N/A")
+    const [pthS150175, setpthS150175] = useState("N/A")
+    const [pthS175200, setpthS175200] = useState("N/A")
+    const [pthS200225, setpthS200225] = useState("N/A")
+    const [pthS225250, setpthS225250] = useState("N/A")
+    const [pthS250, setpthS250] = useState("N/A")
+
+    const [phgF100125, setphgF100125] = useState("N/A")
+
+    /* Statistics States "Scoring" */
+    const [pspr3, setPspr3] = useState(0)
+    const [pspr4, setPspr4] = useState(0)
+    const [pspr5, setPspr5] = useState(0)
+
+    const [gir3, setGir3] = useState([0,0])
+    const [gir4, setGir4] = useState([0,0])
+    const [gir5, setGir5] = useState([0,0])
+
+    const [sa3, setSa3] = useState([0,0])
+    const [sa4, setSa4] = useState([0,0])
+    const [sa5, setSa5] = useState([0,0])
+
+    const [bpr3, setBrp3] = useState(0)
+    const [bpr4, setBrp4] = useState(0)
+    const [bpr5, setBrp5] = useState(0)
+
+    const [ppr3, setPpr3] = useState(0)
+    const [ppr4, setPpr4] = useState(0)
+    const [ppr5, setPpr5] = useState(0)
+
+    const [bopr3, setBopr3] = useState(0)
+    const [bopr4, setBopr4] = useState(0)
+    const [bopr5, setBopr5] = useState(0)
+    
+    /* Statistics States "Putting" */
+    const [ppr, setPpr] = useState(0)
+    const [ppg, setppg] = useState([0,0])
+    const [totalDistanceStat, setTotalDistanceStat] = useState(0)
+    const [onePuttP, setOnePuttP] = useState(0)
+    const [threePuttP, setThreePuttP] = useState(0)
 
 
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    onesgtee = rounding(distance, tee) - 1 + onesgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        onesgshortgame = rounding(distance, rough) - 1 + onesgshortgame
-                    } else if (lie === "Fairway") {
-                        onesgshortgame = rounding(distance, fairway) - 1 + onesgshortgame
-                    } else if (lie === "Sand") {
-                        onesgshortgame = rounding(distance, sand) - 1 + onesgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    onesgapproach = rounding(distance, fairway) - 1 + onesgapproach
-                } else if (lie === "Rough") {
-                    onesgapproach = rounding(distance, rough) - 1 + onesgapproach
-                } else if (lie === "Sand") {
-                    onesgapproach = rounding(distance, sand) - 1 + onesgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    onesgputting = rounding(distance, green) - 1 + onesgputting
-                }
+    /* Algorithm to calculate the Tee statistics */
 
+    function algorithmtee(dict, hole) {
+        if (((eval(transformToDigit(hole) + "Par") === 4) || (eval(transformToDigit(hole) + "Par") === 5)) && eval(transformToDigit(hole) + "Score") > 1) {
+            if (dict[1].startingLie === "fairway") {
+                const hit = fairwaysPer[0] + 1
+                const total = fairwaysPer[1] + 1
+                setFairwaysPer([hit, total])
+            } else {
+                const hit = fairwaysPer[0]
+                const total = fairwaysPer[1] + 1
+                setFairwaysPer([hit, total])
             }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plusonelie = dict[i + 1].startingLie
-                const plusonedistance = dict[i + 1].distanceToHole
+            const next = rounding(dict[1].distanceToHole, eval(dict[1].startingLie))
+            const current = rounding(dict[0].distanceToHole, tee)
 
-                let plusonesg = 0
-                if (plusonelie === "Green") {
-                    plusonesg = rounding(plusonedistance, green)
-                } else if (plusonelie === "Rough") {
-                    plusonesg = rounding(plusonedistance, rough)
-                } else if (plusonelie === "Fairway") {
-                    plusonesg = rounding(plusonedistance, fairway)
-                } else if (plusonelie === "Sand") {
-                    plusonesg = rounding(plusonedistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        onesgshortgame = currentsg - plusonesg - 1 + onesgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        onesgshortgame = currentsg - plusonesg - 1 + onesgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        onesgshortgame = currentsg - plusonesg - 1 + onesgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    onesgputting = currentsg - plusonesg - 1 + onesgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    onesgtee = currentsg - plusonesg - 1 + onesgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    onesgapproach = currentsg - plusonesg - 1 + onesgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    onesgapproach = currentsg - plusonesg - 1 + onesgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    onesgapproach = currentsg - plusonesg - 1 + onesgapproach
-                }
+            const sg = strokesGainedTee[0] + (next - current - 1)
+            const totall = strokesGainedTee[1] + 1
+            setStrokesGainedTee([sg, totall])
+        }
+        if ((eval(transformToDigit(hole) + "Par") === 4) && eval(transformToDigit(hole) + "Score") > 1) {
+            if (dict[1].startingLie === "fairway") {
+                const hit = fairwaysPer4[0] + 1
+                const total = fairwaysPer4[1] + 1
+                setFairwaysPer4([hit, total])
+            } else {
+                const hit = fairwaysPer4[0]
+                const total = fairwaysPer4[1] + 1
+                setFairwaysPer4([hit, total])
+            }
+            const next = rounding(dict[1].distanceToHole, eval(dict[1].startingLie))
+            const current = rounding(dict[0].distanceToHole, tee)
+
+            const sg = strokesGainedTee4[0] + (next - current - 1)
+            const totall = strokesGainedTee4[1] + 1
+            setStrokesGainedTee4([sg, totall])
+        }
+        if ((eval(transformToDigit(hole) + "Par") === 5) && eval(transformToDigit(hole) + "Score") > 1) {
+            if (dict[1].startingLie === "fairway") {
+                const hit = fairwaysPer5[0] + 1
+                const total = fairwaysPer5[1] + 1
+                setFairwaysPer5([hit, total])
+            } else {
+                const hit = fairwaysPer5[0]
+                const total = fairwaysPer5[1] + 1
+                setFairwaysPer5([hit, total])
+            }
+            const next = rounding(dict[1].distanceToHole, eval(dict[1].startingLie))
+            const current = rounding(dict[0].distanceToHole, tee)
+
+            const sg = strokesGainedTee5[0] + (next - current - 1)
+            const totall = strokesGainedTee5[1] + 1
+            setStrokesGainedTee5([sg, totall])
+        }
+    }
+
+    /* Putting Algorithm */
+    function algorithmputting(dict, hole) {
+        var pprhole = 0
+        var i = 0
+        const dictLength = Object.keys(dict).length;
+        while (i < dictLength) {
+            if (dict[i].startingLie === "green") {
+                ppr = ppr + 1
+                i = i + 1
             }
         }
-        setoneputtingsg(onesgputting)
-        setoneshortgamesg(onesgshortgame)
-        setoneapproachsg(onesgapproach)
-        setoneteesg(onesgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholeone(oneshots);
-    }, [oneshots]);
-
-    function strokesgainedholetwo(dict) {
-        let twosgputting = 0
-        let twosgapproach = 0
-        let twosgshortgame = 0
-        let twosgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    twosgtee = rounding(distance, tee) - 1 + twosgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        twosgshortgame = rounding(distance, rough) - 1 + twosgshortgame
-                    } else if (lie === "Fairway") {
-                        twosgshortgame = rounding(distance, fairway) - 1 + twosgshortgame
-                    } else if (lie === "Sand") {
-                        twosgshortgame = rounding(distance, sand) - 1 + twosgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    twosgapproach = rounding(distance, fairway) - 1 + twosgapproach
-                } else if (lie === "Rough") {
-                    twosgapproach = rounding(distance, rough) - 1 + twosgapproach
-                } else if (lie === "Sand") {
-                    twosgapproach = rounding(distance, sand) - 1 + twosgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    twosgputting = rounding(distance, green) - 1 + twosgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plustwolie = dict[i + 1].startingLie
-                const plustwodistance = dict[i + 1].distanceToHole
-
-                let plustwosg = 0
-                if (plustwolie === "Green") {
-                    plustwosg = rounding(plustwodistance, green)
-                } else if (plustwolie === "Rough") {
-                    plustwosg = rounding(plustwodistance, rough)
-                } else if (plustwolie === "Fairway") {
-                    plustwosg = rounding(plustwodistance, fairway)
-                } else if (plustwolie === "Sand") {
-                    plustwosg = rounding(plustwodistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        twosgshortgame = currentsg - plustwosg - 1 + twosgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        twosgshortgame = currentsg - plustwosg - 1 + twosgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        twosgshortgame = currentsg - plustwosg - 1 + twosgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    twosgputting = currentsg - plustwosg - 1 + twosgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    twosgtee = currentsg - plustwosg - 1 + twosgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    twosgapproach = currentsg - plustwosg - 1 + twosgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    twosgapproach = currentsg - plustwosg - 1 + twosgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    twosgapproach = currentsg - plustwosg - 1 + twosgapproach
-                }
+        setPpr(ppr + pprhole)
+        if (pprhole == 1) {
+            setOnePuttP(onePuttP + 1)
+        }
+        if (pprhole === 3 ) {
+            setThreePuttP(threePuttP + 1)
+        }
+        if (dict[dictLength -1].startingLie === "green") {
+            setTotalDistanceStat(totalDistanceStat + dict[dictLength -1].distanceToHole)
+        }
+        if (eval(transformToDigit(hole) + "Par") === 3) {
+            if ((dictLength - ppr) === 1) {
+                setppg([ppg[0] + ppr,ppg[1] + 1])
             }
         }
-        settwoputtingsg(twosgputting)
-        settwoshortgamesg(twosgshortgame)
-        settwoapproachsg(twosgapproach)
-        settwoteesg(twosgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholetwo(twoshots);
-    }, [twoshots]);
-
-    function strokesgainedholethree(dict) {
-        let threesgputting = 0
-        let threesgapproach = 0
-        let threesgshortgame = 0
-        let threesgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    threesgtee = rounding(distance, tee) - 1 + threesgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        threesgshortgame = rounding(distance, rough) - 1 + threesgshortgame
-                    } else if (lie === "Fairway") {
-                        threesgshortgame = rounding(distance, fairway) - 1 + threesgshortgame
-                    } else if (lie === "Sand") {
-                        threesgshortgame = rounding(distance, sand) - 1 + threesgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    threesgapproach = rounding(distance, fairway) - 1 + threesgapproach
-                } else if (lie === "Rough") {
-                    threesgapproach = rounding(distance, rough) - 1 + threesgapproach
-                } else if (lie === "Sand") {
-                    threesgapproach = rounding(distance, sand) - 1 + threesgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    threesgputting = rounding(distance, green) - 1 + threesgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plusthreelie = dict[i + 1].startingLie
-                const plusthreedistance = dict[i + 1].distanceToHole
-
-                let plusthreesg = 0
-                if (plusthreelie === "Green") {
-                    plusthreesg = rounding(plusthreedistance, green)
-                } else if (plusthreelie === "Rough") {
-                    plusthreesg = rounding(plusthreedistance, rough)
-                } else if (plusthreelie === "Fairway") {
-                    plusthreesg = rounding(plusthreedistance, fairway)
-                } else if (plusthreelie === "Sand") {
-                    plusthreesg = rounding(plusthreedistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        threesgshortgame = currentsg - plusthreesg - 1 + threesgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        threesgshortgame = currentsg - plusthreesg - 1 + threesgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        threesgshortgame = currentsg - plusthreesg - 1 + threesgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    threesgputting = currentsg - plusthreesg - 1 + threesgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    threesgtee = currentsg - plusthreesg - 1 + threesgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    threesgapproach = currentsg - plusthreesg - 1 + threesgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    threesgapproach = currentsg - plusthreesg - 1 + threesgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    threesgapproach = currentsg - plusthreesg - 1 + threesgapproach
-                }
+        if (eval(transformToDigit(hole) + "Par") === 4) {
+            if ((dictLength - ppr) <= 2) {
+                setppg([ppg[0] + ppr,ppg[1] + 1])
             }
         }
-        setthreeputtingsg(threesgputting)
-        setthreeshortgamesg(threesgshortgame)
-        setthreeapproachsg(threesgapproach)
-        setthreeteesg(threesgtee)
+        if (eval(transformToDigit(hole) + "Par") === 5) {
+            if ((dictLength - ppr) <= 3) {
+                setppg([ppg[0] + ppr,ppg[1] + 1])
+            }
+        }  
     }
 
 
-    useEffect(() => {
-        strokesgainedholethree(threeshots);
-    }, [threeshots]);
-
-    function strokesgainedholefour(dict) {
-        let foursgputting = 0
-        let foursgapproach = 0
-        let foursgshortgame = 0
-        let foursgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    foursgtee = rounding(distance, tee) - 1 + foursgtee
+    /* Scoring Statistics */
+    function algorithmscoring(dict, hole) {
+        if (eval(transformToDigit(hole) + "Par") === 3) {
+            const dictLength = Object.keys(dict).length;
+            var pen = pspr3
+            var i = 0
+            while (i < dictLength) {
+                if (dict[i].startingLie === "penalty") {
+                    pen = pen + 1
+                    i = i + 1
                 }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        foursgshortgame = rounding(distance, rough) - 1 + foursgshortgame
-                    } else if (lie === "Fairway") {
-                        foursgshortgame = rounding(distance, fairway) - 1 + foursgshortgame
-                    } else if (lie === "Sand") {
-                        foursgshortgame = rounding(distance, sand) - 1 + foursgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    foursgapproach = rounding(distance, fairway) - 1 + foursgapproach
-                } else if (lie === "Rough") {
-                    foursgapproach = rounding(distance, rough) - 1 + foursgapproach
-                } else if (lie === "Sand") {
-                    foursgapproach = rounding(distance, sand) - 1 + foursgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    foursgputting = rounding(distance, green) - 1 + foursgputting
-                }
-
             }
-            /* This is assuming that this current shot did not hole out */
+            setPspr3(pen)
+            setSa3([sa3[0] + dictLength, sa3[0] + 1])
+            if (dictLength < 3) {
+                setBrp3(bpr3 + 1)
+                setPpr3(ppr3 + 1)
+            }
+            else if (dictLength === 3) {
+                setPpr3(ppr3 + 1)
+            }
             else {
-                const plusfourlie = dict[i + 1].startingLie
-                const plusfourdistance = dict[i + 1].distanceToHole
-
-                let plusfoursg = 0
-                if (plusfourlie === "Green") {
-                    plusfoursg = rounding(plusfourdistance, green)
-                } else if (plusfourlie === "Rough") {
-                    plusfoursg = rounding(plusfourdistance, rough)
-                } else if (plusfourlie === "Fairway") {
-                    plusfoursg = rounding(plusfourdistance, fairway)
-                } else if (plusfourlie === "Sand") {
-                    plusfoursg = rounding(plusfourdistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        foursgshortgame = currentsg - plusfoursg - 1 + foursgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        foursgshortgame = currentsg - plusfoursg - 1 + foursgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        foursgshortgame = currentsg - plusfoursg - 1 + foursgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    foursgputting = currentsg - plusfoursg - 1 + foursgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    foursgtee = currentsg - plusfoursg - 1 + foursgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    foursgapproach = currentsg - plusfoursg - 1 + foursgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    foursgapproach = currentsg - plusfoursg - 1 + foursgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    foursgapproach = currentsg - plusfoursg - 1 + foursgapproach
-                }
+                setBopr3(bopr3 + 1)
+            }
+            if (dict[1]?.startingLie === "green" || dict[1]?.startingLie === undefined) {
+               setGir3([gir3[0] + 1, gir3[1] + 1]) 
+            }
+            else {
+                setGir3([gir3[0], gir3[1] + 1])
             }
         }
-        setfourputtingsg(foursgputting)
-        setfourshortgamesg(foursgshortgame)
-        setfourapproachsg(foursgapproach)
-        setfourteesg(foursgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholefour(fourshots);
-    }, [fourshots]);
-
-    function strokesgainedholefive(dict) {
-        let fivesgputting = 0
-        let fivesgapproach = 0
-        let fivesgshortgame = 0
-        let fivesgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    fivesgtee = rounding(distance, tee) - 1 + fivesgtee
+        if (eval(transformToDigit(hole) + "Par") === 4) {
+            const dictLength = Object.keys(dict).length;
+            var pen = pspr4
+            i = 0
+            while (i < dictLength) {
+                if (dict[i].startingLie === "penalty") {
+                    pen = pen + 1
+                    i = i + 1
                 }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        fivesgshortgame = rounding(distance, rough) - 1 + fivesgshortgame
-                    } else if (lie === "Fairway") {
-                        fivesgshortgame = rounding(distance, fairway) - 1 + fivesgshortgame
-                    } else if (lie === "Sand") {
-                        fivesgshortgame = rounding(distance, sand) - 1 + fivesgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    fivesgapproach = rounding(distance, fairway) - 1 + fivesgapproach
-                } else if (lie === "Rough") {
-                    fivesgapproach = rounding(distance, rough) - 1 + fivesgapproach
-                } else if (lie === "Sand") {
-                    fivesgapproach = rounding(distance, sand) - 1 + fivesgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    fivesgputting = rounding(distance, green) - 1 + fivesgputting
-                }
-
             }
-            /* This is assuming that this current shot did not hole out */
+            setPspr4(pen)
+            setSa4([sa4[0] + dictLength, sa4[0] + 1])
+            if (dictLength < 4) {
+                setBrp4(bpr4 + 1)
+                setPpr4(ppr4 + 1)
+            }
+            else if (dictLength === 4) {
+                setPpr4(ppr3 + 4)
+            }
             else {
-                const plusfivelie = dict[i + 1].startingLie
-                const plusfivedistance = dict[i + 1].distanceToHole
-
-                let plusfivesg = 0
-                if (plusfivelie === "Green") {
-                    plusfivesg = rounding(plusfivedistance, green)
-                } else if (plusfivelie === "Rough") {
-                    plusfivesg = rounding(plusfivedistance, rough)
-                } else if (plusfivelie === "Fairway") {
-                    plusfivesg = rounding(plusfivedistance, fairway)
-                } else if (plusfivelie === "Sand") {
-                    plusfivesg = rounding(plusfivedistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        fivesgshortgame = currentsg - plusfivesg - 1 + fivesgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        fivesgshortgame = currentsg - plusfivesg - 1 + fivesgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        fivesgshortgame = currentsg - plusfivesg - 1 + fivesgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    fivesgputting = currentsg - plusfivesg - 1 + fivesgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    fivesgtee = currentsg - plusfivesg - 1 + fivesgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    fivesgapproach = currentsg - plusfivesg - 1 + fivesgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    fivesgapproach = currentsg - plusfivesg - 1 + fivesgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    fivesgapproach = currentsg - plusfivesg - 1 + fivesgapproach
-                }
+                setBopr4(bopr4 + 1)
+            }
+            if ((dict[2]?.startingLie === "green" || dict[2]?.startingLie === undefined) || (dict[1]?.startingLie === "green" || dict[1]?.startingLie === undefined)) {
+               setGir4([gir4[0] + 1, gir4[1] + 1]) 
+            }
+            else {
+                setGir4([gir4[0], gir4[1] + 1])
             }
         }
-        setfiveputtingsg(fivesgputting)
-        setfiveshortgamesg(fivesgshortgame)
-        setfiveapproachsg(fivesgapproach)
-        setfiveteesg(fivesgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholefive(fiveshots);
-    }, [fiveshots]);
-
-    function strokesgainedholesix(dict) {
-        let sixsgputting = 0
-        let sixsgapproach = 0
-        let sixsgshortgame = 0
-        let sixsgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    sixsgtee = rounding(distance, tee) - 1 + sixsgtee
+        if (eval(transformToDigit(hole) + "Par") === 5) {
+            const dictLength = Object.keys(dict).length;
+            var pen = pspr5
+            i = 0
+            while (i < dictLength) {
+                if (dict[i].startingLie === "penalty") {
+                    pen = pen + 1
+                    i = i + 1
                 }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        sixsgshortgame = rounding(distance, rough) - 1 + sixsgshortgame
-                    } else if (lie === "Fairway") {
-                        sixsgshortgame = rounding(distance, fairway) - 1 + sixsgshortgame
-                    } else if (lie === "Sand") {
-                        sixsgshortgame = rounding(distance, sand) - 1 + sixsgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    sixsgapproach = rounding(distance, fairway) - 1 + sixsgapproach
-                } else if (lie === "Rough") {
-                    sixsgapproach = rounding(distance, rough) - 1 + sixsgapproach
-                } else if (lie === "Sand") {
-                    sixsgapproach = rounding(distance, sand) - 1 + sixsgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    sixsgputting = rounding(distance, green) - 1 + sixsgputting
-                }
-
             }
-            /* This is assuming that this current shot did not hole out */
+            setPspr5(pen)
+            setSa5([sa5[0] + dictLength, sa5[0] + 1])
+            if (dictLength < 5) {
+                setBrp5(bpr5 + 1)
+                setPpr5(ppr5 + 1)
+            }
+            else if (dictLength === 5) {
+                setPpr5(ppr5 + 1)
+            }
             else {
-                const plussixlie = dict[i + 1].startingLie
-                const plussixdistance = dict[i + 1].distanceToHole
-
-                let plussixsg = 0
-                if (plussixlie === "Green") {
-                    plussixsg = rounding(plussixdistance, green)
-                } else if (plussixlie === "Rough") {
-                    plussixsg = rounding(plussixdistance, rough)
-                } else if (plussixlie === "Fairway") {
-                    plussixsg = rounding(plussixdistance, fairway)
-                } else if (plussixlie === "Sand") {
-                    plussixsg = rounding(plussixdistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        sixsgshortgame = currentsg - plussixsg - 1 + sixsgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        sixsgshortgame = currentsg - plussixsg - 1 + sixsgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        sixsgshortgame = currentsg - plussixsg - 1 + sixsgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    sixsgputting = currentsg - plussixsg - 1 + sixsgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    sixsgtee = currentsg - plussixsg - 1 + sixsgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    sixsgapproach = currentsg - plussixsg - 1 + sixsgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    sixsgapproach = currentsg - plussixsg - 1 + sixsgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    sixsgapproach = currentsg - plussixsg - 1 + sixsgapproach
-                }
+                setBopr5(bopr5 + 1)
             }
-        }
-        setsixputtingsg(sixsgputting)
-        setsixshortgamesg(sixsgshortgame)
-        setsixapproachsg(sixsgapproach)
-        setsixteesg(sixsgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholesix(sixshots);
-    }, [sixshots]);
-
-    function strokesgainedholeseven(dict) {
-        let sevensgputting = 0
-        let sevensgapproach = 0
-        let sevensgshortgame = 0
-        let sevensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    sevensgtee = rounding(distance, tee) - 1 + sevensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        sevensgshortgame = rounding(distance, rough) - 1 + sevensgshortgame
-                    } else if (lie === "Fairway") {
-                        sevensgshortgame = rounding(distance, fairway) - 1 + sevensgshortgame
-                    } else if (lie === "Sand") {
-                        sevensgshortgame = rounding(distance, sand) - 1 + sevensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    sevensgapproach = rounding(distance, fairway) - 1 + sevensgapproach
-                } else if (lie === "Rough") {
-                    sevensgapproach = rounding(distance, rough) - 1 + sevensgapproach
-                } else if (lie === "Sand") {
-                    sevensgapproach = rounding(distance, sand) - 1 + sevensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    sevensgputting = rounding(distance, green) - 1 + sevensgputting
-                }
-
+            if ((dict[3]?.startingLie === "green" || dict[3]?.startingLie === undefined) || (dict[2]?.startingLie === "green" || dict[2]?.startingLie === undefined)) {
+               setGir3([gir5[0] + 1, gir5[1] + 1]) 
             }
-            /* This is assuming that this current shot did not hole out */
             else {
-                const plussevenlie = dict[i + 1].startingLie
-                const plussevendistance = dict[i + 1].distanceToHole
-
-                let plussevensg = 0
-                if (plussevenlie === "Green") {
-                    plussevensg = rounding(plussevendistance, green)
-                } else if (plussevenlie === "Rough") {
-                    plussevensg = rounding(plussevendistance, rough)
-                } else if (plussevenlie === "Fairway") {
-                    plussevensg = rounding(plussevendistance, fairway)
-                } else if (plussevenlie === "Sand") {
-                    plussevensg = rounding(plussevendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        sevensgshortgame = currentsg - plussevensg - 1 + sevensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        sevensgshortgame = currentsg - plussevensg - 1 + sevensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        sevensgshortgame = currentsg - plussevensg - 1 + sevensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    sevensgputting = currentsg - plussevensg - 1 + sevensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    sevensgtee = currentsg - plussevensg - 1 + sevensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    sevensgapproach = currentsg - plussevensg - 1 + sevensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    sevensgapproach = currentsg - plussevensg - 1 + sevensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    sevensgapproach = currentsg - plussevensg - 1 + sevensgapproach
-                }
+                setGir5([gir5[0], gir5[1] + 1])
             }
+        } 
+    }
+
+
+    function call() {
+        var i = 1
+        while (i <= holes) {
+            algorithmtee(eval(transformToDigit(i) + "Shots"), i)
+            algorithmputting(eval(transformToDigit(i) + "Shots"), i)
+            algorithmscoring(eval(transformToDigit(i) + "Shots"), i)
+            i = i + 1
         }
-        setsevenputtingsg(sevensgputting)
-        setsevenshortgamesg(sevensgshortgame)
-        setsevenapproachsg(sevensgapproach)
-        setseventeesg(sevensgtee)
     }
 
-
-    useEffect(() => {
-        strokesgainedholeseven(sevenshots);
-    }, [sevenshots]);
-
-    function strokesgainedholeeight(dict) {
-        let eightsgputting = 0
-        let eightsgapproach = 0
-        let eightsgshortgame = 0
-        let eightsgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    eightsgtee = rounding(distance, tee) - 1 + eightsgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        eightsgshortgame = rounding(distance, rough) - 1 + eightsgshortgame
-                    } else if (lie === "Fairway") {
-                        eightsgshortgame = rounding(distance, fairway) - 1 + eightsgshortgame
-                    } else if (lie === "Sand") {
-                        eightsgshortgame = rounding(distance, sand) - 1 + eightsgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    eightsgapproach = rounding(distance, fairway) - 1 + eightsgapproach
-                } else if (lie === "Rough") {
-                    eightsgapproach = rounding(distance, rough) - 1 + eightsgapproach
-                } else if (lie === "Sand") {
-                    eightsgapproach = rounding(distance, sand) - 1 + eightsgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    eightsgputting = rounding(distance, green) - 1 + eightsgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const pluseightlie = dict[i + 1].startingLie
-                const pluseightdistance = dict[i + 1].distanceToHole
-
-                let pluseightsg = 0
-                if (pluseightlie === "Green") {
-                    pluseightsg = rounding(pluseightdistance, green)
-                } else if (pluseightlie === "Rough") {
-                    pluseightsg = rounding(pluseightdistance, rough)
-                } else if (pluseightlie === "Fairway") {
-                    pluseightsg = rounding(pluseightdistance, fairway)
-                } else if (pluseightlie === "Sand") {
-                    pluseightsg = rounding(pluseightdistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        eightsgshortgame = currentsg - pluseightsg - 1 + eightsgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        eightsgshortgame = currentsg - pluseightsg - 1 + eightsgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        eightsgshortgame = currentsg - pluseightsg - 1 + eightsgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    eightsgputting = currentsg - pluseightsg - 1 + eightsgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    eightsgtee = currentsg - pluseightsg - 1 + eightsgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    eightsgapproach = currentsg - pluseightsg - 1 + eightsgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    eightsgapproach = currentsg - pluseightsg - 1 + eightsgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    eightsgapproach = currentsg - pluseightsg - 1 + eightsgapproach
-                }
-            }
-        }
-        seteightputtingsg(eightsgputting)
-        seteightshortgamesg(eightsgshortgame)
-        seteightapproachsg(eightsgapproach)
-        seteightteesg(eightsgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholeeight(eightshots);
-    }, [eightshots]);
-
-    function strokesgainedholenine(dict) {
-        let ninesgputting = 0
-        let ninesgapproach = 0
-        let ninesgshortgame = 0
-        let ninesgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    ninesgtee = rounding(distance, tee) - 1 + ninesgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        ninesgshortgame = rounding(distance, rough) - 1 + ninesgshortgame
-                    } else if (lie === "Fairway") {
-                        ninesgshortgame = rounding(distance, fairway) - 1 + ninesgshortgame
-                    } else if (lie === "Sand") {
-                        ninesgshortgame = rounding(distance, sand) - 1 + ninesgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    ninesgapproach = rounding(distance, fairway) - 1 + ninesgapproach
-                } else if (lie === "Rough") {
-                    ninesgapproach = rounding(distance, rough) - 1 + ninesgapproach
-                } else if (lie === "Sand") {
-                    ninesgapproach = rounding(distance, sand) - 1 + ninesgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    ninesgputting = rounding(distance, green) - 1 + ninesgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plusninelie = dict[i + 1].startingLie
-                const plusninedistance = dict[i + 1].distanceToHole
-
-                let plusninesg = 0
-                if (plusninelie === "Green") {
-                    plusninesg = rounding(plusninedistance, green)
-                } else if (plusninelie === "Rough") {
-                    plusninesg = rounding(plusninedistance, rough)
-                } else if (plusninelie === "Fairway") {
-                    plusninesg = rounding(plusninedistance, fairway)
-                } else if (plusninelie === "Sand") {
-                    plusninesg = rounding(plusninedistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        ninesgshortgame = currentsg - plusninesg - 1 + ninesgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        ninesgshortgame = currentsg - plusninesg - 1 + ninesgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        ninesgshortgame = currentsg - plusninesg - 1 + ninesgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    ninesgputting = currentsg - plusninesg - 1 + ninesgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    ninesgtee = currentsg - plusninesg - 1 + ninesgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    ninesgapproach = currentsg - plusninesg - 1 + ninesgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    ninesgapproach = currentsg - plusninesg - 1 + ninesgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    ninesgapproach = currentsg - plusninesg - 1 + ninesgapproach
-                }
-            }
-        }
-        setnineputtingsg(ninesgputting)
-        setnineshortgamesg(ninesgshortgame)
-        setnineapproachsg(ninesgapproach)
-        setnineteesg(ninesgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholenine(nineshots);
-    }, [nineshots]);
-
-    function strokesgainedholeten(dict) {
-        let tensgputting = 0
-        let tensgapproach = 0
-        let tensgshortgame = 0
-        let tensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    tensgtee = rounding(distance, tee) - 1 + tensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        tensgshortgame = rounding(distance, rough) - 1 + tensgshortgame
-                    } else if (lie === "Fairway") {
-                        tensgshortgame = rounding(distance, fairway) - 1 + tensgshortgame
-                    } else if (lie === "Sand") {
-                        tensgshortgame = rounding(distance, sand) - 1 + tensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    tensgapproach = rounding(distance, fairway) - 1 + tensgapproach
-                } else if (lie === "Rough") {
-                    tensgapproach = rounding(distance, rough) - 1 + tensgapproach
-                } else if (lie === "Sand") {
-                    tensgapproach = rounding(distance, sand) - 1 + tensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    tensgputting = rounding(distance, green) - 1 + tensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plustenlie = dict[i + 1].startingLie
-                const plustendistance = dict[i + 1].distanceToHole
-
-                let plustensg = 0
-                if (plustenlie === "Green") {
-                    plustensg = rounding(plustendistance, green)
-                } else if (plustenlie === "Rough") {
-                    plustensg = rounding(plustendistance, rough)
-                } else if (plustenlie === "Fairway") {
-                    plustensg = rounding(plustendistance, fairway)
-                } else if (plustenlie === "Sand") {
-                    plustensg = rounding(plustendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        tensgshortgame = currentsg - plustensg - 1 + tensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        tensgshortgame = currentsg - plustensg - 1 + tensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        tensgshortgame = currentsg - plustensg - 1 + tensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    tensgputting = currentsg - plustensg - 1 + tensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    tensgtee = currentsg - plustensg - 1 + tensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    tensgapproach = currentsg - plustensg - 1 + tensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    tensgapproach = currentsg - plustensg - 1 + tensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    tensgapproach = currentsg - plustensg - 1 + tensgapproach
-                }
-            }
-        }
-        settenputtingsg(tensgputting)
-        settenshortgamesg(tensgshortgame)
-        settenapproachsg(tensgapproach)
-        settenteesg(tensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholeten(tenshots);
-    }, [tenshots]);
-
-    function strokesgainedholeeleven(dict) {
-        let elevensgputting = 0
-        let elevensgapproach = 0
-        let elevensgshortgame = 0
-        let elevensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    elevensgtee = rounding(distance, tee) - 1 + elevensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        elevensgshortgame = rounding(distance, rough) - 1 + elevensgshortgame
-                    } else if (lie === "Fairway") {
-                        elevensgshortgame = rounding(distance, fairway) - 1 + elevensgshortgame
-                    } else if (lie === "Sand") {
-                        elevensgshortgame = rounding(distance, sand) - 1 + elevensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    elevensgapproach = rounding(distance, fairway) - 1 + elevensgapproach
-                } else if (lie === "Rough") {
-                    elevensgapproach = rounding(distance, rough) - 1 + elevensgapproach
-                } else if (lie === "Sand") {
-                    elevensgapproach = rounding(distance, sand) - 1 + elevensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    elevensgputting = rounding(distance, green) - 1 + elevensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const pluselevenlie = dict[i + 1].startingLie
-                const pluselevendistance = dict[i + 1].distanceToHole
-
-                let pluselevensg = 0
-                if (pluselevenlie === "Green") {
-                    pluselevensg = rounding(pluselevendistance, green)
-                } else if (pluselevenlie === "Rough") {
-                    pluselevensg = rounding(pluselevendistance, rough)
-                } else if (pluselevenlie === "Fairway") {
-                    pluselevensg = rounding(pluselevendistance, fairway)
-                } else if (pluselevenlie === "Sand") {
-                    pluselevensg = rounding(pluselevendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        elevensgshortgame = currentsg - pluselevensg - 1 + elevensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        elevensgshortgame = currentsg - pluselevensg - 1 + elevensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        elevensgshortgame = currentsg - pluselevensg - 1 + elevensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    elevensgputting = currentsg - pluselevensg - 1 + elevensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    elevensgtee = currentsg - pluselevensg - 1 + elevensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    elevensgapproach = currentsg - pluselevensg - 1 + elevensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    elevensgapproach = currentsg - pluselevensg - 1 + elevensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    elevensgapproach = currentsg - pluselevensg - 1 + elevensgapproach
-                }
-            }
-        }
-        setelevenputtingsg(elevensgputting)
-        setelevenshortgamesg(elevensgshortgame)
-        setelevenapproachsg(elevensgapproach)
-        seteleventeesg(elevensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholeeleven(elevenshots);
-    }, [elevenshots]);
-
-    function strokesgainedholetwelve(dict) {
-        let twelvesgputting = 0
-        let twelvesgapproach = 0
-        let twelvesgshortgame = 0
-        let twelvesgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    twelvesgtee = rounding(distance, tee) - 1 + twelvesgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        twelvesgshortgame = rounding(distance, rough) - 1 + twelvesgshortgame
-                    } else if (lie === "Fairway") {
-                        twelvesgshortgame = rounding(distance, fairway) - 1 + twelvesgshortgame
-                    } else if (lie === "Sand") {
-                        twelvesgshortgame = rounding(distance, sand) - 1 + twelvesgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    twelvesgapproach = rounding(distance, fairway) - 1 + twelvesgapproach
-                } else if (lie === "Rough") {
-                    twelvesgapproach = rounding(distance, rough) - 1 + twelvesgapproach
-                } else if (lie === "Sand") {
-                    twelvesgapproach = rounding(distance, sand) - 1 + twelvesgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    twelvesgputting = rounding(distance, green) - 1 + twelvesgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plustwelvelie = dict[i + 1].startingLie
-                const plustwelvedistance = dict[i + 1].distanceToHole
-
-                let plustwelvesg = 0
-                if (plustwelvelie === "Green") {
-                    plustwelvesg = rounding(plustwelvedistance, green)
-                } else if (plustwelvelie === "Rough") {
-                    plustwelvesg = rounding(plustwelvedistance, rough)
-                } else if (plustwelvelie === "Fairway") {
-                    plustwelvesg = rounding(plustwelvedistance, fairway)
-                } else if (plustwelvelie === "Sand") {
-                    plustwelvesg = rounding(plustwelvedistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        twelvesgshortgame = currentsg - plustwelvesg - 1 + twelvesgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        twelvesgshortgame = currentsg - plustwelvesg - 1 + twelvesgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        twelvesgshortgame = currentsg - plustwelvesg - 1 + twelvesgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    twelvesgputting = currentsg - plustwelvesg - 1 + twelvesgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    twelvesgtee = currentsg - plustwelvesg - 1 + twelvesgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    twelvesgapproach = currentsg - plustwelvesg - 1 + twelvesgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    twelvesgapproach = currentsg - plustwelvesg - 1 + twelvesgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    twelvesgapproach = currentsg - plustwelvesg - 1 + twelvesgapproach
-                }
-            }
-        }
-        settwelveputtingsg(twelvesgputting)
-        settwelveshortgamesg(twelvesgshortgame)
-        settwelveapproachsg(twelvesgapproach)
-        settwelveteesg(twelvesgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholetwelve(twelveshots);
-    }, [twelveshots]);
-
-    function strokesgainedholethirteen(dict) {
-        let thirteensgputting = 0
-        let thirteensgapproach = 0
-        let thirteensgshortgame = 0
-        let thirteensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    thirteensgtee = rounding(distance, tee) - 1 + thirteensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        thirteensgshortgame = rounding(distance, rough) - 1 + thirteensgshortgame
-                    } else if (lie === "Fairway") {
-                        thirteensgshortgame = rounding(distance, fairway) - 1 + thirteensgshortgame
-                    } else if (lie === "Sand") {
-                        thirteensgshortgame = rounding(distance, sand) - 1 + thirteensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    thirteensgapproach = rounding(distance, fairway) - 1 + thirteensgapproach
-                } else if (lie === "Rough") {
-                    thirteensgapproach = rounding(distance, rough) - 1 + thirteensgapproach
-                } else if (lie === "Sand") {
-                    thirteensgapproach = rounding(distance, sand) - 1 + thirteensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    thirteensgputting = rounding(distance, green) - 1 + thirteensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plusthirteenlie = dict[i + 1].startingLie
-                const plusthirteendistance = dict[i + 1].distanceToHole
-
-                let plusthirteensg = 0
-                if (plusthirteenlie === "Green") {
-                    plusthirteensg = rounding(plusthirteendistance, green)
-                } else if (plusthirteenlie === "Rough") {
-                    plusthirteensg = rounding(plusthirteendistance, rough)
-                } else if (plusthirteenlie === "Fairway") {
-                    plusthirteensg = rounding(plusthirteendistance, fairway)
-                } else if (plusthirteenlie === "Sand") {
-                    plusthirteensg = rounding(plusthirteendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        thirteensgshortgame = currentsg - plusthirteensg - 1 + thirteensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        thirteensgshortgame = currentsg - plusthirteensg - 1 + thirteensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        thirteensgshortgame = currentsg - plusthirteensg - 1 + thirteensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    thirteensgputting = currentsg - plusthirteensg - 1 + thirteensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    thirteensgtee = currentsg - plusthirteensg - 1 + thirteensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    thirteensgapproach = currentsg - plusthirteensg - 1 + thirteensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    thirteensgapproach = currentsg - plusthirteensg - 1 + thirteensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    thirteensgapproach = currentsg - plusthirteensg - 1 + thirteensgapproach
-                }
-            }
-        }
-        setthirteenputtingsg(thirteensgputting)
-        setthirteenshortgamesg(thirteensgshortgame)
-        setthirteenapproachsg(thirteensgapproach)
-        setthirteenteesg(thirteensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholethirteen(thirteenshots);
-    }, [thirteenshots]);
-
-    function strokesgainedholefourteen(dict) {
-        let fourteensgputting = 0
-        let fourteensgapproach = 0
-        let fourteensgshortgame = 0
-        let fourteensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    fourteensgtee = rounding(distance, tee) - 1 + fourteensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        fourteensgshortgame = rounding(distance, rough) - 1 + fourteensgshortgame
-                    } else if (lie === "Fairway") {
-                        fourteensgshortgame = rounding(distance, fairway) - 1 + fourteensgshortgame
-                    } else if (lie === "Sand") {
-                        fourteensgshortgame = rounding(distance, sand) - 1 + fourteensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    fourteensgapproach = rounding(distance, fairway) - 1 + fourteensgapproach
-                } else if (lie === "Rough") {
-                    fourteensgapproach = rounding(distance, rough) - 1 + fourteensgapproach
-                } else if (lie === "Sand") {
-                    fourteensgapproach = rounding(distance, sand) - 1 + fourteensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    fourteensgputting = rounding(distance, green) - 1 + fourteensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plusfourteenlie = dict[i + 1].startingLie
-                const plusfourteendistance = dict[i + 1].distanceToHole
-
-                let plusfourteensg = 0
-                if (plusfourteenlie === "Green") {
-                    plusfourteensg = rounding(plusfourteendistance, green)
-                } else if (plusfourteenlie === "Rough") {
-                    plusfourteensg = rounding(plusfourteendistance, rough)
-                } else if (plusfourteenlie === "Fairway") {
-                    plusfourteensg = rounding(plusfourteendistance, fairway)
-                } else if (plusfourteenlie === "Sand") {
-                    plusfourteensg = rounding(plusfourteendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        fourteensgshortgame = currentsg - plusfourteensg - 1 + fourteensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        fourteensgshortgame = currentsg - plusfourteensg - 1 + fourteensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        fourteensgshortgame = currentsg - plusfourteensg - 1 + fourteensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    fourteensgputting = currentsg - plusfourteensg - 1 + fourteensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    fourteensgtee = currentsg - plusfourteensg - 1 + fourteensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    fourteensgapproach = currentsg - plusfourteensg - 1 + fourteensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    fourteensgapproach = currentsg - plusfourteensg - 1 + fourteensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    fourteensgapproach = currentsg - plusfourteensg - 1 + fourteensgapproach
-                }
-            }
-        }
-        setfourteenputtingsg(fourteensgputting)
-        setfourteenshortgamesg(fourteensgshortgame)
-        setfourteenapproachsg(fourteensgapproach)
-        setfourteenteesg(fourteensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholefourteen(fourteenshots);
-    }, [fourteenshots]);
-
-    function strokesgainedholefifteen(dict) {
-        let fifteensgputting = 0
-        let fifteensgapproach = 0
-        let fifteensgshortgame = 0
-        let fifteensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    fifteensgtee = rounding(distance, tee) - 1 + fifteensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        fifteensgshortgame = rounding(distance, rough) - 1 + fifteensgshortgame
-                    } else if (lie === "Fairway") {
-                        fifteensgshortgame = rounding(distance, fairway) - 1 + fifteensgshortgame
-                    } else if (lie === "Sand") {
-                        fifteensgshortgame = rounding(distance, sand) - 1 + fifteensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    fifteensgapproach = rounding(distance, fairway) - 1 + fifteensgapproach
-                } else if (lie === "Rough") {
-                    fifteensgapproach = rounding(distance, rough) - 1 + fifteensgapproach
-                } else if (lie === "Sand") {
-                    fifteensgapproach = rounding(distance, sand) - 1 + fifteensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    fifteensgputting = rounding(distance, green) - 1 + fifteensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plusfifteenlie = dict[i + 1].startingLie
-                const plusfifteendistance = dict[i + 1].distanceToHole
-
-                let plusfifteensg = 0
-                if (plusfifteenlie === "Green") {
-                    plusfifteensg = rounding(plusfifteendistance, green)
-                } else if (plusfifteenlie === "Rough") {
-                    plusfifteensg = rounding(plusfifteendistance, rough)
-                } else if (plusfifteenlie === "Fairway") {
-                    plusfifteensg = rounding(plusfifteendistance, fairway)
-                } else if (plusfifteenlie === "Sand") {
-                    plusfifteensg = rounding(plusfifteendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        fifteensgshortgame = currentsg - plusfifteensg - 1 + fifteensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        fifteensgshortgame = currentsg - plusfifteensg - 1 + fifteensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        fifteensgshortgame = currentsg - plusfifteensg - 1 + fifteensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    fifteensgputting = currentsg - plusfifteensg - 1 + fifteensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    fifteensgtee = currentsg - plusfifteensg - 1 + fifteensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    fifteensgapproach = currentsg - plusfifteensg - 1 + fifteensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    fifteensgapproach = currentsg - plusfifteensg - 1 + fifteensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    fifteensgapproach = currentsg - plusfifteensg - 1 + fifteensgapproach
-                }
-            }
-        }
-        setfifteenputtingsg(fifteensgputting)
-        setfifteenshortgamesg(fifteensgshortgame)
-        setfifteenapproachsg(fifteensgapproach)
-        setfifteenteesg(fifteensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholefifteen(fifteenshots);
-    }, [fifteenshots]);
-
-    function strokesgainedholesixteen(dict) {
-        let sixteensgputting = 0
-        let sixteensgapproach = 0
-        let sixteensgshortgame = 0
-        let sixteensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    sixteensgtee = rounding(distance, tee) - 1 + sixteensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        sixteensgshortgame = rounding(distance, rough) - 1 + sixteensgshortgame
-                    } else if (lie === "Fairway") {
-                        sixteensgshortgame = rounding(distance, fairway) - 1 + sixteensgshortgame
-                    } else if (lie === "Sand") {
-                        sixteensgshortgame = rounding(distance, sand) - 1 + sixteensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    sixteensgapproach = rounding(distance, fairway) - 1 + sixteensgapproach
-                } else if (lie === "Rough") {
-                    sixteensgapproach = rounding(distance, rough) - 1 + sixteensgapproach
-                } else if (lie === "Sand") {
-                    sixteensgapproach = rounding(distance, sand) - 1 + sixteensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    sixteensgputting = rounding(distance, green) - 1 + sixteensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plussixteenlie = dict[i + 1].startingLie
-                const plussixteendistance = dict[i + 1].distanceToHole
-
-                let plussixteensg = 0
-                if (plussixteenlie === "Green") {
-                    plussixteensg = rounding(plussixteendistance, green)
-                } else if (plussixteenlie === "Rough") {
-                    plussixteensg = rounding(plussixteendistance, rough)
-                } else if (plussixteenlie === "Fairway") {
-                    plussixteensg = rounding(plussixteendistance, fairway)
-                } else if (plussixteenlie === "Sand") {
-                    plussixteensg = rounding(plussixteendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        sixteensgshortgame = currentsg - plussixteensg - 1 + sixteensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        sixteensgshortgame = currentsg - plussixteensg - 1 + sixteensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        sixteensgshortgame = currentsg - plussixteensg - 1 + sixteensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    sixteensgputting = currentsg - plussixteensg - 1 + sixteensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    sixteensgtee = currentsg - plussixteensg - 1 + sixteensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    sixteensgapproach = currentsg - plussixteensg - 1 + sixteensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    sixteensgapproach = currentsg - plussixteensg - 1 + sixteensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    sixteensgapproach = currentsg - plussixteensg - 1 + sixteensgapproach
-                }
-            }
-        }
-        setsixteenputtingsg(sixteensgputting)
-        setsixteenshortgamesg(sixteensgshortgame)
-        setsixteenapproachsg(sixteensgapproach)
-        setsixteenteesg(sixteensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholesixteen(sixteenshots);
-    }, [sixteenshots]);
-
-    function strokesgainedholeseventeen(dict) {
-        let seventeensgputting = 0
-        let seventeensgapproach = 0
-        let seventeensgshortgame = 0
-        let seventeensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    seventeensgtee = rounding(distance, tee) - 1 + seventeensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        seventeensgshortgame = rounding(distance, rough) - 1 + seventeensgshortgame
-                    } else if (lie === "Fairway") {
-                        seventeensgshortgame = rounding(distance, fairway) - 1 + seventeensgshortgame
-                    } else if (lie === "Sand") {
-                        seventeensgshortgame = rounding(distance, sand) - 1 + seventeensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    seventeensgapproach = rounding(distance, fairway) - 1 + seventeensgapproach
-                } else if (lie === "Rough") {
-                    seventeensgapproach = rounding(distance, rough) - 1 + seventeensgapproach
-                } else if (lie === "Sand") {
-                    seventeensgapproach = rounding(distance, sand) - 1 + seventeensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    seventeensgputting = rounding(distance, green) - 1 + seventeensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const plusseventeenlie = dict[i + 1].startingLie
-                const plusseventeendistance = dict[i + 1].distanceToHole
-
-                let plusseventeensg = 0
-                if (plusseventeenlie === "Green") {
-                    plusseventeensg = rounding(plusseventeendistance, green)
-                } else if (plusseventeenlie === "Rough") {
-                    plusseventeensg = rounding(plusseventeendistance, rough)
-                } else if (plusseventeenlie === "Fairway") {
-                    plusseventeensg = rounding(plusseventeendistance, fairway)
-                } else if (plusseventeenlie === "Sand") {
-                    plusseventeensg = rounding(plusseventeendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        seventeensgshortgame = currentsg - plusseventeensg - 1 + seventeensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        seventeensgshortgame = currentsg - plusseventeensg - 1 + seventeensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        seventeensgshortgame = currentsg - plusseventeensg - 1 + seventeensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    seventeensgputting = currentsg - plusseventeensg - 1 + seventeensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    seventeensgtee = currentsg - plusseventeensg - 1 + seventeensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    seventeensgapproach = currentsg - plusseventeensg - 1 + seventeensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    seventeensgapproach = currentsg - plusseventeensg - 1 + seventeensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    seventeensgapproach = currentsg - plusseventeensg - 1 + seventeensgapproach
-                }
-            }
-        }
-        setseventeenputtingsg(seventeensgputting)
-        setseventeenshortgamesg(seventeensgshortgame)
-        setseventeenapproachsg(seventeensgapproach)
-        setseventeenteesg(seventeensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholeseventeen(seventeenshots);
-    }, [seventeenshots]);
-
-    function strokesgainedholeeighteen(dict) {
-        let eighteensgputting = 0
-        let eighteensgapproach = 0
-        let eighteensgshortgame = 0
-        let eighteensgtee = 0
-
-        const values = Object.values(dict);
-        const numValues = values.length;
-
-
-        for (let i = numValues - 1; i >= 0; i--) {
-            const lie = dict[i].startingLie;
-            /* The "if" statement Below is the last shot for each hole */
-            if (i === numValues - 1) {
-                const distance = dict[i].distanceToHole
-                /* This is the assumption that they made a hole in one */
-                if (lie === "Tee") {
-                    eighteensgtee = rounding(distance, tee) - 1 + eighteensgtee
-                }
-                /* This is the assumption that they chipped in from the short game area */
-                if (distance <= 50 && lie !== "Green") {
-                    if (lie === "Rough") {
-                        eighteensgshortgame = rounding(distance, rough) - 1 + eighteensgshortgame
-                    } else if (lie === "Fairway") {
-                        eighteensgshortgame = rounding(distance, fairway) - 1 + eighteensgshortgame
-                    } else if (lie === "Sand") {
-                        eighteensgshortgame = rounding(distance, sand) - 1 + eighteensgshortgame
-                    }
-                }
-                /* This is the assumption that they holed out from outisde of 50 yards */
-                else if (lie === "Fairway") {
-                    eighteensgapproach = rounding(distance, fairway) - 1 + eighteensgapproach
-                } else if (lie === "Rough") {
-                    eighteensgapproach = rounding(distance, rough) - 1 + eighteensgapproach
-                } else if (lie === "Sand") {
-                    eighteensgapproach = rounding(distance, sand) - 1 + eighteensgapproach
-                }
-                /* This is the assumption that they putted in */
-                else {
-                    eighteensgputting = rounding(distance, green) - 1 + eighteensgputting
-                }
-
-            }
-            /* This is assuming that this current shot did not hole out */
-            else {
-                const pluseighteenlie = dict[i + 1].startingLie
-                const pluseighteendistance = dict[i + 1].distanceToHole
-
-                let pluseighteensg = 0
-                if (pluseighteenlie === "Green") {
-                    pluseighteensg = rounding(pluseighteendistance, green)
-                } else if (pluseighteenlie === "Rough") {
-                    pluseighteensg = rounding(pluseighteendistance, rough)
-                } else if (pluseighteenlie === "Fairway") {
-                    pluseighteensg = rounding(pluseighteendistance, fairway)
-                } else if (pluseighteenlie === "Sand") {
-                    pluseighteensg = rounding(pluseighteendistance, sand)
-                }
-                const currentlie = dict[i].startingLie
-                const distance = dict[i].distanceToHole
-                let currentsg = null
-                if (distance <= 50 && currentlie !== "Green") {
-                    if (currentlie === "Rough") {
-                        currentsg = rounding(distance, rough)
-                        eighteensgshortgame = currentsg - pluseighteensg - 1 + eighteensgshortgame
-                    } else if (currentlie === "Fairway") {
-                        currentsg = rounding(distance, fairway)
-                        eighteensgshortgame = currentsg - pluseighteensg - 1 + eighteensgshortgame
-                    } else if (currentlie === "Sand") {
-                        currentsg = rounding(distance, sand)
-                        eighteensgshortgame = currentsg - pluseighteensg - 1 + eighteensgshortgame
-                    }
-                }
-                else if (currentlie === "Green") {
-                    currentsg = rounding(distance, green)
-                    eighteensgputting = currentsg - pluseighteensg - 1 + eighteensgputting
-                } else if (currentlie === "Tee") {
-                    currentsg = rounding(distance, tee)
-                    eighteensgtee = currentsg - pluseighteensg - 1 + eighteensgtee
-                } else if (currentlie === "Rough") {
-                    currentsg = rounding(distance, rough)
-                    eighteensgapproach = currentsg - pluseighteensg - 1 + eighteensgapproach
-                } else if (currentlie === "Fairway") {
-                    currentsg = rounding(distance, fairway)
-                    eighteensgapproach = currentsg - pluseighteensg - 1 + eighteensgapproach
-                } else if (currentlie === "Sand") {
-                    currentsg = rounding(distance, sand)
-                    eighteensgapproach = currentsg - pluseighteensg - 1 + eighteensgapproach
-                }
-            }
-        }
-        seteighteenputtingsg(eighteensgputting)
-        seteighteenshortgamesg(eighteensgshortgame)
-        seteighteenapproachsg(eighteensgapproach)
-        seteighteenteesg(eighteensgtee)
-    }
-
-
-    useEffect(() => {
-        strokesgainedholeeighteen(eighteenshots);
-    }, [eighteenshots]);
-
-    {/* Calculating Total SG */ }
-    const totalputtingsg = oneputtingsg + twoputtingsg + threeputtingsg + fourputtingsg + fiveputtingsg + sixputtingsg + sevenputtingsg + eightputtingsg + nineputtingsg + tenputtingsg + elevenputtingsg + twelveputtingsg + thirteenputtingsg + fourteenputtingsg + fifteenputtingsg + sixteenputtingsg + seventeenputtingsg + eighteenputtingsg
-    const totalshortgamesg = oneshortgamesg + twoshortgamesg + threeshortgamesg + fourshortgamesg + fiveshortgamesg + sixshortgamesg + sevenshortgamesg + eightshortgamesg + nineshortgamesg + tenshortgamesg + elevenshortgamesg + twelveshortgamesg + thirteenshortgamesg + fourteenshortgamesg + fifteenshortgamesg + sixteenshortgamesg + seventeenshortgamesg + eighteenshortgamesg
-    const totalapproachsg = oneapproachsg + twoapproachsg + threeapproachsg + fourapproachsg + fiveapproachsg + sixshortgamesg + sevenshortgamesg + eightapproachsg + nineapproachsg + tenapproachsg + elevenapproachsg + twelveapproachsg + thirteenapproachsg + fourteenapproachsg + fifteenapproachsg + sixteenapproachsg + seventeenapproachsg + eighteenapproachsg
-    const totalteesg = oneteesg + twoteesg + threeteesg + fourteesg + fiveteesg + sixteesg + seventeesg + eightteesg + nineteesg + tenteesg + eleventeesg + twelveteesg + thirteenteesg + fourteenteesg + fifteenteesg + sixteenteesg + seventeenteesg + eighteenteesg
-
-    const totalsg = totalputtingsg + totalshortgamesg + totalapproachsg + totalteesg
-
-    {/* Chart Config */ }
-    const data = {
-        labels: ["SG Putting", 'SG Short Game', 'SG Approach', 'SG Driving'],
-        datasets: [
-            {
-                label: 'Personal SG',
-                data: [totalputtingsg.toFixed(2), totalshortgamesg, totalapproachsg, totalteesg],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1,
-            },
-            {
-                label: 'PGA Tour Average',
-                data: [0.17, 0.32, 0.32, 0.32],
-                backgroundColor: 'rgba(99, 132, 255, 0.2)',
-                borderColor: 'rgba(99, 132, 255, 1)',
-                borderWidth: 1,
-            }
-        ],
-    };
-
-    const options = {
-        scale: {
-            pointLabels: {
-                fontSize: 14,
-                fontColor: '#333',
-            },
-            ticks: {
-                suggestedMin: -2,
-                suggestedMax: 2,
-            },
-            angleLines: {
-                color: '#ddd',
-                lineWidth: 1,
-            },
-            gridLines: {
-                color: 'transparent',
-            },
-            backgroundColor: 'transparent',
-        },
-    };
-
-
-
-    const [statshowing, setstatshowing] = useState("putting")
-
-
-
-
-
-
-
-
-
-    if (page === 1) {
-        return (
-            <>
-                <div className="headerroundentry">
-                    <div className='g'></div>
-                    <div className='displayflex'>
-                        <p className='active'>1. Round Details</p>
-                        <p className='inactive'>2. Shot Data</p>
-                        <p className='inactive'>3. Round Analysis</p>
-                    </div>
-                    <h1>Add Round</h1>
-                </div>
-                <div className='formmm'>
-                    <div className='s'></div>
-                    <div className='p'>
-                        <h4>Add Details</h4>
-                        <form onSubmit={handlesubmit1}>
-                            <label>Date</label> <br />
-                            <input type="date" value={date} onChange={handleChangeDate} /> <br />
-                            <label>Number of Holes</label> <br />
-                            <label>9</label>
-                            <input type="radio" onChange={handleChangeHoles} value={9} name="holes" />
-                            <label>18</label>
-                            <input type="radio" onChange={handleChangeHoles} value={18} name="holes" /> <br />
-                            <label>Course</label>
-                            <input type="text" value={course} onChange={handleCourseChange} />
-                            <button type="submit" onClick={handlesubmit1}>Continue to shot entry</button>
-                        </form>
-                    </div>
-
-                </div>
-            </>
-        )
-    }
-    else if (page === 2) {
-        return (
-            <>
-                <div className="headerroundentry">
-                    <div className='g'></div>
-                    <div className='displayflex'>
-                        <p className='active click' onClick={backtoone}>1. Round Details</p>
-                        <p className='active'>2. Shot Data</p>
-                        <p className='inactive'>3. Round Analysis</p>
-                    </div>
-                    <h1>Add Shots</h1>
-                    <div class="scorecard">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Hole</th>
-                                    {holes === 9 ?
-                                        <>
-                                            <th className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>1</th>
-                                            <th className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>2</th>
-                                            <th className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>3</th>
-                                            <th className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>4</th>
-                                            <th className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>5</th>
-                                            <th className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>6</th>
-                                            <th className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>7</th>
-                                            <th className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>8</th>
-                                            <th className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>9</th>
-                                        </>
-                                        :
-                                        <>
-                                            <th className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>1</th>
-                                            <th className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>2</th>
-                                            <th className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>3</th>
-                                            <th className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>4</th>
-                                            <th className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>5</th>
-                                            <th className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>6</th>
-                                            <th className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>7</th>
-                                            <th className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>8</th>
-                                            <th className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>9</th>
-                                            <th>Front</th>
-                                            <th className={currenthole === 10 ? "Highlighted" : (currenthole > 10 ? "click" : "")} onClick={() => navigateholes(10)}>10</th>
-                                            <th className={currenthole === 11 ? "Highlighted" : (currenthole > 11 ? "click" : "")} onClick={() => navigateholes(11)}>11</th>
-                                            <th className={currenthole === 12 ? "Highlighted" : (currenthole > 12 ? "click" : "")} onClick={() => navigateholes(12)}>12</th>
-                                            <th className={currenthole === 13 ? "Highlighted" : (currenthole > 13 ? "click" : "")} onClick={() => navigateholes(13)}>13</th>
-                                            <th className={currenthole === 14 ? "Highlighted" : (currenthole > 14 ? "click" : "")} onClick={() => navigateholes(14)}>14</th>
-                                            <th className={currenthole === 15 ? "Highlighted" : (currenthole > 15 ? "click" : "")} onClick={() => navigateholes(15)}>15</th>
-                                            <th className={currenthole === 16 ? "Highlighted" : (currenthole > 16 ? "click" : "")} onClick={() => navigateholes(16)}>16</th>
-                                            <th className={currenthole === 17 ? "Highlighted" : (currenthole > 17 ? "click" : "")} onClick={() => navigateholes(17)}>17</th>
-                                            <th className={currenthole === 18 ? "Highlighted" : (currenthole > 18 ? "click" : "")} onClick={() => navigateholes(18)}>18</th>
-
-                                            <th>Back</th>
-                                        </>
-                                    }
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Par</td>
-                                    {holes === 9 ?
-                                        <>
-                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>{onepar}</td>
-                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>{twopar}</td>
-                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>{threepar}</td>
-                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>{fourpar}</td>
-                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>{fivepar}</td>
-                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>{sixpar}</td>
-                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>{sevenpar}</td>
-                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>{eightpar}</td>
-                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>{ninepar}</td>
-                                            <td className='bold'>{frontpar}</td>
-                                        </>
-                                        :
-                                        <>
-                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")} onClick={() => navigateholes(1)}>{onepar}</td>
-                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")} onClick={() => navigateholes(2)}>{twopar}</td>
-                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")} onClick={() => navigateholes(3)}>{threepar}</td>
-                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")} onClick={() => navigateholes(4)}>{fourpar}</td>
-                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")} onClick={() => navigateholes(5)}>{fivepar}</td>
-                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")} onClick={() => navigateholes(6)}>{sixpar}</td>
-                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")} onClick={() => navigateholes(7)}>{sevenpar}</td>
-                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")} onClick={() => navigateholes(8)}>{eightpar}</td>
-                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")} onClick={() => navigateholes(9)}>{ninepar}</td>
-                                            <td className='bold'>{frontpar}</td>
-                                            <td className={currenthole === 10 ? "Highlighted" : (currenthole > 10 ? "click" : "")} onClick={() => navigateholes(10)}>{tenpar}</td>
-                                            <td className={currenthole === 11 ? "Highlighted" : (currenthole > 11 ? "click" : "")} onClick={() => navigateholes(11)}>{elevenpar}</td>
-                                            <td className={currenthole === 12 ? "Highlighted" : (currenthole > 12 ? "click" : "")} onClick={() => navigateholes(12)}>{twelvepar}</td>
-                                            <td className={currenthole === 13 ? "Highlighted" : (currenthole > 13 ? "click" : "")} onClick={() => navigateholes(13)}>{thirteenpar}</td>
-                                            <td className={currenthole === 14 ? "Highlighted" : (currenthole > 14 ? "click" : "")} onClick={() => navigateholes(14)}>{fourteenpar}</td>
-                                            <td className={currenthole === 15 ? "Highlighted" : (currenthole > 15 ? "click" : "")} onClick={() => navigateholes(15)}>{fifteenpar}</td>
-                                            <td className={currenthole === 16 ? "Highlighted" : (currenthole > 16 ? "click" : "")} onClick={() => navigateholes(16)}>{sixteenpar}</td>
-                                            <td className={currenthole === 17 ? "Highlighted" : (currenthole > 17 ? "click" : "")} onClick={() => navigateholes(17)}>{seventeenpar}</td>
-                                            <td className={currenthole === 18 ? "Highlighted" : (currenthole > 18 ? "click" : "")} onClick={() => navigateholes(18)}>{eighteenpar}</td>
-                                            <td className='bold'>{backpar}</td>
-                                            <td className='bold'>{totalpar}</td>
-                                        </>
-
-                                    }
-
-
-
-
-                                </tr>
-                                <tr>
-                                    <td>Score</td>
-                                    {holes === 9 ?
-                                        <>
-                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")}>{onescore}</td>
-                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")}>{twoscore}</td>
-                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")}>{threescore}</td>
-                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")}>{fourscore}</td>
-                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")}>{fivescore}</td>
-                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")}>{sixscore}</td>
-                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")}>{sevenscore}</td>
-                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")}>{eightscore}</td>
-                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")}>{ninescore}</td>
-                                            <td className='bold'>{frontscore}</td>
-                                        </>
-                                        :
-                                        <>
-                                            <td className={currenthole === 1 ? "Highlighted" : (currenthole > 1 ? "click" : "")}>{onescore}</td>
-                                            <td className={currenthole === 2 ? "Highlighted" : (currenthole > 2 ? "click" : "")}>{twoscore}</td>
-                                            <td className={currenthole === 3 ? "Highlighted" : (currenthole > 3 ? "click" : "")}>{threescore}</td>
-                                            <td className={currenthole === 4 ? "Highlighted" : (currenthole > 4 ? "click" : "")}>{fourscore}</td>
-                                            <td className={currenthole === 5 ? "Highlighted" : (currenthole > 5 ? "click" : "")}>{fivescore}</td>
-                                            <td className={currenthole === 6 ? "Highlighted" : (currenthole > 6 ? "click" : "")}>{sixscore}</td>
-                                            <td className={currenthole === 7 ? "Highlighted" : (currenthole > 7 ? "click" : "")}>{sevenscore}</td>
-                                            <td className={currenthole === 8 ? "Highlighted" : (currenthole > 8 ? "click" : "")}>{eightscore}</td>
-                                            <td className={currenthole === 9 ? "Highlighted" : (currenthole > 9 ? "click" : "")}>{ninescore}</td>
-                                            <td className='bold'>{frontscore}</td>
-                                            <td className={currenthole === 10 ? "Highlighted" : (currenthole > 10 ? "click" : "")}>{tenscore}</td>
-                                            <td className={currenthole === 11 ? "Highlighted" : (currenthole > 11 ? "click" : "")}>{elevenscore}</td>
-                                            <td className={currenthole === 12 ? "Highlighted" : (currenthole > 12 ? "click" : "")}>{twelvescore}</td>
-                                            <td className={currenthole === 13 ? "Highlighted" : (currenthole > 13 ? "click" : "")}>{thirteenscore}</td>
-                                            <td className={currenthole === 14 ? "Highlighted" : (currenthole > 14 ? "click" : "")}>{fourteenscore}</td>
-                                            <td className={currenthole === 15 ? "Highlighted" : (currenthole > 15 ? "click" : "")}>{fifteenscore}</td>
-                                            <td className={currenthole === 16 ? "Highlighted" : (currenthole > 16 ? "click" : "")}>{sixteenscore}</td>
-                                            <td className={currenthole === 17 ? "Highlighted" : (currenthole > 17 ? "click" : "")}>{seventeenscore}</td>
-                                            <td className={currenthole === 18 ? "Highlighted" : (currenthole > 18 ? "click" : "")}>{eighteenscore}</td>
-                                            <td className='bold'>{backscore}</td>
-                                            <td className='bold'>{totalscore}</td>
-                                        </>
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className='formmm'>
-                    <div className='s'></div>
-                    {currenthole === 1 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holeonepar' id='hole-one-par-3' value={3} onChange={handleOneParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holeonepar' id='hole-one-par-4' value={4} onChange={handleOneParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holeonepar' id='hole-one-par-5' value={5} onChange={handleOneParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: onescore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleOne(index, event)} value={oneshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeOneDistance(index, event)} value={oneshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleOne}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleOne}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 2 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holetwopar' id='hole-two-par-3' value={3} onChange={handleTwoParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holetwopar' id='hole-two-par-4' value={4} onChange={handleTwoParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holetwopar' id='hole-two-par-5' value={5} onChange={handleTwoParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: twoscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTwo(index, event)} value={twoshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTwoDistance(index, event)} value={twoshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleTwo}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleTwo}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 3 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holethreepar' id='hole-three-par-3' value={3} onChange={handleThreeParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holethreepar' id='hole-three-par-4' value={4} onChange={handleThreeParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holethreepar' id='hole-three-par-5' value={5} onChange={handleThreeParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: threescore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleThree(index, event)} value={threeshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeThreeDistance(index, event)} value={threeshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleThree}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleThree}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 4 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holefourpar' id='hole-four-par-3' value={3} onChange={handleFourParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holefourpar' id='hole-four-par-4' value={4} onChange={handleFourParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holefourpar' id='hole-four-par-5' value={5} onChange={handleFourParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: fourscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFour(index, event)} value={fourshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFourDistance(index, event)} value={fourshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleFour}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleFour}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 5 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holefivepar' id='hole-five-par-3' value={3} onChange={handleFiveParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holefivepar' id='hole-five-par-4' value={4} onChange={handleFiveParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holefivepar' id='hole-five-par-5' value={5} onChange={handleFiveParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: fivescore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFive(index, event)} value={fiveshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFiveDistance(index, event)} value={fiveshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleFive}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleFive}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 6 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holesixpar' id='hole-six-par-3' value={3} onChange={handleSixParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holesixpar' id='hole-six-par-4' value={4} onChange={handleSixParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holesixpar' id='hole-six-par-5' value={5} onChange={handleSixParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: sixscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSix(index, event)} value={sixshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSixDistance(index, event)} value={sixshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleSix}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleSix}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 7 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holesevenpar' id='hole-seven-par-3' value={3} onChange={handleSevenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holesevenpar' id='hole-seven-par-4' value={4} onChange={handleSevenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holesevenpar' id='hole-seven-par-5' value={5} onChange={handleSevenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: sevenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSeven(index, event)} value={sevenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSevenDistance(index, event)} value={sevenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleSeven}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleSeven}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 8 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holeeightpar' id='hole-eight-par-3' value={3} onChange={handleEightParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holeeightpar' id='hole-eight-par-4' value={4} onChange={handleEightParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holeeightpar' id='hole-eight-par-5' value={5} onChange={handleEightParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: eightscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEight(index, event)} value={eightshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeEightDistance(index, event)} value={eightshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleEight}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleEight}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 9 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holeninepar' id='hole-nine-par-3' value={3} onChange={handleNineParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holeninepar' id='hole-nine-par-4' value={4} onChange={handleNineParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holeninepar' id='hole-nine-par-5' value={5} onChange={handleNineParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: ninescore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleNine(index, event)} value={nineshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeNineDistance(index, event)} value={nineshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleNine}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleNine}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    {(holes === 18 || holes === "") && (<button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>)}
-                                    {holes === 9 && (<button onClick={finishround} className="nexthole">Finish Round<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>)}
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 10 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holetenpar' id='hole-ten-par-3' value={3} onChange={handleTenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holetenpar' id='hole-ten-par-4' value={4} onChange={handleTenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holetenpar' id='hole-ten-par-5' value={5} onChange={handleTenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: tenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTen(index, event)} value={tenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTenDistance(index, event)} value={tenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleTen}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleTen}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 11 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holeelevenpar' id='hole-eleven-par-3' value={3} onChange={handleElevenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holeelevenpar' id='hole-eleven-par-4' value={4} onChange={handleElevenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holeelevenpar' id='hole-eleven-par-5' value={5} onChange={handleElevenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: elevenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEleven(index, event)} value={elevenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeElevenDistance(index, event)} value={elevenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleEleven}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleEleven}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 12 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holetwelvepar' id='hole-twelve-par-3' value={3} onChange={handleTwelveParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holetwelvepar' id='hole-twelve-par-4' value={4} onChange={handleTwelveParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holetwelvepar' id='hole-twelve-par-5' value={5} onChange={handleTwelveParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: twelvescore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleTwelve(index, event)} value={twelveshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeTwelveDistance(index, event)} value={twelveshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleTwelve}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleTwelve}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 13 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holethirteenpar' id='hole-thirteen-par-3' value={3} onChange={handleThirteenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holethirteenpar' id='hole-thirteen-par-4' value={4} onChange={handleThirteenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holethirteenpar' id='hole-thirteen-par-5' value={5} onChange={handleThirteenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: thirteenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleThirteen(index, event)} value={thirteenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeThirteenDistance(index, event)} value={thirteenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleThirteen}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleThirteen}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 14 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holefourteenpar' id='hole-fourteen-par-3' value={3} onChange={handleFourteenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holefourteenpar' id='hole-fourteen-par-4' value={4} onChange={handleFourteenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holefourteenpar' id='hole-fourteen-par-5' value={5} onChange={handleFourteenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: fourteenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFourteen(index, event)} value={fourteenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFourteenDistance(index, event)} value={fourteenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleFourteen}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleFourteen}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 15 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holefifteenpar' id='hole-fifteen-par-3' value={3} onChange={handleFifteenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holefifteenpar' id='hole-fifteen-par-4' value={4} onChange={handleFifteenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holefifteenpar' id='hole-fifteen-par-5' value={5} onChange={handleFifteenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: fifteenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleFifteen(index, event)} value={fifteenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeFifteenDistance(index, event)} value={fifteenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleFifteen}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleFifteen}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 16 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holesixteenpar' id='hole-sixteen-par-3' value={3} onChange={handleSixteenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holesixteenpar' id='hole-sixteen-par-4' value={4} onChange={handleSixteenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holesixteenpar' id='hole-sixteen-par-5' value={5} onChange={handleSixteenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: sixteenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSixteen(index, event)} value={sixteenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSixteenDistance(index, event)} value={sixteenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleSixteen}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleSixteen}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 17 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holeseventeenpar' id='hole-seventeen-par-3' value={3} onChange={handleSeventeenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holeseventeenpar' id='hole-seventeen-par-4' value={4} onChange={handleSeventeenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holeseventeenpar' id='hole-seventeen-par-5' value={5} onChange={handleSeventeenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: seventeenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleSeventeen(index, event)} value={seventeenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeSeventeenDistance(index, event)} value={seventeenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleSeventeen}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleSeventeen}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={tonexthole} className="nexthole">Next Hole<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                    {currenthole === 18 && (
-                        <div className='hole1'>
-                            <h4>Add Shots</h4>
-                            <form>
-                                <div className='parselector'>
-                                    <input type="radio" name='holeeighteenpar' id='hole-eighteen-par-3' value={3} onChange={handleEighteenParChange} />
-                                    <label >Par 3</label>
-                                    <input type="radio" name='holeeighteenpar' id='hole-eighteen-par-4' value={4} onChange={handleEighteenParChange} />
-                                    <label>Par 4</label>
-                                    <input type="radio" name='holeeighteenpar' id='hole-eighteen-par-5' value={5} onChange={handleEighteenParChange} />
-                                    <label>Par 5</label> <br />
-                                </div>
-                                <div className='descriptions'>
-                                    <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
-                                    <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
-                                </div>
-                                {Array.from({ length: eighteenscore }).map((_, index) => (
-                                    <div key={index}>
-                                        <select name={`shotType${index}`} onChange={(event) => changeHoleEighteen(index, event)} value={eighteenshots[index].startingLie} >
-                                            <option>Tee</option>
-                                            <option>Fairway</option>
-                                            <option>Green</option>
-                                            <option>Sand</option>
-                                            <option>Rough</option>
-                                        </select>
-                                        <input type="number" name={`shotSize${index}`} onChange={(event) => changeholeEighteenDistance(index, event)} value={eighteenshots[index].distanceToHole} />
-                                    </div>
-                                ))}
-                                <div className='buttoncontainer'>
-                                    <button onClick={handleRemoveShotHoleEighteen}>Remove Shot</button> <br />
-                                    <button onClick={handleAddShotHoleEighteen}>Add Shot</button>
-                                </div>
-                                <div>
-                                    <button onClick={toprevhole} className="previoushole"><FontAwesomeIcon icon={faArrowLeft} className="fai" />Previous Hole</button>
-                                    <button onClick={finishround} className="nexthole">Finish Round<FontAwesomeIcon icon={faArrowRight} className="fai" /></button>
-                                </div>
-                            </form>
-                        </div>)}
-                </div>
-            </>
-        )
-    }
-    else {
-        return (
-            <>
-                <div className="headerroundentry">
-                    <div className='g'></div>
-                    <div className='displayflex'>
-                        <p className='active click' onClick={backtoone}>1. Round Details</p>
-                        <p className='active click' onClick={backtotwo}>2. Shot Data</p>
-                        <p className='active'>3. Round Analysis</p>
-                    </div>
-                    <h1>Round Analysis</h1>
-                    <div class="scorecard">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Hole</th>
-                                    {holes === 9 ?
-                                        <>
-                                            <th className="click" onClick={() => navigateholes(1)}>1</th>
-                                            <th className="click" onClick={() => navigateholes(2)}>2</th>
-                                            <th className="click" onClick={() => navigateholes(3)}>3</th>
-                                            <th className="click" onClick={() => navigateholes(4)}>4</th>
-                                            <th className="click" onClick={() => navigateholes(5)}>5</th>
-                                            <th className="click" onClick={() => navigateholes(6)}>6</th>
-                                            <th className="click" onClick={() => navigateholes(7)}>7</th>
-                                            <th className="click" onClick={() => navigateholes(8)}>8</th>
-                                            <th className="click" onClick={() => navigateholes(9)}>9</th>
-                                        </>
-                                        :
-                                        <>
-                                            <th className="click" onClick={() => navigateholes(1)}>1</th>
-                                            <th className="click" onClick={() => navigateholes(2)}>2</th>
-                                            <th className="click" onClick={() => navigateholes(3)}>3</th>
-                                            <th className="click" onClick={() => navigateholes(4)}>4</th>
-                                            <th className="click" onClick={() => navigateholes(5)}>5</th>
-                                            <th className="click" onClick={() => navigateholes(6)}>6</th>
-                                            <th className="click" onClick={() => navigateholes(7)}>7</th>
-                                            <th className="click" onClick={() => navigateholes(8)}>8</th>
-                                            <th className="click" onClick={() => navigateholes(9)}>9</th>
-                                            <th>Front</th>
-                                            <th className="click" onClick={() => navigateholes(10)}>10</th>
-                                            <th className="click" onClick={() => navigateholes(11)}>11</th>
-                                            <th className="click" onClick={() => navigateholes(12)}>12</th>
-                                            <th className="click" onClick={() => navigateholes(13)}>13</th>
-                                            <th className="click" onClick={() => navigateholes(14)}>14</th>
-                                            <th className="click" onClick={() => navigateholes(15)}>15</th>
-                                            <th className="click" onClick={() => navigateholes(16)}>16</th>
-                                            <th className="click" onClick={() => navigateholes(17)}>17</th>
-                                            <th className="click" onClick={() => navigateholes(18)}>18</th>
-                                            <th>Back</th>
-                                        </>
-                                    }
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Par</td>
-                                    {holes === 9 ?
-                                        <>
-                                            <td className="click" onClick={() => navigateholes(1)}>{onepar}</td>
-                                            <td className="click" onClick={() => navigateholes(2)}>{twopar}</td>
-                                            <td className="click" onClick={() => navigateholes(3)}>{threepar}</td>
-                                            <td className="click" onClick={() => navigateholes(4)}>{fourpar}</td>
-                                            <td className="click" onClick={() => navigateholes(5)}>{fivepar}</td>
-                                            <td className="click" onClick={() => navigateholes(6)}>{sixpar}</td>
-                                            <td className="click" onClick={() => navigateholes(7)}>{sevenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(8)}>{eightpar}</td>
-                                            <td className="click" onClick={() => navigateholes(9)}>{ninepar}</td>
-                                            <td className='bold'>{frontpar}</td>
-                                        </>
-                                        :
-                                        <>
-                                            <td className="click" onClick={() => navigateholes(1)}>{onepar}</td>
-                                            <td className="click" onClick={() => navigateholes(2)}>{twopar}</td>
-                                            <td className="click" onClick={() => navigateholes(3)}>{threepar}</td>
-                                            <td className="click" onClick={() => navigateholes(4)}>{fourpar}</td>
-                                            <td className="click" onClick={() => navigateholes(5)}>{fivepar}</td>
-                                            <td className="click" onClick={() => navigateholes(6)}>{sixpar}</td>
-                                            <td className="click" onClick={() => navigateholes(7)}>{sevenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(8)}>{eightpar}</td>
-                                            <td className="click" onClick={() => navigateholes(9)}>{ninepar}</td>
-                                            <td className='bold'>{frontpar}</td>
-                                            <td className="click" onClick={() => navigateholes(10)}>{tenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(11)}>{elevenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(12)}>{twelvepar}</td>
-                                            <td className="click" onClick={() => navigateholes(13)}>{thirteenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(14)}>{fourteenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(15)}>{fifteenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(16)}>{sixteenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(17)}>{seventeenpar}</td>
-                                            <td className="click" onClick={() => navigateholes(18)}>{eighteenpar}</td>
-                                            <td className='bold'>{backpar}</td>
-                                            <td className='bold'>{totalpar}</td>
-                                        </>
-                                    }
-                                </tr>
-                                <tr>
-                                    <td>Score</td>
-                                    {holes === 9 ?
-                                        <>
-                                            <td className="click">{onescore}</td>
-                                            <td className="click">{twoscore}</td>
-                                            <td className="click">{threescore}</td>
-                                            <td className="click">{fourscore}</td>
-                                            <td className="click">{fivescore}</td>
-                                            <td className="click">{sixscore}</td>
-                                            <td className="click">{sevenscore}</td>
-                                            <td className="click">{eightscore}</td>
-                                            <td className="click">{ninescore}</td>
-                                            <td className='bold'>{frontscore}</td>
-                                        </>
-                                        :
-                                        <>
-                                            <td className="click">{onescore}</td>
-                                            <td className="click">{twoscore}</td>
-                                            <td className="click">{threescore}</td>
-                                            <td className="click">{fourscore}</td>
-                                            <td className="click">{fivescore}</td>
-                                            <td className="click">{sixscore}</td>
-                                            <td className="click">{sevenscore}</td>
-                                            <td className="click">{eightscore}</td>
-                                            <td className="click">{ninescore}</td>
-                                            <td className='bold'>{frontscore}</td>
-                                            <td className="click">{tenscore}</td>
-                                            <td className="click">{elevenscore}</td>
-                                            <td className="click">{twelvescore}</td>
-                                            <td className="click">{thirteenscore}</td>
-                                            <td className="click">{fourteenscore}</td>
-                                            <td className="click">{fifteenscore}</td>
-                                            <td className="click">{sixteenscore}</td>
-                                            <td className="click">{seventeenscore}</td>
-                                            <td className="click">{eighteenscore}</td>
-                                            <td className='bold'>{backscore}</td>
-                                            <td className='bold'>{totalscore}</td>
-                                        </>
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className='statscontainer'>
-                    <div className='gridd'>
-                        <div className='graph'>
-                            <Radar data={data} options={options} />
+    return (
+        <>
+            <Authnavbar />
+            <div className="newround">
+                <div className="homepage-container">
+                    <div className="header-grid-top">
+                        <div>
+                            <h1>Add Round</h1>
                         </div>
-                        <div className='analysis'>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Total SG</th>
-                                        <th>SG Putting</th>
-                                        <th>SG Short Game</th>
-                                        <th>SG Approach</th>
-                                        <th>SG Driving</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className='title1'>This Round</td>
-                                        <td>{totalsg.toFixed(2)}</td>
-                                        <td>{totalputtingsg.toFixed(2)}</td>
-                                        <td>{totalshortgamesg.toFixed(2)}</td>
-                                        <td>{totalapproachsg.toFixed(2)}</td>
-                                        <td>{totalteesg.toFixed(2)}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='title1'>PGA Tour Player Average</td>
-                                        <td>{1.32}</td>
-                                        <td>{0.17}</td>
-                                        <td>{0.32}</td>
-                                        <td>{0.32}</td>
-                                        <td>{0.32}</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td className='title1'>Gap</td>
-                                        <td className={((totalsg - 1.32) < 0) ? "red" : "green"}>{(Math.abs(1.32 - totalsg.toFixed(2))).toFixed(2)}</td>
-                                        <td className={((totalputtingsg - 0.17) < 0) ? "red" : "green"}>{(Math.abs(0.17 - totalputtingsg.toFixed(2))).toFixed(2)}</td>
-                                        <td className={((totalshortgamesg - 0.32) < 0) ? "red" : "green"}>{(Math.abs(0.32 - totalshortgamesg.toFixed(2))).toFixed(2)}</td>
-                                        <td className={((totalapproachsg - 0.32) < 0) ? "red" : "green"}>{(Math.abs(0.32 - totalapproachsg.toFixed(2))).toFixed(2)}</td>
-                                        <td className={((totalteesg - 0.32) < 0) ? "red" : "green"}>{(Math.abs(0.32 - totalteesg.toFixed(2))).toFixed(2)}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div style={{ textAlign: "right" }}>
+                            <a href="/dashboard"><h1>&#10006;</h1></a>
                         </div>
                     </div>
-                    <div className='buttoncontainer2'>
-                        <p className={statshowing === "putting" ? "active2" : ""} onClick={() => setstatshowing('putting')}>Putting</p>
-                        <p className={statshowing === "shortgame" ? "active2" : ""} onClick={() => setstatshowing('shortgame')}>Short Game</p>
-                        <p className={statshowing === "approach" ? "active2" : ""} onClick={() => setstatshowing("approach")}>Approach</p>
-                        <p className={statshowing === "driving" ? "active2" : ""} onClick={() => setstatshowing("driving")}>Driving</p>
-                        <p className={statshowing === "scoring" ? "active2" : ""} onClick={()=> setstatshowing("scoring")}>Scoring</p>
+
+                    <div className="homepage-button-container">
+                        <p className={(part === 1) ? "second-selected click" : "click"} onClick={() => setPart(1)}>Round Details</p>
+                        <p className={(part === 2) ? "second-selected click" : "click"}>Shot Data</p>
+                        <p className={(part === 3) ? "second-selected click" : "click"}>Summary</p>
                     </div>
-                    {statshowing === "putting" && (
-                        <div className='putting'>
-                            <div className='puttinggrid'>
+                    <div className="scorecard-container">
+                        <table>
+                            <tr>
+                                <th></th>
+                                {holes === 18 ? (
+                                    <>
+                                        <th className={(hole === 1) ? "par-selected click" : "click"} onClick={() => handleHoleChange(1)}>1</th>
+                                        <th className={(hole === 2) ? "par-selected click" : "click"} onClick={() => handleHoleChange(2)}>2</th>
+                                        <th className={(hole === 3) ? "par-selected click" : "click"} onClick={() => handleHoleChange(3)}>3</th>
+                                        <th className={(hole === 4) ? "par-selected click" : "click"} onClick={() => handleHoleChange(4)}>4</th>
+                                        <th className={(hole === 5) ? "par-selected click" : "click"} onClick={() => handleHoleChange(5)}>5</th>
+                                        <th className={(hole === 6) ? "par-selected click" : "click"} onClick={() => handleHoleChange(6)}>6</th>
+                                        <th className={(hole === 7) ? "par-selected click" : "click"} onClick={() => handleHoleChange(7)}>7</th>
+                                        <th className={(hole === 8) ? "par-selected click" : "click"} onClick={() => handleHoleChange(8)}>8</th>
+                                        <th className={(hole === 9) ? "par-selected click" : "click"} onClick={() => handleHoleChange(9)}>9</th>
+                                        <th>IN</th>
+                                        <th className={(hole === 10) ? "par-selected click" : "click"} onClick={() => handleHoleChange(10)}>10</th>
+                                        <th className={(hole === 11) ? "par-selected click" : "click"} onClick={() => handleHoleChange(11)}>11</th>
+                                        <th className={(hole === 12) ? "par-selected click" : "click"} onClick={() => handleHoleChange(12)}>12</th>
+                                        <th className={(hole === 13) ? "par-selected click" : "click"} onClick={() => handleHoleChange(13)}>13</th>
+                                        <th className={(hole === 14) ? "par-selected click" : "click"} onClick={() => handleHoleChange(14)}>14</th>
+                                        <th className={(hole === 15) ? "par-selected click" : "click"} onClick={() => handleHoleChange(15)}>15</th>
+                                        <th className={(hole === 16) ? "par-selected click" : "click"} onClick={() => handleHoleChange(16)}>16</th>
+                                        <th className={(hole === 17) ? "par-selected click" : "click"} onClick={() => handleHoleChange(17)}>17</th>
+                                        <th className={(hole === 18) ? "par-selected click" : "click"} onClick={() => handleHoleChange(18)}>18</th>
+                                        <th>OUT</th>
+                                        <th>TOTAL</th>
+                                    </>
+                                ) : holes === 9 ? (
+                                    <>
+                                        <th className={(hole === 1) ? "par-selected click" : "click"} onClick={() => handleHoleChange(1)}>1</th>
+                                        <th className={(hole === 2) ? "par-selected click" : "click"} onClick={() => handleHoleChange(2)}>2</th>
+                                        <th className={(hole === 3) ? "par-selected click" : "click"} onClick={() => handleHoleChange(3)}>3</th>
+                                        <th className={(hole === 4) ? "par-selected click" : "click"} onClick={() => handleHoleChange(4)}>4</th>
+                                        <th className={(hole === 5) ? "par-selected click" : "click"} onClick={() => handleHoleChange(5)}>5</th>
+                                        <th className={(hole === 6) ? "par-selected click" : "click"} onClick={() => handleHoleChange(6)}>6</th>
+                                        <th className={(hole === 7) ? "par-selected click" : "click"} onClick={() => handleHoleChange(7)}>7</th>
+                                        <th className={(hole === 8) ? "par-selected click" : "click"} onClick={() => handleHoleChange(8)}>8</th>
+                                        <th className={(hole === 9) ? "par-selected click" : "click"} onClick={() => handleHoleChange(9)}>9</th>
+                                        <th>TOTAL</th>
+                                    </>
+                                ) : null}
+                            </tr>
+                            <tr>
+                                <td>Par</td>
+                                {holes === 18 ? (
+                                    <>
+                                        <td className={(hole === 1) ? "par-selected click" : "click"} onClick={() => handleHoleChange(1)}>{onePar}</td>
+                                        <td className={(hole === 2) ? "par-selected click" : "click"} onClick={() => handleHoleChange(2)}>{twoPar}</td>
+                                        <td className={(hole === 3) ? "par-selected click" : "click"} onClick={() => handleHoleChange(3)}>{threePar}</td>
+                                        <td className={(hole === 4) ? "par-selected click" : "click"} onClick={() => handleHoleChange(4)}>{fourPar}</td>
+                                        <td className={(hole === 5) ? "par-selected click" : "click"} onClick={() => handleHoleChange(5)}>{fivePar}</td>
+                                        <td className={(hole === 6) ? "par-selected click" : "click"} onClick={() => handleHoleChange(6)}>{sixPar}</td>
+                                        <td className={(hole === 7) ? "par-selected click" : "click"} onClick={() => handleHoleChange(7)}>{sevenPar}</td>
+                                        <td className={(hole === 8) ? "par-selected click" : "click"} onClick={() => handleHoleChange(8)}>{eightPar}</td>
+                                        <td className={(hole === 9) ? "par-selected click" : "click"} onClick={() => handleHoleChange(9)}>{ninePar}</td>
+                                        <td>{frontPar}</td>
+                                        <td className={(hole === 10) ? "par-selected click" : "click"} onClick={() => handleHoleChange(10)}>{tenPar}</td>
+                                        <td className={(hole === 11) ? "par-selected click" : "click"} onClick={() => handleHoleChange(11)}>{elevenPar}</td>
+                                        <td className={(hole === 12) ? "par-selected click" : "click"} onClick={() => handleHoleChange(12)}>{twelvePar}</td>
+                                        <td className={(hole === 13) ? "par-selected click" : "click"} onClick={() => handleHoleChange(13)}>{thirteenPar}</td>
+                                        <td className={(hole === 14) ? "par-selected click" : "click"} onClick={() => handleHoleChange(14)}>{fourteenPar}</td>
+                                        <td className={(hole === 15) ? "par-selected click" : "click"} onClick={() => handleHoleChange(15)}>{fifteenPar}</td>
+                                        <td className={(hole === 16) ? "par-selected click" : "click"} onClick={() => handleHoleChange(16)}>{sixteenPar}</td>
+                                        <td className={(hole === 17) ? "par-selected click" : "click"} onClick={() => handleHoleChange(17)}>{seventeenPar}</td>
+                                        <td className={(hole === 18) ? "par-selected click" : "click"} onClick={() => handleHoleChange(18)}>{eighteenPar}</td>
+                                        <td>{backPar}</td>
+                                        <td>{totalPar}</td>
+                                    </>
+                                ) : holes === 9 ? (
+                                    <>
+                                        <td className={(hole === 1) ? "par-selected click" : "click"} onClick={() => handleHoleChange(1)}>{onePar}</td>
+                                        <td className={(hole === 2) ? "par-selected click" : "click"} onClick={() => handleHoleChange(2)}>{twoPar}</td>
+                                        <td className={(hole === 3) ? "par-selected click" : "click"} onClick={() => handleHoleChange(3)}>{threePar}</td>
+                                        <td className={(hole === 4) ? "par-selected click" : "click"} onClick={() => handleHoleChange(4)}>{fourPar}</td>
+                                        <td className={(hole === 5) ? "par-selected click" : "click"} onClick={() => handleHoleChange(5)}>{fivePar}</td>
+                                        <td className={(hole === 6) ? "par-selected click" : "click"} onClick={() => handleHoleChange(6)}>{sixPar}</td>
+                                        <td className={(hole === 7) ? "par-selected click" : "click"} onClick={() => handleHoleChange(7)}>{sevenPar}</td>
+                                        <td className={(hole === 8) ? "par-selected click" : "click"} onClick={() => handleHoleChange(8)}>{eightPar}</td>
+                                        <td className={(hole === 9) ? "par-selected click" : "click"} onClick={() => handleHoleChange(9)}>{ninePar}</td>
+                                        <th>{frontPar}</th>
+                                    </>
+                                ) : null}
+                            </tr>
+                            <tr>
+                                <td>Score</td>
+                                {holes === 18 ? (
+                                    <>
+                                        <td className={(hole === 1) ? "par-selected click" : "click"} onClick={() => handleHoleChange(1)}>{oneScore}</td>
+                                        <td className={(hole === 2) ? "par-selected click" : "click"} onClick={() => handleHoleChange(2)}>{twoScore}</td>
+                                        <td className={(hole === 3) ? "par-selected click" : "click"} onClick={() => handleHoleChange(3)}>{threeScore}</td>
+                                        <td className={(hole === 4) ? "par-selected click" : "click"} onClick={() => handleHoleChange(4)}>{fourScore}</td>
+                                        <td className={(hole === 5) ? "par-selected click" : "click"} onClick={() => handleHoleChange(5)}>{fiveScore}</td>
+                                        <td className={(hole === 6) ? "par-selected click" : "click"} onClick={() => handleHoleChange(6)}>{sixScore}</td>
+                                        <td className={(hole === 7) ? "par-selected click" : "click"} onClick={() => handleHoleChange(7)}>{sevenScore}</td>
+                                        <td className={(hole === 8) ? "par-selected click" : "click"} onClick={() => handleHoleChange(8)}>{eightScore}</td>
+                                        <td className={(hole === 9) ? "par-selected click" : "click"} onClick={() => handleHoleChange(9)}>{nineScore}</td>
+                                        <td>{frontScore}</td>
+                                        <td className={(hole === 10) ? "par-selected click" : "click"} onClick={() => handleHoleChange(10)}>{tenScore}</td>
+                                        <td className={(hole === 11) ? "par-selected click" : "click"} onClick={() => handleHoleChange(11)}>{elevenScore}</td>
+                                        <td className={(hole === 12) ? "par-selected click" : "click"} onClick={() => handleHoleChange(12)}>{twelveScore}</td>
+                                        <td className={(hole === 13) ? "par-selected click" : "click"} onClick={() => handleHoleChange(13)}>{thirteenScore}</td>
+                                        <td className={(hole === 14) ? "par-selected click" : "click"} onClick={() => handleHoleChange(14)}>{fourteenScore}</td>
+                                        <td className={(hole === 15) ? "par-selected click" : "click"} onClick={() => handleHoleChange(15)}>{fifteenScore}</td>
+                                        <td className={(hole === 16) ? "par-selected click" : "click"} onClick={() => handleHoleChange(16)}>{sixteenScore}</td>
+                                        <td className={(hole === 17) ? "par-selected click" : "click"} onClick={() => handleHoleChange(17)}>{seventeenScore}</td>
+                                        <td className={(hole === 18) ? "par-selected click" : "click"} onClick={() => handleHoleChange(18)}>{eighteenScore}</td>
+                                        <td>{backScore}</td>
+                                        <td>{totalScore}</td>
+                                    </>
+                                ) : holes === 9 ? (
+                                    <>
+                                        <td className={(hole === 1) ? "par-selected click" : "click"} onClick={() => handleHoleChange(1)}>{oneScore}</td>
+                                        <td className={(hole === 2) ? "par-selected click" : "click"} onClick={() => handleHoleChange(2)}>{twoScore}</td>
+                                        <td className={(hole === 3) ? "par-selected click" : "click"} onClick={() => handleHoleChange(3)}>{threeScore}</td>
+                                        <td className={(hole === 4) ? "par-selected click" : "click"} onClick={() => handleHoleChange(4)}>{fourScore}</td>
+                                        <td className={(hole === 5) ? "par-selected click" : "click"} onClick={() => handleHoleChange(5)}>{fiveScore}</td>
+                                        <td className={(hole === 6) ? "par-selected click" : "click"} onClick={() => handleHoleChange(6)}>{sixScore}</td>
+                                        <td className={(hole === 7) ? "par-selected click" : "click"} onClick={() => handleHoleChange(7)}>{sevenScore}</td>
+                                        <td className={(hole === 8) ? "par-selected click" : "click"} onClick={() => handleHoleChange(8)}>{eightScore}</td>
+                                        <td className={(hole === 9) ? "par-selected click" : "click"} onClick={() => handleHoleChange(9)}>{nineScore}</td>
+                                        <td>{frontScore}</td>
+                                    </>
+                                ) : null}
+
+                            </tr>
+                        </table>
+                    </div>
+                    {(part === 1) && (
+                        <>
+                            <h3>Add Round Details</h3>
+                            <div className="newround-form-container">
+                                <h4>Select Number of Holes</h4>
+                                <div className="par-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                                    <p onClick={() => setHoles(9)} className={(holes === 9) ? "par-selected click" : "click"}>9 Holes</p>
+                                    <p onClick={() => setHoles(18)} className={(holes === 18) ? "par-selected click" : "click"}>18 Holes</p>
+                                </div>
+                                <div className="new-round-form-grid">
+                                    <div>
+                                        <h4>Course Name</h4>
+                                        <input onChange={(event) => setCourse(event.target.value)} value={course} className={(errors.course) ? "error-box" : ""} />
+                                        <p className="error">{errors.course}</p>
+                                    </div>
+                                    <div>
+                                        <h4>Date Played</h4>
+                                        <input type="date" onChange={(event) => setDate(event.target.value)} value={date} className={(errors.date) ? "error-box" : ""} />
+                                        <p className="error">{errors.date}</p>
+                                    </div>
+                                </div>
+                                <h5 onClick={(event) => firstPartFormSubmit(event)}>Next</h5>
+                            </div>
+                        </>
+                    )}
+                    {(part === 2) && (
+                        <>
+                            <h3>Add Round Details</h3>
+                            <div className="newround-form-container">
+                                {(hole === 1) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setOnePar(3)} className={(onePar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setOnePar(4)} className={(onePar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setOnePar(5)} className={(onePar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: oneScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => oneShotLie(event.target.value, index)} value={oneShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => oneShotDistance(event.target.value, index)} value={oneShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setOneScore(oneScore + 1); addNewShotHoleOne() }}>Add Shot</p>
+                                            {(oneScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setOneScore(oneScore - 1); removeShotHoleOne() }}>Delete Shot</p>)}
+                                            {(oneScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setOneScore(oneScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" style={{ color: "gray", cursor: "auto" }}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 2) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setTwoPar(3)} className={(twoPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setTwoPar(4)} className={(twoPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setTwoPar(5)} className={(twoPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: twoScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => twoShotLie(event.target.value, index)} value={twoShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => twoShotDistance(event.target.value, index)} value={twoShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setTwoScore(twoScore + 1); addNewShotHoleTwo() }}>Add Shot</p>
+                                            {(twoScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setTwoScore(twoScore - 1); removeShotHoleTwo() }}>Delete Shot</p>)}
+                                            {(twoScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setTwoScore(twoScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 3) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setThreePar(3)} className={(threePar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setThreePar(4)} className={(threePar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setThreePar(5)} className={(threePar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: threeScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => threeShotLie(event.target.value, index)} value={threeShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => threeShotDistance(event.target.value, index)} value={threeShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setThreeScore(threeScore + 1); addNewShotHoleThree() }}>Add Shot</p>
+                                            {(threeScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setThreeScore(threeScore - 1); removeShotHoleThree() }}>Delete Shot</p>)}
+                                            {(threeScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setThreeScore(threeScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 4) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setFourPar(3)} className={(fourPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setFourPar(4)} className={(fourPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setFourPar(5)} className={(fourPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: fourScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => fourShotLie(event.target.value, index)} value={fourShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => fourShotDistance(event.target.value, index)} value={fourShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFourScore(fourScore + 1); addNewShotHoleFour() }}>Add Shot</p>
+                                            {(fourScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFourScore(fourScore - 1); removeShotHoleFour() }}>Delete Shot</p>)}
+                                            {(fourScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setFourScore(fourScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 5) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setFivePar(3)} className={(fivePar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setFivePar(4)} className={(fivePar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setFivePar(5)} className={(fivePar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: fiveScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => fiveShotLie(event.target.value, index)} value={fiveShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => fiveShotDistance(event.target.value, index)} value={fiveShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFiveScore(fiveScore + 1); addNewShotHoleFive() }}>Add Shot</p>
+                                            {(fiveScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFiveScore(fiveScore - 1); removeShotHoleFive() }}>Delete Shot</p>)}
+                                            {(fiveScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setFiveScore(fiveScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 6) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setSixPar(3)} className={(sixPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setSixPar(4)} className={(sixPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setSixPar(5)} className={(sixPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: sixScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => sixShotLie(event.target.value, index)} value={sixShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => sixShotDistance(event.target.value, index)} value={sixShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSixScore(sixScore + 1); addNewShotHoleSix() }}>Add Shot</p>
+                                            {(sixScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSixScore(sixScore - 1); removeShotHoleSix() }}>Delete Shot</p>)}
+                                            {(sixScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setSixScore(sixScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 7) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setSevenPar(3)} className={(sevenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setSevenPar(4)} className={(sevenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setSevenPar(5)} className={(sevenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: sevenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => sevenShotLie(event.target.value, index)} value={sevenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => sevenShotDistance(event.target.value, index)} value={sevenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSevenScore(sevenScore + 1); addNewShotHoleSeven() }}>Add Shot</p>
+                                            {(sevenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSevenScore(sevenScore - 1); removeShotHoleSeven() }}>Delete Shot</p>)}
+                                            {(sevenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setSevenScore(sevenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 8) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setEightPar(3)} className={(eightPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setEightPar(4)} className={(eightPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setEightPar(5)} className={(eightPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: eightScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => eightShotLie(event.target.value, index)} value={eightShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => eightShotDistance(event.target.value, index)} value={eightShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setEightScore(eightScore + 1); addNewShotHoleEight() }}>Add Shot</p>
+                                            {(eightScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setEightScore(eightScore - 1); removeShotHoleEight() }}>Delete Shot</p>)}
+                                            {(eightScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setEightScore(eightScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 9) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setNinePar(3)} className={(ninePar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setNinePar(4)} className={(ninePar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setNinePar(5)} className={(ninePar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: nineScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => nineShotLie(event.target.value, index)} value={nineShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => nineShotDistance(event.target.value, index)} value={nineShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setNineScore(nineScore + 1); addNewShotHoleNine() }}>Add Shot</p>
+                                            {(nineScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setNineScore(nineScore - 1); removeShotHoleNine() }}>Delete Shot</p>)}
+                                            {(nineScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setNineScore(nineScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            {(holes === 18) && (<p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>)}
+                                            {(holes === 9) && (<p style={{ textAlign: "right" }} className="click" onClick={() => { setHole(0); setPart(3); call() }}>Submit Round</p>)}
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 10) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setTenPar(3)} className={(tenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setTenPar(4)} className={(tenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setTenPar(5)} className={(tenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: tenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => tenShotLie(event.target.value, index)} value={tenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => tenShotDistance(event.target.value, index)} value={tenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setTenScore(tenScore + 1); addNewShotHoleTen() }}>Add Shot</p>
+                                            {(tenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setTenScore(tenScore - 1); removeShotHoleTen() }}>Delete Shot</p>)}
+                                            {(tenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setTenScore(tenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 11) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setElevenPar(3)} className={(elevenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setElevenPar(4)} className={(elevenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setElevenPar(5)} className={(elevenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: elevenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => elevenShotLie(event.target.value, index)} value={elevenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => elevenShotDistance(event.target.value, index)} value={elevenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setElevenScore(elevenScore + 1); addNewShotHoleEleven() }}>Add Shot</p>
+                                            {(elevenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setElevenScore(elevenScore - 1); removeShotHoleEleven() }}>Delete Shot</p>)}
+                                            {(elevenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setElevenScore(elevenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 12) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setTwelvePar(3)} className={(twelvePar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setTwelvePar(4)} className={(twelvePar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setTwelvePar(5)} className={(twelvePar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: twelveScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => twelveShotLie(event.target.value, index)} value={twelveShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => twelveShotDistance(event.target.value, index)} value={twelveShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setTwelveScore(twelveScore + 1); addNewShotHoleTwelve() }}>Add Shot</p>
+                                            {(twelveScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setTwelveScore(twelveScore - 1); removeShotHoleTwelve() }}>Delete Shot</p>)}
+                                            {(twelveScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setTwelveScore(twelveScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 13) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setThirteenPar(3)} className={(thirteenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setThirteenPar(4)} className={(thirteenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setThirteenPar(5)} className={(thirteenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: thirteenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => thirteenShotLie(event.target.value, index)} value={thirteenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => thirteenShotDistance(event.target.value, index)} value={thirteenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setThirteenScore(thirteenScore + 1); addNewShotHoleThirteen() }}>Add Shot</p>
+                                            {(thirteenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setThirteenScore(thirteenScore - 1); removeShotHoleThirteen() }}>Delete Shot</p>)}
+                                            {(thirteenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setThirteenScore(thirteenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 14) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setFourteenPar(3)} className={(fourteenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setFourteenPar(4)} className={(fourteenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setFourteenPar(5)} className={(fourteenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: fourteenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => fourteenShotLie(event.target.value, index)} value={fourteenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => fourteenShotDistance(event.target.value, index)} value={fourteenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFourteenScore(fourteenScore + 1); addNewShotHoleFourteen() }}>Add Shot</p>
+                                            {(fourteenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFourteenScore(fourteenScore - 1); removeShotHoleFourteen() }}>Delete Shot</p>)}
+                                            {(fourteenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setFourteenScore(fourteenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 15) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setFifteenPar(3)} className={(fifteenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setFifteenPar(4)} className={(fifteenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setFifteenPar(5)} className={(fifteenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: fifteenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => fifteenShotLie(event.target.value, index)} value={fifteenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => fifteenShotDistance(event.target.value, index)} value={fifteenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFifteenScore(fifteenScore + 1); addNewShotHoleFifteen() }}>Add Shot</p>
+                                            {(fifteenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setFifteenScore(fifteenScore - 1); removeShotHoleFifteen() }}>Delete Shot</p>)}
+                                            {(fifteenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setFifteenScore(fifteenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 16) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setSixteenPar(3)} className={(sixteenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setSixteenPar(4)} className={(sixteenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setSixteenPar(5)} className={(sixteenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: sixteenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => sixteenShotLie(event.target.value, index)} value={sixteenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => sixteenShotDistance(event.target.value, index)} value={sixteenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSixteenScore(sixteenScore + 1); addNewShotHoleSixteen() }}>Add Shot</p>
+                                            {(sixteenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSixteenScore(sixteenScore - 1); removeShotHoleSixteen() }}>Delete Shot</p>)}
+                                            {(sixteenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setSixteenScore(sixteenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 17) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setSeventeenPar(3)} className={(seventeenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setSeventeenPar(4)} className={(seventeenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setSeventeenPar(5)} className={(seventeenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: seventeenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => seventeenShotLie(event.target.value, index)} value={seventeenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => seventeenShotDistance(event.target.value, index)} value={seventeenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSeventeenScore(seventeenScore + 1); addNewShotHoleSeventeen() }}>Add Shot</p>
+                                            {(seventeenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setSeventeenScore(seventeenScore - 1); removeShotHoleSeventeen() }}>Delete Shot</p>)}
+                                            {(seventeenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setSeventeenScore(seventeenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => setHole(hole + 1)}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                                {(hole === 18) && (
+                                    <>
+                                        <h4>Select Par</h4>
+                                        <div className="par-grid">
+                                            <p onClick={() => setEighteenPar(3)} className={(eighteenPar === 3) ? "par-selected click" : "click"}>Par 3</p>
+                                            <p onClick={() => setEighteenPar(4)} className={(eighteenPar === 4) ? "par-selected click" : "click"}>Par 4</p>
+                                            <p onClick={() => setEighteenPar(5)} className={(eighteenPar === 5) ? "par-selected click" : "click"}>Par 5</p>
+                                        </div>
+                                        <h4>Add Shots</h4>
+                                        <div className="shot-selection-help">
+                                            <p>Starting Lie<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpstartinglie} /></p>
+                                            <p>Distance to Hole<FontAwesomeIcon icon={faCircleQuestion} className="question" onClick={helpdistance} /></p>
+                                        </div>
+                                        {Array.from({ length: eighteenScore }).map((_, index) => (
+                                            <div key={index} className="add-shots-grid">
+                                                <select name={`shotType${index}`} onChange={(event) => eighteenShotLie(event.target.value, index)} value={eighteenShots[index].startingLie}>
+                                                    <option>Tee</option>
+                                                    <option>Fairway</option>
+                                                    <option>Green</option>
+                                                    <option>Sand</option>
+                                                    <option>Rough</option>
+                                                </select>
+                                                <input type="number" name={`shotSize${index}`} onChange={(event) => eighteenShotDistance(event.target.value, index)} value={eighteenShots[index].distanceToHole} />
+                                            </div>
+                                        ))}
+                                        <div className="shot-selection-help">
+                                            <p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setEighteenScore(eighteenScore + 1); addNewShotHoleEighteen() }}>Add Shot</p>
+                                            {(eighteenScore > 1) && (<p style={{ textAlign: "center", cursor: "pointer" }} onClick={() => { setEighteenScore(eighteenScore - 1); removeShotHoleEighteen() }}>Delete Shot</p>)}
+                                            {(eighteenScore === 1) && (<p style={{ textAlign: "center", color: "gray" }} onClick={() => setEighteenScore(eighteenScore)}>Delete Shot</p>)}
+                                        </div>
+                                        <div className="hole-navigator-container">
+                                            <p className="click" onClick={() => setHole(hole - 1)}>Previous Hole</p>
+                                            <p style={{ textAlign: "right" }} className="click" onClick={() => { setHole(0); setPart(3); call()}}>Next Hole</p>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </>
+                    )}
+                    {(part === 3) && (
+                        <div className="round-analysis">
+                            <h3>Round Analysis</h3>
+                            <div className="round-analysis-grid">
                                 <div>
-                                    <h4>Basic Statistics</h4>
-                                    <table>
-                                        <thead>
+                                    <h4>Strokes Gained</h4>
+                                    <h5>VS ___</h5>
+                                </div>
+                                <div>
+                                    <h4>Strokes Gained</h4>
+                                    <h5>VS ___</h5>
+                                </div>
+                            </div>
+                            <div className="homepage-button-container">
+                                <p className={(analysisSelect === "tee") ? "second-selected click" : "click"} onClick={() => setAnalysisSelect("tee")}>Tee</p>
+                                <p className={(analysisSelect === "approach") ? "second-selected click" : "click"} onClick={() => setAnalysisSelect("approach")}>Approach</p>
+                                <p className={(analysisSelect === "short game") ? "second-selected click" : "click"} onClick={() => setAnalysisSelect("short game")}>Short Game</p>
+                                <p className={(analysisSelect === "putting") ? "second-selected click" : "click"} onClick={() => setAnalysisSelect("putting")}>Putting</p>
+                                <p className={(analysisSelect === "scoring") ? "second-selected click" : "click"} onClick={() => setAnalysisSelect("scoring")}>Scoring</p>
+                            </div>
+                            {(analysisSelect === "tee") && (
+                                <div className="homepage-fourth-grid">
+                                    <div>
+                                        <h4>Basic Driving Statistics</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
                                             <tr>
                                                 <th></th>
-                                                <th>This Round</th>
-                                                <th>PGA Tour Average</th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
                                                 <th>Gap</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
+                                            <tr>
+                                                <td>Fairways Hit %</td>
+                                                <td style={{ textAlign: "center" }}>{fairwaysPer[0] / fairwaysPer[1]}</td>
+                                                <td style={{ textAlign: "center" }}>____</td>
+                                                <td style={{ textAlign: "center" }}>____</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fairways Hit % (Par 4's)</td>
+                                                <td style={{ textAlign: "center" }}>{fairwaysPer4[0] / fairwaysPer[1]}</td>
+                                                <td style={{ textAlign: "center" }}>____</td>
+                                                <td style={{ textAlign: "center" }}>____</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fairways Hit % (Par 5's)</td>
+                                                <td style={{ textAlign: "center" }}>{fairwaysPer5[0] / fairwaysPer5[1]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained off the Tee</h4>
+                                        <h5>From Distances VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Strokes Gained</td>
+                                                <td style={{ textAlign: "center" }}>{strokesGainedTee[0]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Strokes Gained (Par 4's)</td>
+                                                <td style={{ textAlign: "center" }}>{strokesGainedTee4[0]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Strokes Gained (Par 5's)</td>
+                                                <td style={{ textAlign: "center" }}>{strokesGainedTee5[0]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
+                            {(analysisSelect === "putting") && (
+                                <div className="homepage-fourth-grid">
+                                    <div>
+                                        <h4>Basic Putting Statistics</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
                                             <tr>
                                                 <td>Putts Per Round</td>
-
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
                                                 <td>Putts Per GIR</td>
-
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
-                                                <td>One Putt Percentage</td>
-
+                                                <td>Total Distance Putts <br />Made per Round</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
-                                                <td>Three Putt Percentage</td>
-
+                                                <td>One Putt %</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
-                                                <td>Total Distance of Putts Made</td>
+                                                <td>Threee Putt %</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div>
-                                    <h4>Percentage Made from Each Distance</h4>
-                                    <table>
-                                        <thead>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained Putting</h4>
+                                        <h5>From Distances VS ___</h5>
+                                        <table>
                                             <tr>
                                                 <th></th>
-                                                <th>This Round</th>
-                                                <th>PGA Tour Average</th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
                                                 <th>Gap</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
                                             <tr>
                                                 <td>0-5 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
                                                 <td>5-10 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
-                                                <td>10-15 Feet</td>
+                                                <td>10-20 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
-                                                <td>15-20 Feet</td>
+                                                <td>20-50 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
                                             <tr>
-                                                <td>20+ Feet</td>
+                                                <td>50+ Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
                                             </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div>
-                                    <h4>Advanced Strokes gained Data</h4>
-                                </div>
-                            </div>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained past rounds</h4>
+                                        <h5>VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Round 1</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Round 2</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Round 3</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Round 4</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Round 5</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>% Made from each Distance</h4>
+                                        <h5>From Distances VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>0-5 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5-10 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-20 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>20-50 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50+ Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
 
-                        </div>
-                    )}
-                    {statshowing === "shortgame" && (
-                        <div>
-                            short game
-                        </div>
-                    )}
-                    {statshowing === "approach" && (
-                        <div>
-                            approach
-                        </div>
-                    )}
-                    {statshowing === "driving" && (
-                        <div>
-                            driving
-                        </div>
-                    )}
-                    {statshowing === "scoring" && (
-                        <div>
+                                    <div>
+                                        <h4>Two putt % from each Distance</h4>
+                                        <h5>From Distances VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>0-5 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5-10 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-20 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>20-50 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50+ Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Three putt % from each Distance</h4>
+                                        <h5>From Distances VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>0-5 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5-10 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-20 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>20-50 Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50+ Feet</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
+
+                            {(analysisSelect === "approach") && (
+                                <div className="homepage-fourth-grid">
+                                    <div>
+                                        <h4>Proximity to Hole (Fairway)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Proximity to Hole (Rough)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Proximity to Hole (Sand)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>% hit green (Fairway)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>% on Green (Rough)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>% on Green (Sand)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained (Fairway)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained (Rough)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained (Sand)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>100-125</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>125-150</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>150-175</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>175-200</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>200-225</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>225-250</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>250+</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
+                            {(analysisSelect === "short game") && (
+                                <div className="homepage-fourth-grid">
+                                    <div>
+                                        <h4>Scrambling %</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-20</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>20-30</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>30 +</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Sand Save %</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-20</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>20-30</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>30 +</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Proximity to Hole (Fairway)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-25</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>25-50</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50-75</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>75-100</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Proximity to Hole (Rough)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-25</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>25-50</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50-75</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>75-100</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Proximity to Hole (Sand)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-25</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>25-50</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50-75</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>75-100</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained (Fairway)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-25</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>25-50</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50-75</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>75-100</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained (Rough)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-25</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>25-50</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50-75</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>75-100</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Strokes Gained (Sand)</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>&lt; 10</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10-25</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>25-50</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50-75</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>75-100</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
+                            {(analysisSelect === "scoring") && (
+                                <div className="homepage-fourth-grid">
+                                    <div>
+                                        <h4>Penalty Stokes per Round</h4>
+                                        <h5>VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 3</td>
+                                                <td style={{ textAlign: "center" }}>{pspr3}</td>
+                                                <td style={{ textAlign: "center" }}>_____</td>
+                                                <td style={{ textAlign: "center" }}>_____</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 4</td>
+                                                <td style={{ textAlign: "center" }}>{pspr4}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 5</td>
+                                                <td style={{ textAlign: "center" }}>{pspr5}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>GIR %</h4>
+                                        <h5>VS ___</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 3</td>
+                                                <td style={{ textAlign: "center" }}>{gir3[0]/gir3[1]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 4</td>
+                                                <td style={{ textAlign: "center" }}>{gir4[0]/gir4[1]}</td>
+                                                <td style={{ textAlign: "center" }}>____</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 5</td>
+                                                <td style={{ textAlign: "center" }}>{gir5[0]/gir5[1]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Scoring Average</h4>
+                                        <h5>VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 3</td>
+                                                <td style={{ textAlign: "center" }}>{sa3[0]/sa3[1]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 4</td>
+                                                <td style={{ textAlign: "center" }}>{sa4[0]/sa4[1]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 5</td>
+                                                <td style={{ textAlign: "center" }}>{sa5[0]/sa5[1]}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Birdies or Better Per Round</h4>
+                                        <h5>VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 3</td>
+                                                <td style={{ textAlign: "center" }}>{bpr3}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 4</td>
+                                                <td style={{ textAlign: "center" }}>{bpr4}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 5</td>
+                                                <td style={{ textAlign: "center" }}>{bpr5}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Pars or Better Per Round</h4>
+                                        <h5>VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 3</td>
+                                                <td style={{ textAlign: "center" }}>{ppr3}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 4</td>
+                                                <td style={{ textAlign: "center" }}>{ppr4}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 5</td>
+                                                <td style={{ textAlign: "center" }}>{ppr5}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h4>Bogeys or worse per round</h4>
+                                        <h5>VS __</h5>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rounds</th>
+                                                <th>Average</th>
+                                                <th>Gap</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 3</td>
+                                                <td style={{ textAlign: "center" }}>{bopr3}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 4</td>
+                                                <td style={{ textAlign: "center" }}>{bopr4}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Par 5</td>
+                                                <td style={{ textAlign: "center" }}>{bopr5}</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                                <td style={{ textAlign: "center" }}>___</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
-            </>
-        )
-    }
+            </div>
+        </>
+    );
 }

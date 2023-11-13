@@ -8,17 +8,17 @@ import Newround from './components/authorized components/newround.js';
 import Navbar from './components/unauthorized components/navbar.js';
 import { useState } from 'react';
 import Settings from './components/authorized components/settings.js';
-import Friends from './components/authorized components/friends.js';
-import Previousrounds from './components/authorized components/previousrounds.js';
+import Friends from './components/authorized components/friendsnew.js';
 import Features from './pages/features.js';
 import Pricing from './pages/pricing.js';
 import Blog from './pages/blog.js';
 import Contact from './pages/contact.js';
+import Previousrounds from './components/authorized components/previousrounds.js';
+import Friend from './components/authorized components/friend.js';
+import Newroundnew from './components/authorized components/newroundnew.js';
 
 
 function App() {
-
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -37,10 +37,11 @@ function App() {
 
 
           <Route path='/dashboard' element={<Homepage />} />
-          <Route path='/newround' element={<Newround />} />
+          <Route path='/newround' element={<Newroundnew />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/friends' element={<Friends />} />
           <Route path='/previousrounds' element={<Previousrounds/>} />
+          <Route path='/friend' element={<Friend />} />
         </Routes>
       </div>
     </BrowserRouter>

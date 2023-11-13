@@ -48,3 +48,24 @@
 .error-box {
     border: 1px solid red !important;
 }
+
+.re-send-button {
+    margin: auto;
+    text-align: center;
+    border: .7px solid #e3e3e8;
+    box-shadow: 3px 3px 20px rgba(42, 49, 64, .06);
+    border-radius: 10px;
+    width: calc(70% - 20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'Inter';
+    margin-top: 20px;
+}
+
+.under {
+    text-decoration: underline !important;
+}

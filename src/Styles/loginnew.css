@@ -15,6 +15,7 @@
     padding-left: 15%;
     font-size: 30px;
     text-decoration: none;
+    font-family: 'TT Norms Pro', sans-serif;
 }
 
 .login-box a {
@@ -46,10 +47,10 @@
 }
 
 .login-with p {
+    font-family: 'TT Norms Pro', sans-serif;
     margin-left: 10px;
     margin-top: 12px;
     margin-bottom: 12px;
-    font-family: 'Inter';
     text-decoration: none solid rgb(62, 76, 91);
     color: #3E4C5B;
     font-weight: 500;
@@ -69,8 +70,9 @@
     font-family: 'Inter';
     text-decoration: none solid rgb(62, 76, 91);
     color: #3E4C5B;
-    font-weight: 550;
+    font-weight: 400;
     font-size: 16px;
+    font-family: 'TT Norms Pro', sans-serif;
 }
 
 .login-box input {
@@ -102,6 +104,7 @@
     cursor: pointer;
     background-color: rgb(67, 114, 211);
     margin-top: 20px;
+    font-family: 'TT Norms Pro', sans-serif;
 }
 
 .login-box button:hover {
@@ -125,6 +128,7 @@
     width: fit-content;
     padding: 0px 10px;
     border-radius: 50%;
+    font-family: 'TT Norms Pro', sans-serif;
 }
 
 .or-container div {
@@ -144,10 +148,16 @@
 .forgot-grid a {
     margin-right: 10px;
     color: rgb(67, 114, 211) !important;
-    font-family: 'Inter';
     font-weight: 500;
     margin-top: 0%;
     font-size: 14px;
     cursor: pointer;
+    font-family: 'TT Norms Pro', sans-serif;
 }
 
+/* Forgot Container */
+
+.forgot-container {
+    width: 70%;
+    margin: auto;
+}

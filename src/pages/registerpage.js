@@ -1,5 +1,6 @@
 /* React Imports */
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
 
 /* Style Imports */
 import "../Styles/registernew.css"
@@ -12,6 +13,8 @@ import { getFirestore, collection, query, where, getDocs, addDoc, doc, setDoc } 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { db, auth } from "../firebase"
 import { Navigate } from 'react-router-dom';
+import { sendEmailVerification } from 'firebase/auth';
+import { onAuthStateChanged } from "firebase/auth";
 
 
 
@@ -29,6 +32,8 @@ export default function Register() {
     const [errors, setErrors] = useState({})
 
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
+    const [verified, setVerified] = useState(false)
+    const [user, setUser] = useState(null)
 
     const checkUsernameExists = async (username) => {
         try {
@@ -105,9 +110,11 @@ export default function Register() {
         }
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
-            
+
             const res = await createUserWithEmailAndPassword(auth, email, password);
             const userId = res.user.uid;
+            const user = res.user
+            await sendEmailVerification(user);
             const userData = {
                 firstName: firstName,
                 lastName: lastName,
@@ -118,25 +125,51 @@ export default function Register() {
                 country: country,
                 handicapGoal: handicapGoal,
                 friends: friends
-              }
-              await setDoc(doc(db, "user", userId), userData);
+            }
+            await setDoc(doc(db, "user", userId), userData);
 
             setRegistrationSuccess(true)
         }
     }
 
-    if (registrationSuccess === true) {
+    async function resendEmail () {
+        await sendEmailVerification(user);
+    }
+
+
+    if (registrationSuccess && !verified) {
+        return (
+            <div className="login-container">
+                <div className="login-box">
+                    <h1>CourseIQ</h1>
+                    <h2>Please verify your email to continue.</h2>
+                    <h6>If you did not receive an email, please click the button below and try again.</h6>
+                    <p className="re-send-button" onClick={() => resendEmail()}>Re-send Email</p>
+                    {/* Add a button or link for the user to manually request another verification email */}
+                    <h6>If you have verified your email, click the link below to login.</h6>
+                    <a className="re-send-button" href="/login">Login</a>
+                </div>
+                <div className="login-image">
+                    {/* Rest of your JSX */}
+                </div>
+            </div>
+        );
+    }
+
+    if (registrationSuccess === true && verified) {
         return (
             <Navigate to="/dashboard" />
         )
     }
+
+
 
     return (
         <div className="login-container">
             <div className="login-box">
                 <h1><a href="/">Course IQ</a></h1>
                 <h2>Lets get you setup</h2>
-                <h6>If you already have a CourseIQ account, sign in <a href="/login">here</a></h6>
+                <h6>If you already have a CourseIQ account, sign in <a href="/login" className="under">here</a></h6>
                 <div className="login-with">
                     <a>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png" />
@@ -167,21 +200,21 @@ export default function Register() {
                     <label>Email</label>
                     <input onChange={(event) => setEmail(event.target.value)} className={(errors.email) ? "error-box" : ""} />
                     <p className="error">{errors.email}</p>
-                    
-                    
+
+
                     <div className="grid-2">
                         <div>
-                        <label>Username</label>
-                    <input onChange={(event) => setUsername(event.target.value)} className={(errors.username) ? "error-box" : ""} />
-                    <p className="error">{errors.username}</p>
+                            <label>Username</label>
+                            <input onChange={(event) => setUsername(event.target.value)} className={(errors.username) ? "error-box" : ""} />
+                            <p className="error">{errors.username}</p>
                             <label >City</label>
                             <input onChange={(event) => setCity(event.target.value)} className={(errors.city) ? "error-box" : ""} />
                             <p className="error">{errors.city}</p>
                         </div>
                         <div>
-                        <label>Password</label>
-                    <input type="password" onChange={(event) => setPassword(event.target.value)} className={(errors.password) ? "error-box" : ""} />
-                    <p className="error">{errors.password}</p>
+                            <label>Password</label>
+                            <input type="password" onChange={(event) => setPassword(event.target.value)} className={(errors.password) ? "error-box" : ""} />
+                            <p className="error">{errors.password}</p>
                             <label>Country</label>
                             <input onChange={(event) => setCountry(event.target.value)} className={(errors.country) ? "error-box" : ""} />
                             <p className="error">{errors.country}</p>

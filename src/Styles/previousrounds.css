@@ -1,76 +1,136 @@
-.gray {
-    background-color: gainsboro;
+.homepage-page {
+    padding-top: 60px;
+    margin-left: 12.5vw;
+    background-color: rgb(251,252,253);
+    min-height: calc(100vh - 60px);
 }
 
-
-.round {
-    width: 70%;
-    margin: auto;
-    padding-top: 10%;
-
-}
-
-.roundgrid {
-    background: rgba(255, 255, 255, 0.22);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5.2px);
-    -webkit-backdrop-filter: blur(5.2px);
-    border: 1px solid rgba(255, 255, 255, 0.44);
-    display: grid;
-    grid-template-columns: 200px 1fr 50px;
+.old-round {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
-
-.sggrid {
+.old-round-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+    grid-template-columns: 0.7fr 1fr 100px;
 }
 
-.roundgrid h4 {
-    text-align: left;
-    margin-left: 15%;
-    margin-bottom: none;
+.old-round-inner h2 {
+    margin-left: 5%;
+    margin-top: 10px;
+}
+
+.old-round-inner h3 {
+    margin-left: 5%;
+    margin-bottom: 10px;
     margin-top: 5px;
+    font-weight: 300;
+}
+
+.sg-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.sg-container h4 {
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.sg-container h5 {
+    margin: 0;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 200;
+}
+
+.fa-scores {
+    margin: auto;
     font-size: 30px;
 }
 
+/* Sorting Container */
 
-.date {
-    margin-left: 15%;
-    font-family: 'Darker Grotesque';
-    font-size: 20px;
-    margin-top: -25px;
+.sorting-container {
+    display: grid;
+    grid-template-columns: 85.5% 1fr;
     margin-bottom: 10px;
 }
 
-.sggrid p{
-    text-align: center;
+.sorting-container-inline {
+    display: flex;
 }
 
-.number {
-    margin-top: 12.5px;
-    font-family: 'IBM Plex Sans Condensed';
-    font-size: 20px;
-    font-weight: bolder;
-}
-
-.description {
-    margin-top: -15px;
-    font-family: 'Darker Grotesque';
-    font-size: 17.5px;
+.sorting-container-inline h6 {
+    margin: 0;
+    margin-right: 20px;
     margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 300;
 }
 
-.score {
-    font-family: 'IBM Plex Sans Condensed';
-    font-size: 30px;
+.sorting-container input {
+    border: 1px solid #d7dbdf;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025), 0 1px 2px rgba(0,0,0,.05);
+    padding-left: 5px;
+    font-family: 'TT Norms Pro', sans-serif;
+    font-size: 15px;
+    height: 20px;
+}
+
+
+/* Other State */
+
+.other-state h2 {
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.other-state-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.scorecard-container td {
+    padding: 10px 16px;
+    font-family: 'TT Norms Pro', sans-serif;
     text-align: center;
+}
+
+
+
+.other-state h5 {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: 'TT Norms Pro', sans-serif; 
+    margin-bottom: 5px;
+}
+
+.other-state .round-analysis-grid {
     margin-top: 20px;
 }
 
-.marginn {
-    margin-top: 22.5px;
-    font-weight: 100;
+.noPrev {
+    width: 100%;
+    text-align: center;
+    font-family: 'TT Norms Pro', sans-serif; 
+    margin-top: 20%;
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.noPrev2 {
+    width: 100%;
+    text-align: center;
+    font-family: 'TT Norms Pro', sans-serif; 
 }

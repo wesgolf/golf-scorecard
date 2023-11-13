@@ -1,0 +1,244 @@
+.new-round-header {
+    display: grid;
+    grid-template-columns: 95% 1fr;
+}
+
+.new-round-header h1 {
+    margin-bottom: 0px;
+}
+
+.new-round-info {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
+    margin: auto;
+    width: 50%;
+}
+
+.new-round-info h4 {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.hole-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 30%;
+    margin: auto;
+    text-align: center;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.hole-container .selected {
+    color:rgb(67, 114, 211);
+    font-weight: 600;
+}
+
+.new-round-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    width: 70%;
+    margin: auto;
+}
+
+.new-round-info-grid h4 {
+    margin-top: 10px;
+    text-align: center;
+    margin: 0;
+}
+
+.new-round-info-grid input {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025), 0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
+    height: 15px;
+    width: 100%;
+    padding: 5px;
+    font-family: 'TT Norms Pro', sans-serif;
+    font-size: 14px;
+    width: 80%;
+    margin: auto;
+    display: block;
+    margin-top: 10px;
+}
+
+.new-round-info-grid .error {
+    text-align: center;
+}
+
+.new-round-info-grid .red {
+    border: 1px solid red;
+}
+
+.new-round-info-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+    margin: auto;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+/* Scorecard Container */
+
+.scorecard-container table {
+    margin: auto;
+}
+
+/* Shot Container */
+
+.hole-container-2 {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
+    margin: auto;
+    width: 50%;
+}
+
+.hole-container-2 h3 {
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.hole-container-2 h4 {
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.hole-container-2 .par-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 40%;
+    margin: auto;
+}
+
+.hole-container-2 .par-selector p {
+    text-align: center;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.shot-title-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 70%;
+    margin: auto;
+}
+
+.shot-title-container p {
+    text-align: center;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+
+.shot-title-container-p {
+    display: inline;
+    background-color: black;
+    color: white;
+    padding: 0px 5px;
+    border-radius: 50%;
+    font-weight: 600;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.add-shots-grid-real {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 65%;
+    margin: auto;
+    gap: 30px;
+}
+
+.add-shots-grid-real select {
+    border: 1px solid #d7dbdf;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    font-family: 'TT Norms Pro', sans-serif;
+    font-size: 16px;
+    padding: 3px 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.add-shots-grid-real input {
+    border: 1px solid #d7dbdf;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    font-family: 'TT Norms Pro', sans-serif;
+    font-size: 16px;
+    padding: 3px 10px;
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+}
+
+.change-hole-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    margin: auto;
+    font-family: 'TT Norms Pro', sans-serif;
+}
+
+.add-shot-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 70%;
+    margin: auto;
+    font-family: 'TT Norms Pro', sans-serif;
+    text-align: center;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav p {
+    padding: 10px;
+    background-color: white;
+    margin-right: 10px;
+    border: 1px solid #d7dbdf;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    font-family: 'TT Norms Pro', sans-serif;
+    cursor: pointer;
+}
+
+.radar-container {
+    border: 0px solid !important;
+    box-shadow: none !important;
+    width: 60%;
+    height: 80%;
+    margin-left: 30%;
+    margin-top: -100px;
+    margin-bottom: -60px;
+}
+
+.space {
+    border: 0px solid !important;
+    box-shadow: none !important;
+    height: 20px;
+}
+
+.space1 {
+    border: 0px solid !important;
+    box-shadow: none !important;
+    height: 21px;
+
+}

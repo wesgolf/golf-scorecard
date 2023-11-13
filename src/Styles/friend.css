@@ -1,0 +1,13 @@
+.friend-header-container h1 {
+    margin-bottom: 5px;
+}
+
+.friend-header-container h2 {
+    font-weight: 400;
+}
+
+.friend-header-container h3 {
+    font-weight: 300;
+    margin-left: 0;
+    margin-top: 10px;
+}

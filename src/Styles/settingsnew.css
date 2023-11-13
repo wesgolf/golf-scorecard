@@ -1,193 +1,147 @@
-.settingsbackground {
-    padding-top: 80px;
-    background-color: rgb(231, 230, 233);
-    height: 91.5vh;
-}
-
-.settingsbackground h2 {
-    font-family: 'TT Norms Pro', sans-serif;
-    font-weight: 400;
-    margin-left: 10%;
-    color: rgb(50, 48, 49);
-}
-
-.settingscontainer {
-    background-color: white;
-    width: 80%;
-    margin: auto;
-    margin-top: 25px;
+.settings-container {
     display: grid;
-    grid-template-columns: 250px 1fr;
-    border-radius: 20px;
-}
-
-.settingscontainer ul {
-    list-style-type: none;
-    margin-top: 50px;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-bottom: 50px;
-}
-
-.settingscontainer li {
-    cursor: pointer;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    font-family: 'TT Norms Pro', sans-serif;
-    color: rgb(106,115,122);
-}
-
-.red {
-    color: rgb(214, 46, 41) !important;
-}
-
-.rightt {
-    width: 90%;
-    margin-left: 5%;
-}
-.rightt h1 {
-    color: rgb(50, 48, 49);
-    font-family: 'TT Norms Pro', sans-serif;
-    font-weight: 400;
-    margin-top: 35px;
-    margin-bottom: 20px;
-}
-
-
-.griddd {
-    display: grid;
-    grid-template-columns: 100px 1fr 100px;
+    grid-template-columns: 0.3fr 1fr;
     margin: auto;
-    width: 90%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    width: 85%;
+    margin-top: 100px;
     gap: 50px;
-    width: 93%;
-    margin-left: 5%;
 }
 
-.griddd img {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    margin: auto 0;
+.settings-container span {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.025),0 1px 2px rgba(0,0,0,.05);
+    border: 1px solid #d7dbdf;
 }
 
-
-.settingsgrid2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: auto;
-    width: 90%;
-    margin-top: 25px;
-}
-
-.settingsgrid2 h5 {
-    font-family: 'TT Norms Pro', sans-serif;
-    text-align: left;
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 10px;
-}
-
-.settingsgrid2 h6 {
-    font-family: 'TT Norms Pro', sans-serif;
-    text-align: left;
-    font-size: 20px;
-    font-weight: 200;
-    margin-bottom: 30px;
-}
-
-.settingsgrid2 input {
-    font-family: 'TT Norms Pro', sans-serif;
-    text-align: left;
-    font-size: 20px;
-    font-weight: 200;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid black;
-}
-
-.outline {
-    border: 0.75px solid rgb(106,115,122);
-    border-radius: 10px;
-    margin-bottom: 30px;
-}
-
-.outline h3 {
-    color: black;
-    font-family: 'TT Norms Pro', sans-serif;
-    text-align: left;
-    font-size: 25px;
-    font-weight: 400;
-}
-
-.settingsgrid3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: auto;
-    width: 93%;
-    margin-left: 5%;
+.settings-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-top: 20px;
-    padding: none;
+    margin-bottom: 20px;
 }
 
-.settingsgrid3 p {
-    float: right;
-    text-align: center;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 0.75px solid rgb(106,115,122);
-    color: rgb(50, 48, 49);
-    font-family: 'TT Norms Pro', sans-serif;
-}
-
-
-
-.griddd span {
-    float: right;
-    text-align: center;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 0.75px solid rgb(106,115,122);
-    color: rgb(50, 48, 49);
-    font-family: 'TT Norms Pro', sans-serif;
-}
-
-.settingsgrid3 button {
-    float: right;
-    text-align: center;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    color: rgb(50, 48, 49);
-    font-family: 'TT Norms Pro', sans-serif;
-    background-color: rgb(229, 241, 255);
-    color: rgb(88,100,192);
-    font-size: 16px;
-}
-
-.faa {
-    margin-left: 5px;
-}
-
-
-.textcontainer {
-    margin: auto 0;
-}
-.textcontainer p{
+.settings-container li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
     margin-top: 10px;
-    margin-bottom: 10px;
-    color: rgb(50, 48, 49);
+    border-radius: 5px;
+    font-family: 'TT Norms Pro', sans-serif;
+    cursor: pointer;
+}
+
+.settings-container .fa {
+    margin-right: 20px;
+}
+
+.settings-container .red {
+    color: rgb(182, 41, 41);
+}
+
+.settings-container .selected {
+    background-color: rgb(241,243,245);
+}
+
+/* Right Container Profile */
+.top-settings {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    height: 100px;
+}
+
+.initals {
+    text-align: center;
+    padding: 25px 15px;
+    width: 40px;
+    background-color: orange;
+    border-radius: 50%;
+    margin: auto;
+    color: white;
+    font-weight: 700;
+    font-family: 'TT Norms Pro', sans-serif;
+    font-size: 20px;
+}
+
+.top-settings h3 {
     font-family: 'TT Norms Pro', sans-serif; 
 }
 
-.extrabottom {
-    margin-bottom: 60px;
+.top-settings h4 {
+    font-family: 'TT Norms Pro', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
 }
 
-.boldd {
-    font-size: 25px;
+.line-settings {
+    height: 1px;
+    width: 90%;
+    margin: auto;
+    background-color: #d7dbdf;
+    margin-top: 10px;
+}
+
+.grid-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.grid-settings h5 {
+    font-family: 'TT Norms Pro', sans-serif;
+    text-align: left;
+    font-size: 20px;
     font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.grid-settings h6 {
+    font-family: 'TT Norms Pro', sans-serif;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.settings-edit-1 {    
+    font-family: 'TT Norms Pro', sans-serif;
+    text-align: center;
+    width: 50px;
+    margin-left: 87.8%;
+    padding: 7.5px 12.5px;
+    border: 1px solid #d7dbdf;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.grid-settings input {
+    border: none;
+    border-bottom: 1px solid #d7dbdf;
+    font-family: 'TT Norms Pro', sans-serif;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 10px;
+    width: 200px;
+}
+
+.grid-settings .error-box-settings {
+    border-bottom: 1px solid red;
+    border-top: none;
+}
+
+.grid-settings .error-message {
+    margin-top: 2px;
+    font-size: 12px;
+    color: red;
 }

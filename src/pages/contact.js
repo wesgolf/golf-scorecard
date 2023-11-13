@@ -62,18 +62,18 @@ export default function Contact() {
                                 <div>
                                     <label>First Name</label><br />
                                     <input onChange={(event) => setFirstName(event.target.value)}  className={(errors.firstName) ? "error-box" : ""}/> <br />
-                                    <div className="error">{errors.firstName}</div>
+                                    <div className="error-contact">{errors.firstName}</div>
                                     <label>Email</label> <br />
                                     <input onChange={(event) => setEmail(event.target.value)}  className={(errors.email) ? "error-box" : ""}/>
-                                    <div className="error">{errors.email}</div>
+                                    <div className="error-contact">{errors.email}</div>
                                 </div>
                                 <div>
                                     <label>Last Name</label> <br />
                                     <input onChange={(event) => setLastName(event.target.value)}  className={(errors.lastName) ? "error-box" : ""}/> <br />
-                                    <div className="error">{errors.lastName}</div>
+                                    <div className="error-contact">{errors.lastName}</div>
                                     <label>Phone Number</label> <br />
                                     <input onChange={(event) => setPhoneNumber(event.target.value)}  className={(errors.phoneNumber) ? "error-box" : ""}/>
-                                    <div className="error">{errors.phoneNumber}</div>
+                                    <div className="error-contact" style={{marginLeft: "10%"}}>{errors.phoneNumber}</div>
                                 </div>
                             </div>
                             <label style={{marginLeft: "5%"}}>How can we help?</label>
